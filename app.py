@@ -30,27 +30,14 @@ def thankyou():
 @app.route("/api/attractions")
 	
 def apiAttraction():
-	# try:
-	keyword_query = request.args.get('keyword')
-	pageStrquery= str(request.args.get('page'))
-	
-	if 	pageStrquery and 	keyword_query ==None:
-		
-		connection = mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
+	try:
+		pageStrquery= str(request.args.get('page'))
+		if pageStrquery ==None:
+			connection = mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
 		cursor = connection.cursor()
 		cursor.execute("USE `taipei-attractions`")
-				# selectKeyword="SELECT * from `data` Join `data_images` on `data`.`name`=`data_images`.`name` and `data`.`name` like %s LIMIT 11 OFFSET 0" ,(keyword_query,)
-				# selectPage="SELECT * from `data` Join `data_images` on `data`.`name`=`data_images`.`name` and `data`.`name` LIMIT 11 OFFSET %s" ,(page_query,)
-				# selectKeypage="SELECT * from `data` Join `data_images` on `data`.`name`=`data_images`.`name` and `data`.`name` like %s  LIMIT 11 OFFSET %s;" ,(keyword_query,page_query,)
 		countAll="SELECT count(*) from `data`"
-				# count="SELECT count(*) from `data` WHERE `name` like %s LIMIT 11 OFFSET %s",(keyword_query,page_query,)
-				# if keyword_query ==None:
-				# if pageStrquery==0:
-				# 	pageOffset=0
-				# else:
-				# 	pageOffset=int(pageStrquery)*11
-		ff=[11]
-		cursor.execute("SELECT `data`.`id`,`data`.`name`,`category`,`description`,`address`,`transport`,`mrt`,`latitude`,`longitude`,`images` from `data`Join  `data_images` on `data`.`name`=`data_images`.`name`")
+		cursor.execute("SELECT `data`.`id`,`data`.`name`,`category`,`description`,`address`,`transport`,`mrt`,`latitude`,`longitude`,`images` from `data`Join  `data_images` on `data`.`name`=`data_images`.`name` order by `data`.`id` LIMIT 12")
 		results = cursor.fetchall()
 		jsonA=json.dumps(results)
 		jsonB=json.loads(jsonA) 
@@ -58,77 +45,132 @@ def apiAttraction():
 		desDumps=json.dumps(des)
 		desLoad=json.loads(desDumps) 
 		title=["id","name","category","description","address","transport","mrt","latitude","longitude","images"]
+		ID=["nextpage","data"]
+		title0=["nextpage","data"]
+		listData=[]
+		dic=dict()
+		for i in range(len(jsonB)):
+			dictCombin=dict(zip(title,jsonB[i]))
+			listData.append(dictCombin)
+			dic[title0[1]]=listData
+			page0=1
+			dic[title0[0]]=page0	
+		return(jsonify(dic))
+		keyword_query = request.args.get('keyword')
+		
+		page_query=int(request.args.get('page'))
+		if 	page_query == 0 :
 			
-
-		# dic=dict()
-		# ID=["id"]
-		# name=["name"]
-		# category=["category"]
-		# description=["description"]
-		# address=["address"]
-		# transport=["transport"]
-		# mrt=["mrt"]
-		# latitude=["latitude"]
-		# longitude=["longitude"]
-		# images=["images"]
-		# sum=0
-		# for value in jsonB:
-			
-		# 	while sum<len(value):
-		# 		dic[ID[0]]=str(value[0])
-		# 		dic[name[0]]=str(value[1])
-		# 		dic[category[0]]=str(value[2])
-		# 		dic[description[0]]=str(value[3])
-		# 		dic[address[0]]=str(value[4])
-		# 		dic[transport[0]]=str(value[5])
-		# 		dic[mrt[0]]=str(value[6])
-		# 		dic[latitude[0]]=str(value[7])
-		# 		dic[longitude[0]]=str(value[8])
-		# 		dic[images[0]]=str(value[9])
-		# 		sum+=1
-		# 		print(dic)
-		# 		return(jsonify(dic))
-		# dic=[]
-		# dic1={}
-		# ID="id"
-		# name="name"
-		# category="category"
-		# description="description"
-		# address="address"
-		# transport="transport"
-		# mrt="mrt"
-		# latitude="latitude"
-		# longitude="longitude"
-		# images="images"
-		# IID=desLoad[0]
-		# for value in jsonB:
-		# 	# while sum<len(value):
-		# 		allId=str(value[0])
-		# 		Id=ID[0]+ allId
-		# 		json.dumps(Id)
-				
-
-		# 		# sum+=1
-		# return(jsonify(Id))
-		# except:
-		# 	null = '{"data":null}'
-		# 	return null
-		# finally:
-			# cursor.close()
-			# connection.close()
+			connection = mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
+			cursor = connection.cursor()
+			cursor.execute("USE `taipei-attractions`")
+			countAll="SELECT count(*) from `data`"
+			cursor.execute("SELECT `data`.`id`,`data`.`name`,`category`,`description`,`address`,`transport`,`mrt`,`latitude`,`longitude`,`images` from `data`Join  `data_images` on `data`.`name`=`data_images`.`name` order by `data`.`id` LIMIT 12")
+			results = cursor.fetchall()
+			jsonA=json.dumps(results)
+			jsonB=json.loads(jsonA) 
+			des=cursor.description
+			desDumps=json.dumps(des)
+			desLoad=json.loads(desDumps) 
+			title=["id","name","category","description","address","transport","mrt","latitude","longitude","images"]
+			ID=["nextpage","data"]
+			title0=["nextpage","data"]
+			listData=[]
+			dic=dict()
+			for i in range(len(jsonB)):
+					dictCombin=dict(zip(title,jsonB[i]))
+					listData.append(dictCombin)
+					dic[title0[1]]=listData
+					page0=1
+					dic[title0[0]]=page0	
+			return(jsonify(dic))
+		elif page_query >0:
+			connection = mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
+			cursor = connection.cursor()
+			cursor.execute("USE `taipei-attractions`")
+			countAll="SELECT count(*) from `data`"
+			cursor.execute("SELECT `data`.`id`,`data`.`name`,`category`,`description`,`address`,`transport`,`mrt`,`latitude`,`longitude`,`images` from `data`Join  `data_images` on `data`.`name`=`data_images`.`name` LIMIT 12 ")
+			results = cursor.fetchall()
+			jsonA=json.dumps(results)
+			jsonB=json.loads(jsonA) 
+			title=["id","name","category","description","address","transport","mrt","latitude","longitude","images"]
+			cursor.execute(countAll)
+			result=cursor.fetchone()
+			a=int(result[0])//12
+			b=int(result[0]) % 12
+			title0=["nextpage","data"]
+			if page_query < a+1:
+				nextpageOffset=12*page_query
+				cursor.execute("SELECT `data`.`id`,`data`.`name`,`category`,`description`,`address`,`transport`,`mrt`,`latitude`,`longitude`,`images` from `data`Join  `data_images` on `data`.`name`=`data_images`.`name` LIMIT 12 OFFSET %s",(nextpageOffset,))
+				nextpageResults=cursor.fetchall()
+				jsonC=json.dumps(nextpageResults)
+				jsonD=json.loads(jsonC) 
+				listData0=[]
+				dic0=dict()
+				for i in range(len(jsonD)):
+					dictCombin0=dict(zip(title,jsonD[i]))
+					listData0.append(dictCombin0)
+					dic0[title0[1]]=listData0
+					if page_query<=a-1:
+						page1=page_query+1
+						dic0[title0[0]]=page1
 					
-			# elif page_query and keyword_query != None:
-			# 	cursor.execute(selectKeypage)
-				
-			# cursor.execute("SELECT * from `data` Join `data_images` on `data`.`name`=`data_images`.`name` and `data`.`name` like %s  LIMIT 11 OFFSET %s;" ,(keyword_query,page_query,))
-			# results = cursor.fetchall()
-		list_data=[]
-		for i in jsonB:
-				co=dict(zip(title,jsonB))
-				x=["data"]
-				d1 = defaultdict(lambda: defaultdict(dict))
-				list_data.append(co)
-				d1["data"]=list_data
-	return(jsonify(d1))
+					elif page_query >a-1:
+						page1="null"
+						dic0[title0[0]]=page1	
+				return(jsonify(dic0))
+				cursor.close()
+				connection.close()
+			elif page_query >= a+1:	
+				title1=[]
+				dic1=dict()
+				dic1[title0[1]]=[]
+				dic1[title0[0]]="null"
+			return(jsonify(dic1))
+			cursor.close()
+			connection.close()
+	except:
+		r=requests.get("http://127.0.0.1:3000/api/attractions")
+		if r.status_code == 400 or 500:
+			errorTitle=["error","message"]
+			dic1=dict()
+			dic1[errorTitle[0]]="true"
+			dic1[errorTitle[1]]="error"
+			return(jsonify(dic1))
+
+@app.route("/api/attractions/<int:id>")
+def attractionID(id):
+	try:
+		cursor = connection.cursor()
+		cursor.execute("USE `taipei-attractions`")
+		
+		cursor.execute("SELECT `data`.`id`,`data`.`name`,`category`,`description`,`address`,`transport`,`mrt`,`latitude`,`longitude`,`images` from `data`Join  `data_images` on `data`.`name`=`data_images`.`name` and `data`.`id` like %s ",(id,))
+		results = cursor.fetchall()
+		jsonA=json.dumps(results)
+		jsonB=json.loads(jsonA) 
+		des=cursor.description
+		desDumps=json.dumps(des)
+		desLoad=json.loads(desDumps) 
+		title=["id","name","category","description","address","transport","mrt","latitude","longitude","images"]
+		ID=["nextpage","data"]
+
+		title0=["nextpage","data"]
+		listData=[]
+		dic=dict()
+		for i in range(len(jsonB)):
+			dictCombin=dict(zip(title,jsonB[i]))
+			listData.append(dictCombin)
+			dic[title0[1]]=listData
+			page0="null"
+			dic[title0[0]]=page0	
+		return(jsonify(dic))
+	except:
+		r=requests.get("http://127.0.0.1:3000/api/attractions/")
+		if r.status_code == 400 or 500:
+			errorTitle=["error","message"]
+			dic1=dict()
+			dic1[errorTitle[0]]="true"
+			dic1[errorTitle[1]]="error"
+			return(jsonify(dic1))
 app.debug = True
 app.run(port=3000)
