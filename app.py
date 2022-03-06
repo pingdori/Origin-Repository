@@ -172,5 +172,4 @@ def attractionID(id):
 			dic1[errorTitle[0]]="true"
 			dic1[errorTitle[1]]="error"
 			return(jsonify(dic1))
-app.debug = True
 app.run(port=3000)
