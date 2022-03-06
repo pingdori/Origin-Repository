@@ -97,7 +97,7 @@ def apiAttraction():
 			b = int(result[0]) % 12
 			title0 = ["nextpage","data"]
 			if pageQuery < a+1:
-				nextpageOffset = 12*page_query
+				nextpageOffset = 12*pageQuery
 				cursor.execute("SELECT `data`.`id`,`data`.`name`,`category`,`description`,`address`,`transport`,`mrt`,`latitude`,`longitude`,`images` from `data`Join  `data_images` on `data`.`name` = `data_images`.`name` LIMIT 12 OFFSET %s",(nextpageOffset,))
 				nextpageResults = cursor.fetchall()
 				jsonC = json.dumps(nextpageResults)
