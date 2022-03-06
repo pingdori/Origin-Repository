@@ -42,4 +42,3 @@ for i in dataList:
     connection.commit()
     cursor.close()
     connection.close()
-app.run(port=3000)
