@@ -132,9 +132,7 @@ def apiAttraction():
 		dic1[errorTitle[0]] = "true"
 		dic1[errorTitle[1]] = "error"
 		return(jsonify(dic1))
-	finally:
-		cursor.close()
-		connection.close()
+
 
 @app.route("/api/attractions/<int:id>")
 def attractionID(id):
@@ -169,15 +167,14 @@ def attractionID(id):
 			dic1[errorTitle[0]] = "true"
 			dic1[errorTitle[1]] = "error"
 			return(jsonify(dic1))
+			cursor.close()
+			connection.close()
 	except:
 		errorTitle = ["error","message"]
 		dic1 = dict()
 		dic1[errorTitle[0]] = "true"
 		dic1[errorTitle[1]] = "error"
 		return(jsonify(dic1))
-	finally:
-		cursor.close()
-		connection.close()
 
 
 app.run(host = '0.0.0.0',port = 3000)
