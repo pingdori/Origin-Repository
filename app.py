@@ -130,7 +130,7 @@ def apiAttraction():
 			cursor.close()
 			connection.close()
 	except:
-		r=requests.get("http://127.0.0.1:3000/api/attractions")
+		r=requests.get("http://54.243.128.73:3000/api/attractions")
 		if r.status_code == 400 or 500:
 			errorTitle=["error","message"]
 			dic1=dict()
@@ -165,11 +165,11 @@ def attractionID(id):
 			dic[title0[0]]=page0	
 		return(jsonify(dic))
 	except:
-		r=requests.get("http://127.0.0.1:3000/api/attractions/")
+		r=requests.get("http://54.243.128.73:3000/api/attractions/")
 		if r.status_code == 400 or 500:
 			errorTitle=["error","message"]
 			dic1=dict()
 			dic1[errorTitle[0]]="true"
 			dic1[errorTitle[1]]="error"
 			return(jsonify(dic1))
-app.run(port=3000)
+app.run(host='0.0.0.0', port=3000)
