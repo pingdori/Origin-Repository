@@ -5,14 +5,20 @@ from flask import jsonify
 from dotenv import load_dotenv
 from collections import defaultdict
 import os
+import boto3
+client = boto3.client('secretsmanager')
+response = client.get_secret_value(
+    SecretId='apppy'
+)
+secretDict = json.load(response['SecretString'])
 app = Flask(__name__)
 app.config["JSON_AS_ASCII"] = False
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 load_dotenv()
-MYSQL_HOST = os.getenv("mysql_host")
-MYSQL_PORT = os.getenv("mysql_port")
-MYSQL_USER = os.getenv("mysql_user")
-MYSQL_PASSWORD = os.getenv("mysql_password")
+MYSQL_HOST = secretDict['host']
+MYSQL_PORT = secretDict['port']
+MYSQL_USER = secretDict['username']
+MYSQL_PASSWORD = secretDict['password']
 # Pages
 @app.route("/")
 def index():
