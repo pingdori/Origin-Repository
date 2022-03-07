@@ -5,20 +5,20 @@ from flask import jsonify
 from dotenv import load_dotenv
 from collections import defaultdict
 import os
-import boto3
-client = boto3.client('secretsmanager')
-response = client.get_secret_value(
-    SecretId='sql'
-)
-secretDict = json.load(response['SecretString'])
+# import boto3
+# client = boto3.client('secretsmanager')
+# response = client.get_secret_value(
+#     SecretId='sql'
+# )
+# secretDict = json.load(response['SecretString'])
 app = Flask(__name__)
 app.config["JSON_AS_ASCII"] = False
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 load_dotenv()
-# MYSQL_HOST = secretDict['host']
-# MYSQL_PORT = secretDict['port']
-# MYSQL_USER = secretDict['username']
-MYSQL_PASSWORD = secretDict['password']
+# # MYSQL_HOST = secretDict['host']
+# # MYSQL_PORT = secretDict['port']
+# # MYSQL_USER = secretDict['username']
+# MYSQL_PASSWORD = secretDict['password']
 # Pages
 @app.route("/")
 def index():
@@ -38,7 +38,7 @@ def apiAttraction():
 	# try:
 		pageStrquery  =  str(request.args.get('page'))
 		if pageStrquery  ==  None:
-			connection  =  mysql.connector.connect(host = localhost,port = 3306,user = root,password = MYSQL_PASSWORD)
+			connection  =  mysql.connector.connect(host = 'localhost',port = '3306',user = 'root',password = 'password')
 			cursor  =  connection.cursor()
 			cursor.execute("USE `taipei-attractions`")
 			countAll  =  "SELECT count(*) from `data`"
@@ -64,7 +64,7 @@ def apiAttraction():
 		# keyword_query  =  request.args.get('keyword')
 		pageQuery = int(request.args.get('page',0))
 		if 	pageQuery  ==  0 :
-			connection  =  mysql.connector.connect(host = localhost,port = 3306,user = root,password = MYSQL_PASSWORD)			
+			connection  =  mysql.connector.connect(host = 'localhost',port = '3306',user = 'root',password = 'password')	
 			cursor  =  connection.cursor()
 			cursor.execute("USE `taipei-attractions`")
 			countAll = "SELECT count(*) from `data`"
@@ -88,7 +88,7 @@ def apiAttraction():
 					dic[title0[0]] = page0	
 			return(jsonify(dic))
 		elif pageQuery >0:
-			connection  =  mysql.connector.connect(host = localhost,port = 3306,user = root,password = MYSQL_PASSWORD)
+			connection  =  mysql.connector.connect(host = 'localhost',port = '3306',user = 'root',password = 'password')
 			cursor  =  connection.cursor()
 			cursor.execute("USE `taipei-attractions`")
 			countAll = "SELECT count(*) from `data`"
@@ -143,7 +143,7 @@ def apiAttraction():
 @app.route("/api/attractions/<int:id>")
 def attractionID(id):
 	# try:
-		connection  =  mysql.connector.connect(host = localhost,port = 3306,user = root,password = MYSQL_PASSWORD)
+		connection  =  mysql.connector.connect(host = 'localhost',port = '3306',user = 'root',password = 'password')
 		cursor  =  connection.cursor()
 		cursor.execute("USE `taipei-attractions`")
 		
