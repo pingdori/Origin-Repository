@@ -16,7 +16,7 @@ load_dotenv()
 # MYSQL_USER=os.getenv("mysql_user")
 # MYSQL_PASSWORD = secretDict['password']
 
-connection  =  mysql.connector.connect(host = 'localhost',port = '3306',user = 'root',password = 'password')
+connection  =  mysql.connector.connect(host = '0.0.0.0',port = '3306',user = 'root',password = 'password')
 cursor = connection.cursor()
 cursor.execute("USE `taipei-attractions`")
 results = cursor.fetchall()
