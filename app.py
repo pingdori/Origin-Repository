@@ -9,11 +9,11 @@ import os
 app = Flask(__name__)
 app.config["JSON_AS_ASCII"] = False
 app.config["TEMPLATES_AUTO_RELOAD"] = True
-load_dotenv()
-MYSQL_HOST = os.environ.get("mysql_host")
-MYSQL_PORT = os.environ.get("mysql_port")
-MYSQL_USER = os.environ.get("mysql_user")
-MYSQL_PASSWORD = os.environ.get("mysql_password")
+# load_dotenv()
+# MYSQL_HOST = os.environ.get("mysql_host")
+# MYSQL_PORT = os.environ.get("mysql_port")
+# MYSQL_USER = os.environ.get("mysql_user")
+# MYSQL_PASSWORD = os.environ.get("mysql_password")
 # Pages
 @app.route("/")
 def index():
@@ -33,7 +33,7 @@ def apiAttraction():
 	# try:
 		pageStrquery  =  str(request.args.get('page'))
 		if pageStrquery  ==  None:
-			connection  =  mysql.connector.connect(host = MYSQL_HOST,port = MYSQL_PORT,user = MYSQL_USER,password = MYSQL_PASSWORD)
+			connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
 			cursor  =  connection.cursor()
 			cursor.execute("USE `taipei-attractions`")
 			countAll  =  "SELECT count(*) from `data`"
@@ -59,7 +59,7 @@ def apiAttraction():
 		# keyword_query  =  request.args.get('keyword')
 		pageQuery = int(request.args.get('page',0))
 		if 	pageQuery  ==  0 :
-			connection  =  mysql.connector.connect(host = MYSQL_HOST,port = MYSQL_PORT,user = MYSQL_USER,password = MYSQL_PASSWORD)
+			connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
 			cursor  =  connection.cursor()
 			cursor.execute("USE `taipei-attractions`")
 			countAll = "SELECT count(*) from `data`"
@@ -83,7 +83,7 @@ def apiAttraction():
 					dic[title0[0]] = page0	
 			return(jsonify(dic))
 		elif pageQuery >0:
-			connection  =  mysql.connector.connect(host = MYSQL_HOST,port = MYSQL_PORT,user = MYSQL_USER,password = MYSQL_PASSWORD)
+			connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
 			cursor  =  connection.cursor()
 			cursor.execute("USE `taipei-attractions`")
 			countAll = "SELECT count(*) from `data`"
@@ -138,7 +138,7 @@ def apiAttraction():
 @app.route("/api/attractions/<int:id>")
 def attractionID(id):
 	# try:
-		connection  =  mysql.connector.connect(host = MYSQL_HOST,port = MYSQL_PORT,user = MYSQL_USER,password = MYSQL_PASSWORD)
+		connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
 		cursor  =  connection.cursor()
 		cursor.execute("USE `taipei-attractions`")
 		
