@@ -30,7 +30,7 @@ def thankyou():
 	
 @app.route("/api/attractions")
 def apiAttraction():
-	try:
+	# try:
 		pageStrquery  =  str(request.args.get('page'))
 		if pageStrquery  ==  None:
 			connection  =  mysql.connector.connect(host = MYSQL_HOST,port = MYSQL_PORT,user = MYSQL_USER,password = MYSQL_PASSWORD)
@@ -127,17 +127,17 @@ def apiAttraction():
 			return(jsonify(dic1))
 			cursor.close()
 			connection.close()
-	except:
-		errorTitle = ["error","message"]
-		dic1 = dict()
-		dic1[errorTitle[0]] = "true"
-		dic1[errorTitle[1]] = "error"
-		return(jsonify(dic1))
+	# except:
+	# 	errorTitle = ["error","message"]
+	# 	dic1 = dict()
+	# 	dic1[errorTitle[0]] = "true"
+	# 	dic1[errorTitle[1]] = "error"
+	# 	return(jsonify(dic1))
 
 
 @app.route("/api/attractions/<int:id>")
 def attractionID(id):
-	try:
+	# try:
 		connection  =  mysql.connector.connect(host = MYSQL_HOST,port = MYSQL_PORT,user = MYSQL_USER,password = MYSQL_PASSWORD)
 		cursor  =  connection.cursor()
 		cursor.execute("USE `taipei-attractions`")
@@ -170,12 +170,12 @@ def attractionID(id):
 			return(jsonify(dic1))
 			cursor.close()
 			connection.close()
-	except:
-		errorTitle = ["error","message"]
-		dic1 = dict()
-		dic1[errorTitle[0]] = "true"
-		dic1[errorTitle[1]] = "error"
-		return(jsonify(dic1))
+	# except:
+	# 	errorTitle = ["error","message"]
+	# 	dic1 = dict()
+	# 	dic1[errorTitle[0]] = "true"
+	# 	dic1[errorTitle[1]] = "error"
+	# 	return(jsonify(dic1))
 
 
 
