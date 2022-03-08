@@ -5,14 +5,15 @@ from flask import jsonify
 from dotenv import load_dotenv
 from collections import defaultdict
 import os
+
 app = Flask(__name__)
 app.config["JSON_AS_ASCII"] = False
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 load_dotenv()
-MYSQL_HOST = os.getenv("mysql_host")
-MYSQL_PORT = os.getenv("mysql_port")
-MYSQL_USER = os.getenv("mysql_user")
-MYSQL_PASSWORD = os.getenv("mysql_password")
+MYSQL_HOST = os.environ.get("mysql_host")
+MYSQL_PORT = os.environ.get("mysql_port")
+MYSQL_USER = os.environ.get("mysql_user")
+MYSQL_PASSWORD = os.environ.get("mysql_password")
 # Pages
 @app.route("/")
 def index():
@@ -177,4 +178,5 @@ def attractionID(id):
 		return(jsonify(dic1))
 
 
-app.run(host = '0.0.0.0',port = 3000)
+
+app.run(host='0.0.0.0',port=3000)
