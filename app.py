@@ -35,7 +35,7 @@ def apiAttraction():
 		keywordQuery  =  request.args.get('keyword',None)
 		pageStrquery  =  str(request.args.get('page'))
 		if pageStrquery ==  None:
-			connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "password")
+			connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
 			cursor  =  connection.cursor()
 			cursor.execute("USE `taipei-attractions`")
 			countAll  =  "SELECT count(*) from `data`"
@@ -64,7 +64,7 @@ def apiAttraction():
 		if keywordQuery == None: 	
 			if pageQuery  ==  0 :
 			# if   == None:
-				connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "password")
+				connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
 				cursor  =  connection.cursor()
 				cursor.execute("USE `taipei-attractions`")
 				countAll = "SELECT count(*) from `data`"
@@ -90,7 +90,7 @@ def apiAttraction():
 				cursor.close()
 				connection.close()
 			elif pageQuery >0:
-				connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "password")
+				connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
 				cursor  =  connection.cursor()
 				cursor.execute("USE `taipei-attractions`")
 				countAll = "SELECT count(*) from `data`"
@@ -134,7 +134,7 @@ def apiAttraction():
 				cursor.close()
 				connection.close()
 		if keywordQuery != None :
-			connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "password")
+			connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
 			cursor  =  connection.cursor()
 			cursor.execute("USE `taipei-attractions`")
 			cursor.execute("SELECT count(*)  `name`from `data` where `name` like '%"+request.args.get('keyword',None)+"%' order by `data`.`id`;")
@@ -205,7 +205,7 @@ def apiAttraction():
 @app.route("/api/attractions/<int:id>")
 def attractionID(id):
 	# try:
-		connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "password")
+		connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
 		cursor  =  connection.cursor()
 		cursor.execute("USE `taipei-attractions`")
 		
