@@ -4,13 +4,13 @@ from flask import jsonify
 from dotenv import load_dotenv
 import os
 
-load_dotenv()
-MYSQL_HOST = os.environ.get("mysql_host")
-MYSQL_PORT = os.environ.get("mysql_port")
-MYSQL_USER = os.environ.get("mysql_user")
-MYSQL_PASSWORD = os.environ.get("mysql_password")
+# load_dotenv()
+# MYSQL_HOST = os.environ.get("mysql_host")
+# MYSQL_PORT = os.environ.get("mysql_port")
+# MYSQL_USER = os.environ.get("mysql_user")
+# MYSQL_PASSWORD = os.environ.get("mysql_password")
 
-connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
+connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "password")
 cursor = connection.cursor()
 cursor.execute("USE `taipei-attractions`")
 results = cursor.fetchall()
