@@ -246,7 +246,7 @@ def attractionID(id):
 		desDumps = json.dumps(des)
 		desLoad = json.loads(desDumps) 
 		title = ["id","name","category","description","address","transport","mrt","latitude","longitude","images"]
-		if id <=  58 :
+		if 0 < id <=  58 :
 			title0 = ["nextpage","data"]
 			listData = []
 			dic = dict()
@@ -257,7 +257,7 @@ def attractionID(id):
 				page0 = "null"
 				dic[title0[0]] = page0	
 			return(jsonify(dic))
-		elif id>58 :
+		elif id>58 or id==0 :
 			errorTitle = ["error","message"]
 			dic1 = dict()
 			dic1[errorTitle[0]] = "true"
