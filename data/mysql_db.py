@@ -10,7 +10,8 @@ import os
 # MYSQL_USER = os.environ.get("mysql_user")
 # MYSQL_PASSWORD = os.environ.get("mysql_password")
 
-connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
+# connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
+connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
 cursor = connection.cursor()
 cursor.execute("USE `taipei-attractions`")
 results = cursor.fetchall()
@@ -24,20 +25,20 @@ for i in dataList:
     addr=i["address"]
     address=addr.replace(" ", "")
     transport=i["info"]
-    MRT=i["MRT"]
+    Mrt=i["MRT"]
     latitude=i["latitude"]
     longitude=i["longitude"]
     imgFile=i["file"]
     urlSplit=imgFile.split("https")
     strA=",https".join(urlSplit)
+    
     strB=strA.split(",")
     strB.pop(0)
     
     filterData=[a for a in strB if ".jpg" in a or ".JPG" in a]
-    images=",".join(filterData)
+    images=str(filterData)
     
-    cursor.execute("INSERT INTO `data`(`name`,`category`,`description`,`address`,`transport`,`mrt`,`latitude`,`longitude`) VALUES(%s, %s, %s, %s, %s, %s, %s, %s,)",(name,category,description,address,transport,MRT,latitude,longitude,))
-    cursor.execute("INSERT INTO `data`(`name`,`category`,`description`,`address`,`transport`,`mrt`,`latitude`,`longitude`) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)",(name,category,description,address,transport,MRT,latitude,longitude))
+    cursor.execute("INSERT INTO `data`(`name`,`category`,`description`,`address`,`transport`,`mrt`,`latitude`,`longitude`) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)",(name,category,description,address,transport,Mrt,latitude,longitude,))
     cursor.execute("INSERT INTO `data_images`(`name`,`images`) VALUES(%s,%s)",(name,images,))
     connection.commit()
     cursor.close()
