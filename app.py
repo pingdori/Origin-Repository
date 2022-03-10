@@ -34,8 +34,8 @@ def apiAttraction():
 		keywordQuery  =  request.args.get('keyword',None)
 		pageStrquery  =  str(request.args.get('page'))
 		if pageStrquery ==  None:
-			# connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
-			connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
+			connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
+			# connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
 			cursor  =  connection.cursor()
 			cursor.execute("USE `taipei-attractions`")
 			countAll  =  "SELECT count(*) from `data`"
@@ -70,8 +70,8 @@ def apiAttraction():
 		pageQuery = int(request.args.get('page',0))
 		if keywordQuery == None: 	
 			if pageQuery  ==  0 :
-				# connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
-				connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
+				connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
+				# connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
 				cursor  =  connection.cursor()
 				cursor.execute("USE `taipei-attractions`")
 				countAll = "SELECT count(*) from `data`"
@@ -107,8 +107,8 @@ def apiAttraction():
 				cursor.close()
 				connection.close()
 			elif pageQuery > 0:
-				# connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
-				connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
+				connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
+				# connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
 				cursor  =  connection.cursor()
 				cursor.execute("USE `taipei-attractions`")
 				countAll = "SELECT count(*) from `data`"
@@ -160,8 +160,8 @@ def apiAttraction():
 				cursor.close()
 				connection.close()
 		if keywordQuery != None :
-			# connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
-			connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
+			connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
+			# connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
 			cursor  =  connection.cursor()
 			cursor.execute("USE `taipei-attractions`")
 			cursor.execute("SELECT count(*)  `name`from `data` where `name` like '%"+request.args.get('keyword',None)+"%' order by `data`.`id`;")
@@ -290,8 +290,8 @@ def apiAttraction():
 @app.route("/api/attractions/<int:id>")
 def attractionID(id):
 	# try:
-		# connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
-		connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
+		connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
+		# connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
 		cursor  =  connection.cursor()
 		cursor.execute("USE `taipei-attractions`")
 		cursor.execute("SELECT `data`.`id`,`data`.`name`,`category`,`description`,`address`,`transport`,`mrt`,`latitude`,`longitude`,`images` from `data`Join  `data_images` on `data`.`name` = `data_images`.`name` and `data`.`id` like %s ",(id,))
