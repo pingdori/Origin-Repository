@@ -35,11 +35,15 @@ for i in dataList:
     strB=strA.split(",")
     strB.pop(0)
     
-    filterData=[a for a in strB if ".jpg" in a or ".JPG" in a]
-    images=str(filterData)
-    
-    cursor.execute("INSERT INTO `data`(`name`,`category`,`description`,`address`,`transport`,`mrt`,`latitude`,`longitude`) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)",(name,category,description,address,transport,Mrt,latitude,longitude,))
-    cursor.execute("INSERT INTO `data_images`(`name`,`images`) VALUES(%s,%s)",(name,images,))
+    filterData=str([a for a in strB if ".jpg" in a or ".JPG" in a])
+    splitB=filterData.split("[")
+    splitC=splitB[1].split("]")
+    # splitD=splitC.split("'")
+    print(urlSplit)
+    # for i in filterData:
+    #     images=str(filterData[i])
+    # cursor.execute("INSERT INTO `data`(`name`,`category`,`description`,`address`,`transport`,`mrt`,`latitude`,`longitude`) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)",(name,category,description,address,transport,Mrt,latitude,longitude,))
+    cursor.execute("INSERT INTO `data_images`(`name`,`images`) VALUES(%s,%s)",(name,splitC[0],))
     connection.commit()
-    cursor.close()
-    connection.close()
+    # cursor.close()
+    # connection.close()

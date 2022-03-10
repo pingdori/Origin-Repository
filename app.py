@@ -30,11 +30,11 @@ def thankyou():
 @app.route("/api/attractions")
 
 def apiAttraction():
-	try:
+	# try:
 		keywordQuery  =  request.args.get('keyword',None)
 		pageStrquery  =  str(request.args.get('page'))
 		if pageStrquery ==  None:
-			connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
+			# connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
 			connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
 			cursor  =  connection.cursor()
 			cursor.execute("USE `taipei-attractions`")
@@ -57,14 +57,20 @@ def apiAttraction():
 				dic[title0[1]] = listData
 				dic[title0[0]] = 1	
 				allimages=dic['data'][i]['images']
-				dic['data'][i]['images']=allimages
+				splitA=allimages.split("'")
+				splitA=list(filter((", ").__ne__, splitA))
+				if "" in splitA :
+					splitA.remove("")
+					splitA=list(filter(("").__ne__, splitA))
+					listDataB.append(splitA)	
+					dic['data'][i]['images']=listDataB[i]
 			return(jsonify(dic))
 			cursor.close()
 			connection.close()
 		pageQuery = int(request.args.get('page',0))
 		if keywordQuery == None: 	
 			if pageQuery  ==  0 :
-				connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
+				# connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
 				connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
 				cursor  =  connection.cursor()
 				cursor.execute("USE `taipei-attractions`")
@@ -90,13 +96,19 @@ def apiAttraction():
 						dic[title0[1]] = listData
 						dic[title0[0]] = 1
 						allimages=dic['data'][i]['images']
-						dic['data'][i]['images']=allimages
+						splitA=allimages.split("'")
+						splitA=list(filter((", ").__ne__, splitA))
+						if "" in splitA :
+							splitA.remove("")
+						splitA=list(filter(("").__ne__, splitA))
+						listDataB.append(splitA)	
+						dic['data'][i]['images']=listDataB[i]
 				return(jsonify(dic))
 				cursor.close()
 				connection.close()
 			elif pageQuery > 0:
-				connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
-				# connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
+				# connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
+				connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
 				cursor  =  connection.cursor()
 				cursor.execute("USE `taipei-attractions`")
 				countAll = "SELECT count(*) from `data`"
@@ -123,7 +135,13 @@ def apiAttraction():
 						listData0.append(dictCombin0)
 						dic0[title0[1]] = listData0
 						allimages=dic0['data'][i]['images']
-						dic0['data'][i]['images']=allimages
+						splitA=allimages.split("'")
+						splitA=list(filter((", ").__ne__, splitA))
+						if "" in splitA :
+							splitA.remove("")
+						splitA=list(filter(("").__ne__, splitA))
+						listDataB.append(splitA)	
+						dic0['data'][i]['images']=listDataB[i]
 						if pageQuery<= a-1:
 							page1 = pageQuery+1
 							dic0[title0[0]] = page1
@@ -142,8 +160,8 @@ def apiAttraction():
 				cursor.close()
 				connection.close()
 		if keywordQuery != None :
-			connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
-			# connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
+			# connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
+			connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
 			cursor  =  connection.cursor()
 			cursor.execute("USE `taipei-attractions`")
 			cursor.execute("SELECT count(*)  `name`from `data` where `name` like '%"+request.args.get('keyword',None)+"%' order by `data`.`id`;")
@@ -177,7 +195,13 @@ def apiAttraction():
 							listData.append(dictCombin)
 							dic[title0[1]] = listData
 							allimages=dic['data'][i]['images']
-							dic['data'][i]['images']=allimages
+							splitA=allimages.split("'")
+							splitA=list(filter((", ").__ne__, splitA))
+							if "" in splitA :
+								splitA.remove("")
+							splitA=list(filter(("").__ne__, splitA))
+							listDataB.append(splitA)	
+							dic['data'][i]['images']=listDataB[i]
 							
 							if pageQuery < y:
 								page1 = pageQuery+1
@@ -194,7 +218,13 @@ def apiAttraction():
 							listData.append(dictCombin)
 							dic[title0[1]] = listData
 							allimages=dic['data'][i]['images']
-							dic['data'][i]['images']=allimages
+							splitA=allimages.split("'")
+							splitA=list(filter((", ").__ne__, splitA))
+							if "" in splitA :
+								splitA.remove("")
+							splitA=list(filter(("").__ne__, splitA))
+							listDataB.append(splitA)	
+							dic['data'][i]['images']=listDataB[i]
 							if pageQuery< y-1:
 								page1 = pageQuery+1
 								dic[title0[0]] = page1
@@ -227,9 +257,13 @@ def apiAttraction():
 						listData.append(dictCombin)
 						dic[title0[1]] = listData
 						allimages=dic['data'][i]['images']
-
-						dic['data'][i]['images']=allimages
-
+						splitA=allimages.split("'")
+						splitA=list(filter((", ").__ne__, splitA))
+						if "" in splitA :
+							splitA.remove("")
+						splitA=list(filter(("").__ne__, splitA))
+						listDataB.append(splitA)	
+						dic['data'][i]['images']=listDataB[i]
 						page0 = "null"
 						dic[title0[0]] = page0
 					elif pageQuery >= 1:
@@ -245,19 +279,19 @@ def apiAttraction():
 				return(jsonify(dic1))
 				cursor.close()
 				connection.close()
-	except:
-		errorTitle = ["error","message"]
-		dic1 = dict()
-		dic1[errorTitle[0]] = "true"
-		dic1[errorTitle[1]] = "error"
-		return(jsonify(dic1))
+	# except:
+	# 	errorTitle = ["error","message"]
+	# 	dic1 = dict()
+	# 	dic1[errorTitle[0]] = "true"
+	# 	dic1[errorTitle[1]] = "error"
+	# 	return(jsonify(dic1))
 
 
 @app.route("/api/attractions/<int:id>")
 def attractionID(id):
-	try:
-		connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
-		# connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
+	# try:
+		# connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
+		connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
 		cursor  =  connection.cursor()
 		cursor.execute("USE `taipei-attractions`")
 		cursor.execute("SELECT `data`.`id`,`data`.`name`,`category`,`description`,`address`,`transport`,`mrt`,`latitude`,`longitude`,`images` from `data`Join  `data_images` on `data`.`name` = `data_images`.`name` and `data`.`id` like %s ",(id,))
@@ -278,12 +312,33 @@ def attractionID(id):
 				listDataA.append(dictCombin)
 				dic[title0[0]] = listDataA
 				allimages=dic['data'][i]['images']
-				
-				dic['data'][i]['images']=allimages
+				# splitA=allimages.split(",")
+				# splitB=splitA[0].split("[")
+				# splitC=splitB[1].split("'")
+				# listDataB.append(splitC[1])
+				splitA=allimages.split("'")
+				splitA=list(filter((", ").__ne__, splitA))
+				if "" in splitA :
+					splitA.remove("")
+				splitA=list(filter(("").__ne__, splitA))
+				listDataB.append(splitA)	
+				dic['data'][i]['images']=listDataB[i]
 				strA=str(dic['data'][i])
 				a=dic['data'][i]
 				dic[title0[0]]=a
+				# results='{data:'+strA+"}"
+				# d=json.loads(results)
 			return(jsonify(dic))
+		# 	title0 = ["nextpage","data"]
+		# 	listData = []
+		# 	dic = dict()
+		# 	for i in range(len(jsonB)):
+		# 		dictCombin = dict(zip(title,jsonB[i]))
+		# 		listData.append(dictCombin)
+		# 		dic[title0[1]] = listData
+		# 		page0 = "null"
+		# 		dic[title0[0]] = page0	
+		# 	return(jsonify(dic))
 		elif id>58 or id==0 :
 			errorTitle = ["error","message"]
 			dic1 = dict()
@@ -293,11 +348,11 @@ def attractionID(id):
 			cursor.close()
 			connection.close()
 
-	except:
-		errorTitle = ["error","message"]
-		dic1 = dict()
-		dic1[errorTitle[0]] = "true"
-		dic1[errorTitle[1]] = "error"
+	# except:
+	# 	errorTitle = ["error","message"]
+	# 	dic1 = dict()
+	# 	dic1[errorTitle[0]] = "true"
+	# 	dic1[errorTitle[1]] = "error"
 	
 app.debug = True
 app.run(host='0.0.0.0',port=3000)
