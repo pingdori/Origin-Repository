@@ -30,7 +30,7 @@ def thankyou():
 @app.route("/api/attractions")
 
 def apiAttraction():
-	# try:
+	try:
 		keywordQuery  =  request.args.get('keyword',None)
 		pageStrquery  =  str(request.args.get('page'))
 		if pageStrquery ==  None:
@@ -279,17 +279,17 @@ def apiAttraction():
 				return(jsonify(dic1))
 				cursor.close()
 				connection.close()
-	# except:
-	# 	errorTitle = ["error","message"]
-	# 	dic1 = dict()
-	# 	dic1[errorTitle[0]] = "true"
-	# 	dic1[errorTitle[1]] = "error"
-	# 	return(jsonify(dic1))
+	except:
+		errorTitle = ["error","message"]
+		dic1 = dict()
+		dic1[errorTitle[0]] = "true"
+		dic1[errorTitle[1]] = "error"
+		return(jsonify(dic1))
 
 
 @app.route("/api/attractions/<int:id>")
 def attractionID(id):
-	# try:
+	try:
 		connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
 		# connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
 		cursor  =  connection.cursor()
@@ -348,11 +348,11 @@ def attractionID(id):
 			cursor.close()
 			connection.close()
 
-	# except:
-	# 	errorTitle = ["error","message"]
-	# 	dic1 = dict()
-	# 	dic1[errorTitle[0]] = "true"
-	# 	dic1[errorTitle[1]] = "error"
+	except:
+		errorTitle = ["error","message"]
+		dic1 = dict()
+		dic1[errorTitle[0]] = "true"
+		dic1[errorTitle[1]] = "error"
 	
 app.debug = True
 app.run(host='0.0.0.0',port=3000)
