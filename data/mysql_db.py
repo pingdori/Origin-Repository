@@ -10,8 +10,8 @@ import os
 # MYSQL_USER = os.environ.get("mysql_user")
 # MYSQL_PASSWORD = os.environ.get("mysql_password")
 
-# connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
-connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
+connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
+# connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
 cursor = connection.cursor()
 cursor.execute("USE `taipei-attractions`")
 results = cursor.fetchall()
