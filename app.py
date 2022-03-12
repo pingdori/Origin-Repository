@@ -5,6 +5,7 @@ from flask import jsonify
 from dotenv import load_dotenv
 from collections import defaultdict
 import os
+Response.AddHeader("Access-Control-Allow-Origin", "*")
 app = Flask(__name__)
 app.config["JSON_AS_ASCII"] = False
 app.config["TEMPLATES_AUTO_RELOAD"] = True

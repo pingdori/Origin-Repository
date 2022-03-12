@@ -6,6 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<script>
+    let req=new XMLHttpRequest();
+    req.open("get","http://54.243.128.73:3000/api/attractions",true);
+    req.send();
+    // if(req.status == 200){
+    
+    req.onload=function(){
+        let str =JSON.parse(req.responseText);
+            if(req.status == 200){
+                let str =JSON.parse(req.responseText);
+                let nameText=document.querySelectorAll("#nametext");
+                    for (i=0;i<12;i++){
+                        names=str.data[i].name;
+                        nameText[i].textContent =names;
+                        mrts=str.data[i].mrt;
+                        categories=str.data[i].category;
+                        images=str.data[i].images[0];
+                        
+                    }s
+            }
+            else{
+                    console.log("資料讀取錯誤");
+                }
+        }
+    
+</script>
 <style>
     body{
         margin: 0 0;
@@ -96,22 +122,25 @@
         
     } */
     .banner{
-        height: 320px;
+        min-height: 320px;
         width: 100%;
         margin-bottom:25px ;
         margin-top: 60px;
         margin: auto;
         margin-top: 0;
-        background-image: url("/Origin-Repository/static/welcome.png"),linear-gradient( to bottom right,#AADDEE,#66AABB);
+        background-image:linear-gradient( to bottom right,#AADDEE,#66AABB);
         display: flex;
         justify-content: center;
-        background-position:75% 25%;
-        background-size:auto;
+        background-position:75% bottom;
+        background-size:contain;
         background-repeat:no-repeat;
 
     }
     .banner .title {
         /* background-color: #fff; */
+        background-image:url("/static/welcome.png");
+        background-repeat: no-repeat;
+        background-position:right bottom;
         width: 1200px;
         font-size: 28px;
         /* padding-left: 19%; */
@@ -158,10 +187,11 @@
         /* background-color:; */
 
         background-color:#448899;
-        background-image: url("/Origin-Repository/static/icon_search.png");
+        background-image: url("/static/icon_search.png");
         background-repeat:no-repeat,no-repeat;
         background-size: 50%;
         background-position:center;
+        width: 60px;
         height: 46px;
         border: none;
         border-top-right-radius:5px;
@@ -185,9 +215,9 @@
         margin-left: 1%;
         margin-bottom: 15px;
         border: #E8E8E8 1px solid;
-        
+        border-top-right-radius:5px;
+        border-top-left-radius:5px;
         border-bottom-right-radius:5px;
-        
         border-bottom-left-radius:5px;
     }
     main .item #img{
@@ -197,18 +227,32 @@
         height: 162px;
         background-color: #448899;
     }
-    main .item #mrttext {
+    main .item .texts #text {
         /* height: 40px; */
+        font-family: 'Noto Sans TC 400',sans-serif;
+        padding-right: 3%;
+        color: #757575;
+        padding-top:8px;
+        padding-bottom:12px ;
         font-size:16px ;
         background-color:#fff;
+        padding-top:8px;
+        padding-bottom:12px ;
+        
+        box-sizing:border-box;
+        height: 40px;
+        margin: 0;
     }
     main .item .texts{
         display: flex;
         justify-self: flex-start;
+        align-items: center;
     }
     main .item  #nametext{
+        padding-top:11px;
+        padding-bottom:7px ;
         margin: 0;
-        height: 40px;
+        height: 22px;
         font-size: 16px;
         font-family: 'Noto Sans TC',sans-serif;
         padding-left: 3%;
@@ -216,20 +260,24 @@
         color: #757575;
     }
     main .item  .texts #mrttext{
+        padding-top:8px;
+        padding-bottom:12px ;
+        
+        box-sizing:border-box;
+        height: 40px;
         font-size: 16px;
         font-family: 'Noto Sans TC 400',sans-serif;
         padding-left: 3%;
         color: #757575;
+        margin: 0;
     }
-    main .item  .texts #text{
+    /* main .item  .texts #text{
         font-size: 16px;
-        font-family: 'Noto Sans TC 400',sans-serif;
-        padding-right: 3%;
-        color: #757575;
-    }
+       
+    } */
     main .item  .texts .textContain{
         flex: auto;
-        height: 40px;
+        
 
     }
     footer{
@@ -254,9 +302,14 @@
             width: 100%;
         }
         .banner{
-            width: 100%;
-            background-size: auto;
-            background-position: right bottom;
+            /* width: 100%;
+            height: 300px; */
+            background-size: contain ;
+            
+            /* object-fit: cover; */
+            /* background-size: auto; */
+            /* background-position: right bottom; */
+            /* background-size: cover; */
            
         }
         .banner .tital{
@@ -270,75 +323,129 @@
     }
         main .item {
             width: 45%;
-            min-height: 502px;
+            /* min-height: 502px; */
             
         }
         
         main >.item #img{
             width:100%;
-            min-height: 306px;
+            min-height: 250px;
             object-fit: cover;
         }
         main >.item  #nametext{
-            min-height: 98px;
+            /* min-height: 98px; */
+            padding-top:11px;
+            padding-bottom:7px ;
             
-            padding: 0;
             margin: 0;
         }
         main .item  .texts #mrttext{
-            min-height: 98px;
+            /* min-height: 98px; */
+            padding-top:8px;
+            padding-bottom:12px ;
             
-            padding: 0;
             margin: 0;
     }
-    }
+        main .item .texts #text{
+            padding-top:8px;
+            padding-bottom:12px ;
+            
+            margin: 0;
+        }
+    
         @media  (max-width:600px){
         main>.item {
             width: 90%;
         }
-        header>ul{
-            display: none;
+        .banner .title{
+        background-image: url("/static/welcome 2.png");
+        background-size:contain;
+        background-position:90px bottom;
+        /* background-position:auto; */
         }
-        /* .manu{
+        .banner .title .bannerTital{
+        font-size: 28px;
+        margin: 0;
+        padding-bottom:15px ;
+        padding-left: 20px;
+        font-family: 'Noto Sans TC',sans-serif;
+        font-weight:bold;
+        }
+        .banner .title .bannertext{
+            margin: 0;
+            font-size: 16px;
+            padding-top: 0px;
+            padding-bottom: 15px;
+            padding-left: 20px;
+            font-family: 'Noto Sans TC 400',sans-serif;
+            font-weight:normal;
+        }
+        .banner .title .search{
+            height: 46px;
+            
+            padding-left: 20px;
             display: flex;
-            justify-content: flex-end;
+
         }
-        .manu img{
-            max-width:30px;
-        } */
-        header>ul>a{
-            display: block;
+        /* <input style="width:100px" /> */
+        .banner .title .search > input{
+            width:200px;
+            border: none;
+            font-family: 'Noto Sans TC',sans-serif;
+            border-top-left-radius:5px;
+            border-bottom-left-radius:5px;
+            font-size: 16px;
+            color: #757575;
+            padding: 15px;
         }
-        header>label{
-            display: block;
-            font-size: 25px;
-            padding:  10px;
-            background-color: #9D9D9D;
-            color: #FFF;
-        }
-        #burger:checked ~ .manu {
-            display: block;
-            width: 30%;
-            min-height: 300px;
-            background-color: #fff;
-            position: absolute;
-            top: 53px;
-            right: 0px;
-            box-shadow: -1px 0px 3px  #f0f0f0;
+        .banner .title .search > button{
+            width: 5%;
+            /* background-color:; */
+
+            background-color:#448899;
+            background-image: url("/static/icon_search.png");
+            background-repeat:no-repeat,no-repeat;
+            background-size: 50%;
+            background-position:center;
+            width: 60px;
+            height: 46px;
+            border: none;
+            border-top-right-radius:5px;
+            border-bottom-right-radius:5px;
             
         }
-        .manu a{
-            display: block;
-            text-decoration: none;
-            padding: 10px 30px ;
-            border-bottom :1px #D2E9FF solid;
-            
+        main >.item{
+            min-width:322px;
+            margin: 15px;
         }
-        .manu a:hover{
-            background-color: #97CBFF;
-            color: #fff;
+        
+        main >.item #img{
+            min-width:322px;
+            min-height: 202px;
+            object-fit: cover;
+        }
+        main >.item  #nametext{
+            /* min-height: 98px; */
+            padding-top:11px;
+            padding-bottom:7px ;
+            
+            margin: 0;
+        }
+        main .item  .texts #mrttext{
+            /* min-height: 98px; */
+            padding-top:8px;
+            padding-bottom:12px ;
+            
+            margin: 0;
+    }
+        main .item .texts #text{
+            padding-top:8px;
+            padding-bottom:12px ;
+            
+            margin: 0;
         }
     }
+}
 </style>
 <body>
     <div class="headerContain">
@@ -379,9 +486,9 @@
             <div id="img"></div>
             <p id="nametext">123</p>
             <div class="texts">
-            <p id="mrttext">111</p>
+            <p id="mrttext">忠孝復興</p>
             <div class="textContain"></div>
-            <p id="text">111</p>
+            <p id="text">公共藝術</p>
             </div>
         </div>
         <div class="item">
