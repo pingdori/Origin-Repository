@@ -1,426 +1,70 @@
-<!DOCTYPE html>
+<!dOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script>
-        // let req=new XMLHttpRequest();
-        // req.open("get","https://padax.github.io/taipei-day-trip-resources/taipei-attractions-assignment.json",true);
-        // req.send();
-        // req.onload=function(){
-        //     if(req.status == 200){
-        //         let str =JSON.parse(req.responseText);
-        //         let nametextAll=document.querySelectorAll("#nametext");
-        //         for (i=0;i<12;i++){
-        //                 //文字
-        //                 name0=str.result.results[i].stitle
-        //                 n0[i].textContent =name0;
-            
-        //     }
-    </script>
+    <title>document</title>
+    <link rel="stylesheet" type="text/css" href="/static/index.css"></link>
 </head>
-<style>
-    body{
-        margin: 0 0;
-        padding: 0 0;
-        overflow-y:scroll;
-    }
-    .headerContain{
-        
-        position:fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        background-color: #fff;
-            
-    }
-    .titlebanner{
-        height: 54px;
-    }
-    header{
-        max-width: 1200px;
-        height: 54px;
-        padding: 0px 10px;
-
-        display: flex;
-        margin: auto;
-        justify-content: flex-start;
-        align-items: center;
-        
-    }
-    header .logo{
-        padding: 0 0;
-
-    }
-    @font-face {
-        font-family: 'Noto Sans TC 400';
-        font-style: normal;
-        font-weight: 400;
-        src:url(//fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Regular.woff2) format('woff2'),
-            url(//fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Regular.woff) format('woff'),
-            url(//fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Regular.otf) format('opentype');
-        font-display: fallback;
-        }
-    @font-face {
-        font-family: 'Noto Sans TC';
-        font-style: normal;
-        font-weight: 700;
-        src:url(//fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Bold.woff2) format('woff2'),
-            url(//fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Bold.woff) format('woff'),
-            url(//fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Bold.otf) format('opentype');
-        font-display: fallback;
-        }
-    header .logo p{
-        font-size: 30px;
-        padding: 0 0;
-        margin: 0 0;
-        color: #448899;
-        font-weight: bold;
-        font-family: 'Noto Sans TC',sans-serif;
-        
-        
-     }
-
-    header .menuContain{
-        flex:auto;
-    }
-    header .menu{
-        display:inline-block;
-        color: #666666;
-        font-size: 16px;
-        font-family: 'Noto Sans TC 400',sans-serif;
-        font-weight:normal;
-    }
-    .menu > a {
-        padding-right:20px ;
-    }
-    .bannerContain{
-        height: 320px;
-        width: 100%;
-        /* background-image:linear-gradient( to bottom right,#AADDEE,#66AABB); */
-        display: flex;
-        
-    }
-    .banner{
-        height: 320px;
-        width: 100%;
-        margin-bottom:25px ;
-        margin-top: 60px;
-        margin: auto;
-        background-image: url("/static/welcome 1.png");
-        display: flex;
-        justify-content: center;
-        background-position:75% 25%;
-        background-size:auto;
-        background-repeat:no-repeat;
-
-    }
-    .banner .title {
-        /* background-color: #fff; */
-        width: 1200px;
-        font-size: 28px;
-        /* padding-left: 19%; */
-        color: #fff;
-        padding-top: 85px;
-        
-    }
-    .banner .title .bannerTital{
-        font-size: 28px;
-        margin: 0;
-        padding-bottom:15px ;
-        padding-left: 1%;
-        font-family: 'Noto Sans TC',sans-serif;
-        font-weight:bold;
-    }
-    .banner .title .bannertext{
-        margin: 0;
-        font-size: 16px;
-        padding-top: 0px;
-        padding-bottom: 15px;
-        padding-left: 1%;
-        font-family: 'Noto Sans TC 400',sans-serif;
-        font-weight:normal;
-    }
-    .banner .title .search{
-        height: 46px;
-        padding-left: 1%;
-        display: flex;
-
-    }
-    /* <input style="width:100px" /> */
-    .banner .title .search > input{
-        width:34%;
-        border: none;
-        font-family: 'Noto Sans TC',sans-serif;
-        border-top-left-radius:5px;
-        border-bottom-left-radius:5px;
-        font-size: 16px;
-        color: #757575;
-        padding: 15px;
-    }
-    .banner .title .search > button{
-        width: 5%;
-        /* background-color:; */
-
-        background-color:#448899;
-        background-image: url("/static/icon_search.png");
-        background-repeat:no-repeat,no-repeat;
-        background-size: 50%;
-        background-position:center;
-        height: 46px;
-        border: none;
-        border-top-right-radius:5px;
-        border-bottom-right-radius:5px;
-        
-    }
-    main{
-        display: flex;
-        flex-wrap: wrap;
-        margin: auto;
-        justify-content: center;
-        align-items: center;
-        width: 1200px;
-        
-    }
-    main .item{
-        margin-top: 15px;
-        margin-right:1% ;
-        margin-left: 1%;
-        margin-bottom: 15px;
-        border: #E8E8E8 1px solid;
-        
-        border-bottom-right-radius:5px;
-        
-        border-bottom-left-radius:5px;
-    }
-    main .item #img{
-        border-top-right-radius:5px;
-        border-top-left-radius:5px;
-        width: 270px;
-        height: 153px;
-        background-color: #448899;
-    }
-    main .item #mrttext {
-        font-size:16px ;
-        background-color:#fff;
-    }
-    main .item .texts{
-        display: flex;
-        justify-self: flex-start;
-    }
-    main .item  #nametext{
-        font-size: 16px;
-        font-family: 'Noto Sans TC',sans-serif;
-        padding-left: 3%;
-        color: #757575;
-    }
-    main .item  .texts #mrttext{
-        font-size: 16px;
-        font-family: 'Noto Sans TC 400',sans-serif;
-        padding-left: 3%;
-        color: #757575;
-    }
-    main .item  .texts #text{
-        font-size: 16px;
-        font-family: 'Noto Sans TC 400',sans-serif;
-        padding-right: 3%;
-        color: #757575;
-    }
-    main .item  .texts .textContain{
-        flex: auto;
-
-    }
-    footer{
-        height:104px;
-        width: 100%;
-        background-color: #757575;
-        color: #fff;
-        display: flex;
-        justify-self:center;
-        align-items: center;
-        
-        
-    }
-    footer >p{
-        margin: auto;
-        font-size: 30px;
-        font-family: 'Noto Sans TC',sans-serif;
-
-    }
-    @media  (max-width:1200px) {
-        .banner{
-            
-            background-size: auto;
-           
-        }
-        main.item {
-            width: 45%;
-        }
-        main .item>img{
-            width:100%;
-            max-height: 400px;
-            object-fit: cover;
-        }
-    }
-</style>
 <body>
-    <div class="headerContain">
+    <div class="headerContainer">
         <header>
             <div class="logo">
                 <p>
                     台北一日遊
                 </p>
             </div>
-    <div class="menuContain"></div>
-    <div class="menu">
-        <a>
-            預定行程
-        </a>
-        <a>
-            登入/註冊
-        </a>
+            <div class="menuContainer"></div>
+            <div class="menu">
+                <a>
+                    預定行程
+                </a>
+                <a>
+                    登入/註冊
+                </a>
+            </div>
     </div>
-    </div>  
-    <div class="titlebanner"></div>    
+    <div class="titlebanner"></div>
     </header>
-    <div class="bannerContain">
     <div class="banner">
         <div class="title">
             <p class="bannerTital">輕鬆享受台北一日悠閒</p>
-            <p class="bannertext">探索每個角落，體驗程式的深度旅遊行程</p>
-            <form action="/signup" method="post" class="search">
-                <!-- <p class="name_text"> -->
-                <input type="text" name="name_signup" value="輸入景點名稱查詢">
-                <!-- </p> -->
-                <button></button>
+            <p class="bannertext">探索每個角落，體驗城市的深度旅遊行程</p>
+            <form class="search">
+                <input type="text" id="searchData" placeholder="輸入景點名稱查詢" onkeydown="if (event.keyCode == 13) {submit.focus();}">
+                <div class="getdata" onkeydown="enter(event);" onclick="searchKeyword();" method="get">
+                    <input type="button" data-action="submit" id="submit" tabindex="0">
+                </div>
             </form>
         </div>
     </div>
+    <main id="main">
+        <div id="item">
+        </div>
+    </main>
+    <div id="hide0">
+        <p>搜尋無此景點</p>
     </div>
-    <main>
-        <div class="item">
-            <div id="img"></div>
-            <p id="nametext">123</p>
-            <div class="texts">
-            <p id="mrttext">111</p>
-            <div class="textContain"></div>
-            <p id="text">111</p>
-            </div>
+
+    <main id="searchResult">
+        <div id="item1">
         </div>
-        <div class="item">
-            <div id="img"></div>
-            <p id="nametext">123</p>
-            <div class="texts">
-            <p id="mrttext">111</p>
-            <div class="textContain"></div>
-            <p id="text">111</p>
-            </div>
-        </div>
-        <div class="item">
-            <div id="img"></div>
-            <p id="nametext">123</p>
-            <div class="texts">
-            <p id="mrttext">111</p>
-            <div class="textContain"></div>
-            <p id="text">111</p>
-            </div>
-        </div>
-        <div class="item">
-            <div id="img"></div>
-            <p id="nametext">123</p>
-            <div class="texts">
-            <p id="mrttext">111</p>
-            <div class="textContain"></div>
-            <p id="text">111</p>
-            </div>
         </div>
     </main>
-    <main>
-        <div class="item">
-            <div id="img"></div>
-            <p id="nametext">123</p>
-            <div class="texts">
-            <p id="mrttext">111</p>
-            <div class="textContain"></div>
-            <p id="text">111</p>
-            </div>
-        </div>
-        <div class="item">
-            <div id="img"></div>
-            <p id="nametext">123</p>
-            <div class="texts">
-            <p id="mrttext">111</p>
-            <div class="textContain"></div>
-            <p id="text">111</p>
-            </div>
-        </div>
-        <div class="item">
-            <div id="img"></div>
-            <p id="nametext">123</p>
-            <div class="texts">
-            <p id="mrttext">111</p>
-            <div class="textContain"></div>
-            <p id="text">111</p>
-            </div>
-        </div>
-        <div class="item">
-            <div id="img"></div>
-            <p id="nametext">123</p>
-            <div class="texts">
-            <p id="mrttext">111</p>
-            <div class="textContain"></div>
-            <p id="text">111</p>
-            </div>
-        </div>
-    </main>
-    <main>
-        <div class="item">
-            <div id="img"></div>
-            <p id="nametext">123</p>
-            <div class="texts">
-            <p id="mrttext">111</p>
-            <div class="textContain"></div>
-            <p id="text">111</p>
-            </div>
-        </div>
-        <div class="item">
-            <div id="img"></div>
-            <p id="nametext">123</p>
-            <div class="texts">
-            <p id="mrttext">111</p>
-            <div class="textContain"></div>
-            <p id="text">111</p>
-            </div>
-        </div>
-        <div class="item">
-            <div id="img"></div>
-            <p id="nametext">123</p>
-            <div class="texts">
-            <p id="mrttext">111</p>
-            <div class="textContain"></div>
-            <p id="text">111</p>
-            </div>
-        </div>
-        <div class="item">
-            <div id="img"></div>
-            <p id="nametext">123</p>
-            <div class="texts">
-            <p id="mrttext">111</p>
-            <div class="textContain"></div>
-            <p id="text">111</p>
-            </div>
-        </div>
-    </main>
+    <div class="root">
+        <div id="rootContainer"></div>
+    </div>
+    <div class="root0">
+        <div id="rootContainer0"></div>
+    </div>
     <footer>
         <p>
             copyright ©2022台北一日遊
         </p>
     </footer>
-        <!-- <img src="/static/welcome 1.png"> -->
-        
-    
-
+    </div>
 </body>
+<script src="/static/index.js"></script>
+
 </html>
