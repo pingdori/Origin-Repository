@@ -337,5 +337,5 @@ def attractionID(id):
 		dic1 = dict()
 		dic1[errorTitle[0]] = "true"
 		dic1[errorTitle[1]] = "error"
-app.debug = True
+# app.debug = True
 app.run(host='0.0.0.0',port=3000)

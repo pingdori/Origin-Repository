@@ -20,6 +20,7 @@ await fetch(`${endpoint}?page=${pages}`, {
         countData = jsonData.data.length;
         let items = document.querySelector("#item");
         for (i = 0; i < jsonData.data.length; i++) {
+            id = jsonData.data[i].id;
             names = jsonData.data[i].name;
             mrts = jsonData.data[i].mrt;
             categories = jsonData.data[i].category;
@@ -30,7 +31,7 @@ await fetch(`${endpoint}?page=${pages}`, {
             post.setAttribute("id", "item0");
             post.innerHTML = `
         <div id="img"><img src="${images}"></div>
-        <p id="nametext">${names}</p>
+        <p id="nametext"><a href="http://192.168.1.137:3000/attraction/${id}">${names}<a></p>
         <div class="texts">
         <p id="mrttext">${mrts}</p>
         <div class="textContainer"></div>
@@ -104,6 +105,7 @@ let searchResult = document.querySelector("#searchResult");
 let items = document.querySelector("#item1");
 countData = jsonData.data.length;
 for (i = 0; i < jsonData.data.length; i++) {
+    id = jsonData.data[i].id;
     names = jsonData.data[i].name;
     mrts = jsonData.data[i].mrt;
     categories = jsonData.data[i].category;
@@ -114,7 +116,7 @@ for (i = 0; i < jsonData.data.length; i++) {
     post.setAttribute("id", "item2");
     post.innerHTML = `
         <div id="img"><img src="${images}"></div>
-        <p id="nametext">${names}</p>
+        <p id="nametext"><a href="http://54.243.128.73:3000/api/attractions/${id}">${names}<a></p>
         <div class="texts">
         <p id="mrttext">${mrts}</p>
         <div class="textContainer"></div>

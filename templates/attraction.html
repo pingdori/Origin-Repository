@@ -1,0 +1,115 @@
+<!dOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>景點介紹</title>
+    <link rel="stylesheet" type="text/css" href="/static/attraction.css"></link>
+</head>
+<body>
+    <div class="headerContainer">
+        <header>
+            <div class="logo">
+                <p>
+                    台北一日遊
+                </p>
+            </div>
+            <div class="menuContainer"></div>
+            <div class="menu">
+                <a>
+                    預定行程
+                </a>
+                <a>
+                    登入/註冊
+                </a>
+            </div>
+        </header>
+    </div>
+
+    <div class="titlebanner"></div>
+        
+    <main id="main">
+            <div id="linboImg">    
+                <div id="tab">
+                </div>
+                <div class="lunboButton">
+                    <span num="0" class="tabBtn hover"></span>
+                </div>    
+                <div class="arrow prve">
+                    <span class="sliderLeft"></span>
+                </div>
+                <div class="arrow next">
+                    <span class="sliderRight"></span>
+                </div>    
+            </div>
+        <div class="bookingTour">
+            <div class="text">
+                <div class="title">
+                    <P class="titleText"></P>
+                </div>
+                <div class="text1">
+                    <p data-item="category"class="bookingText"></p>
+                    <p data-item="at"class="bookingText">&ensp;at &ensp;</p>
+                    <p data-item="mrt"class="bookingText"></p>
+                </div>
+            </div>
+            <div class="bookingContainer">
+                <div class="bookingTextContainer">
+                    <p data-item="bookingTitle" class="bookingTextB">訂購導覽行程</p>
+                    <p data-item="text" class="bookingText">以此景點為中心的一日行程，帶您探索城市角落故事</p>
+                </div>
+                <div class="bookingDetail">
+                    <div class="date">
+                        <p data-item="dateText" class="bookingTextB">選擇日期：</p>
+                        <form class="dateForm">
+                            <div class="dateSubmit" onkeydown="enter(event);" onclick="searchKeyword();" method="get">
+                                <input type="date"  id="dateinput" tabindex="0">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="time">
+                        <p data-item="timeText" class="bookingTextB">選擇時間：</p>
+                        <form class="timeForm">
+                            <div class="timeSubmit">
+                                <label for=""></label>
+                                <input type="radio"  id="radioinput" name="radio" tabindex="0" >
+                                <p data-item="morning" class="bookingText" >上半天</p>
+                                <input type="radio"  id="radioinput1" name="radio"  tabindex="0" >
+                                <p data-item="afternoon" class="bookingText">下半天</p>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="fee">
+                        <p data-item="feeText" class="bookingTextB">導覽費用：</p>
+                        <p data-item="money1" id="money"  class="bookingmoney1">新台幣&ensp;2000元</p>
+                        <p data-item="money2" id="money" class="bookingmoney2">新台幣&ensp;2500元</p>
+                    </div>
+                </div>
+                <div class="bookingButton">
+                    <div class="bookingSubmit" onkeydown="enter(event);" onclick="searchKeyword();" method="get">
+                        <input type="button"  id="bookingInput" tabindex="0" value="開始預訂行程">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <hr>
+    <main id="main1">
+        <div class="introduceAttractions">
+            <p data-item="introduceText"class="introduceText"></p>
+            <p data-item="introduceAddressTitle" class="bookingTextB">景點地址：</p>
+            <p data-item="introduceAddress"class="introduceText"></p>
+            <p data-item="introduceTransportationTitle" class="bookingTextB">交通方式：</p>
+            <p data-item="introduceTransportation"class="introduceText"></p>
+        </div>
+    </main>
+    <footer>
+        <p>
+            copyright ©2022台北一日遊
+        </p>
+    </footer>
+    </div>
+</body>
+<script src="/static/attraction.js"></script>
+</html>
