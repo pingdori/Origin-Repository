@@ -1,0 +1,560 @@
+body {
+    margin: 0 0;
+    padding: 0 0;
+    overflow-y: scroll;
+}
+
+.headerContainer {
+    background-color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.titlebanner {
+    height: 54px;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    width: 1200px;
+    height: 54px;
+    padding: 0px 10px;
+    display: flex;
+    margin: auto;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+header .logo {
+    padding: 0 0;
+}
+
+@font-face {
+    font-family: 'Noto Sans TC 400';
+    font-style: normal;
+    font-weight: 400;
+    src: url(//fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Regular.woff2) format('woff2'),
+        url(//fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Regular.woff) format('woff'),
+        url(//fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Regular.otf) format('opentype');
+    font-display: fallback;
+}
+
+@font-face {
+    font-family: 'Noto Sans TC';
+    font-style: normal;
+    font-weight: 700;
+    src: url(//fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Bold.woff2) format('woff2'),
+        url(//fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Bold.woff) format('woff'),
+        url(//fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Bold.otf) format('opentype');
+    font-display: fallback;
+}
+
+header .logo p {
+    font-size: 30px;
+    padding: 0 0;
+    margin: 0 0;
+    color: #448899;
+    font-weight: bold;
+    font-family: 'Noto Sans TC', sans-serif;
+}
+
+header .menuContainer {
+    flex: auto;
+}
+
+header .menu {
+    display: inline-block;
+    color: #666666;
+    font-size: 16px;
+    
+}
+
+.menu>a {
+    padding-right: 20px;
+    width: 64px;
+    height: 14px;
+    font-family: 'Noto Sans TC 400', sans-serif;
+    font-weight: 400;
+}
+
+.banner {
+    min-height: 320px;
+    width: 100%;
+    margin-bottom: 25px;
+    margin-top: 60px;
+    margin: auto;
+    margin-top: 0;
+    background-image: linear-gradient(to bottom right, #AAddEE, #66AABB);
+    display: flex;
+    justify-content: center;
+    background-position: 75% bottom;
+    background-size: container;
+    background-repeat: no-repeat;
+}
+
+.banner .title {
+    background-image: url("/static/welcome.png");
+    background-repeat: no-repeat;
+    background-position: right bottom;
+    width: 1200px;
+    font-size: 28px;
+    color: #fff;
+    padding-top: 85px;
+}
+
+.banner .title .bannerTital {
+    font-size: 28px;
+    margin: 0;
+    padding-bottom: 15px;
+    padding-left: 1%;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: bold;
+}
+
+.banner .title .bannertext {
+    margin: 0;
+    font-size: 16px;
+    padding-top: 0px;
+    padding-bottom: 15px;
+    padding-left: 1%;
+    font-family: 'Noto Sans TC 400', sans-serif;
+    font-weight: normal;
+}
+
+.banner .title .search {
+    height: 46px;
+    padding-left: 1%;
+    display: flex;
+}
+
+.banner .title .search>input {
+    width: 31%;
+    border: none;
+    font-family: 'Noto Sans TC', sans-serif;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    font-size: 16px;
+    color: #757575;
+    padding: 15px;
+    outline: none;
+}
+
+.banner .title .search .getdata #submit {
+    width: 5%;
+    background-color: #448899;
+    background-image: url("/static/icon_search.png");
+    background-repeat: no-repeat, no-repeat;
+    background-size: 50%;
+    background-position: center;
+    width: 60px;
+    height: 46px;
+    border: none;
+    outline: none;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+
+}
+
+#hide0 {
+    display: none;
+}
+
+#hide {
+    display: none;
+}
+
+#error {
+    min-height: 1270px;
+    color: #757575;
+    font-size: 20px;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+main>#error {
+    min-height: 1270px;
+    color: #757575;
+    font-size: 20px;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+    width: 1200px;
+    flex-grow: 1;
+    margin: 0;
+    height: 100%;
+    margin: auto;
+}
+
+main #item0 {
+    margin-top: 15px;
+    margin-right: 1%;
+    margin-left: 1%;
+    margin-bottom: 15px;
+    border: #E8E8E8 1px solid;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+main #item0 #img>img {
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    width: 270px;
+    height: 162px;
+    background-color: #448899;
+}
+
+main #item0 .texts #text {
+    font-family: 'Noto Sans TC 400', sans-serif;
+    padding-right: 3%;
+    color: #757575;
+    padding-top: 8px;
+    padding-bottom: 12px;
+    font-size: 16px;
+    background-color: #fff;
+    padding-top: 8px;
+    padding-bottom: 12px;
+    box-sizing: border-box;
+    height: 40px;
+    margin: 0;
+}
+a{
+    font-size: 16px;
+    font-family: 'Noto Sans TC', sans-serif;
+    margin: 0;
+    color: #757575;
+    text-decoration: none;
+}
+main #item0 .texts {
+    display: flex;
+    justify-self: flex-start;
+    align-items: center;
+}
+
+main #item0 #nametext {
+    padding-top: 11px;
+    padding-bottom: 7px;
+    margin: 0;
+    height: 22px;
+    font-size: 16px;
+    font-family: 'Noto Sans TC', sans-serif;
+    padding-left: 3%;
+    margin: 0;
+    color: #757575;
+    text-decoration: none;
+}
+
+main #item0 .texts #mrttext {
+    padding-top: 8px;
+    padding-bottom: 12px;
+    box-sizing: border-box;
+    height: 40px;
+    font-size: 16px;
+    font-family: 'Noto Sans TC 400', sans-serif;
+    padding-left: 3%;
+    color: #757575;
+    margin: 0;
+}
+
+main #item0 .texts .textContainer {
+    flex: auto;
+}
+
+main #item2 {
+    margin-top: 15px;
+    margin-right: 1%;
+    margin-left: 1%;
+    margin-bottom: 15px;
+    border: #E8E8E8 1px solid;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+main #item2 #img>img {
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    width: 270px;
+    height: 162px;
+    background-color: #448899;
+}
+
+main #item2 .texts #text {
+    font-family: 'Noto Sans TC 400', sans-serif;
+    padding-right: 3%;
+    color: #757575;
+    padding-top: 8px;
+    padding-bottom: 12px;
+    font-size: 16px;
+    background-color: #fff;
+    padding-top: 8px;
+    padding-bottom: 12px;
+    box-sizing: border-box;
+    height: 40px;
+    margin: 0;
+}
+
+main #item2 .texts {
+    display: flex;
+    justify-self: flex-start;
+    align-items: center;
+}
+
+main #item2 #nametext {
+    padding-top: 11px;
+    padding-bottom: 7px;
+    margin: 0;
+    height: 22px;
+    font-size: 16px;
+    font-family: 'Noto Sans TC', sans-serif;
+    padding-left: 3%;
+    margin: 0;
+    color: #757575;
+}
+
+main #item2 .texts #mrttext {
+    padding-top: 8px;
+    padding-bottom: 12px;
+
+    box-sizing: border-box;
+    height: 40px;
+    font-size: 16px;
+    font-family: 'Noto Sans TC 400', sans-serif;
+    padding-left: 3%;
+    color: #757575;
+    margin: 0;
+}
+
+main #item2 .texts .textContainer {
+    flex: auto;
+}
+
+footer {
+    height: 104px;
+    width: 100%;
+    background-color: #757575;
+    color: #fff;
+    display: flex;
+    justify-self: center;
+    align-items: center;
+}
+
+footer>p {
+    margin: auto;
+    font-size: 16px;
+    font-family: 'Noto Sans TC', sans-serif;
+
+}
+
+@media (max-width:1200px) {
+    header {
+        width: 100%;
+    }
+
+    .banner {
+        background-size: contain;
+    }
+
+    .banner .tital {
+        width: 100%;
+    }
+
+    main {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    main #item0 {
+        width: 45%;
+    }
+
+    main>#item0 #img>img {
+        width: 100%;
+        min-height: 250px;
+        object-fit: cover;
+    }
+
+    main>#item0 #nametext {
+        padding-top: 11px;
+        padding-bottom: 7px;
+        margin: 0;
+    }
+
+    main #item0 .texts #mrttext {
+        padding-top: 8px;
+        padding-bottom: 12px;
+        margin: 0;
+    }
+
+    main #item0 .texts #text {
+        padding-top: 8px;
+        padding-bottom: 12px;
+        margin: 0;
+    }
+
+    main #item2 {
+        width: 45%;
+    }
+
+    main>#item2 #img>img {
+        width: 100%;
+        min-height: 250px;
+        object-fit: cover;
+    }
+
+    main>#item2 #nametext {
+        padding-top: 11px;
+        padding-bottom: 7px;
+        margin: 0;
+    }
+
+    main #item2 .texts #mrttext {
+        padding-top: 8px;
+        padding-bottom: 12px;
+        margin: 0;
+    }
+
+    main #item2 .texts #text {
+        padding-top: 8px;
+        padding-bottom: 12px;
+        margin: 0;
+    }
+
+    @media (max-width:600px) {
+        main>#item0 {
+            width: 90%;
+        }
+
+        main>#item2 {
+            width: 90%;
+        }
+
+        .banner .title {
+            background-image: url("/static/welcome 2.png");
+            background-size: contain;
+            background-position: 90px bottom;
+        }
+
+        .banner .title .bannerTital {
+            font-size: 28px;
+            margin: 0;
+            padding-bottom: 15px;
+            padding-left: 20px;
+            font-family: 'Noto Sans TC', sans-serif;
+            font-weight: bold;
+        }
+
+        .banner .title .bannertext {
+            margin: 0;
+            font-size: 16px;
+            padding-top: 0px;
+            padding-bottom: 15px;
+            padding-left: 20px;
+            font-family: 'Noto Sans TC 400', sans-serif;
+            font-weight: normal;
+        }
+
+        .banner .title .search {
+            height: 46px;
+            padding-left: 20px;
+            display: flex;
+        }
+
+        .banner .title .search>input {
+            width: 200px;
+            border: none;
+            font-family: 'Noto Sans TC', sans-serif;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            font-size: 16px;
+            color: #757575;
+            padding: 15px;
+        }
+
+        .banner .title .search .getdata #submit {
+            width: 5%;
+            background-color: #448899;
+            background-image: url("/static/icon_search.png");
+            background-repeat: no-repeat, no-repeat;
+            background-size: 50%;
+            background-position: center;
+            width: 60px;
+            height: 46px;
+            border: none;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+
+        main>#item0 {
+            min-width: 322px;
+            margin: 15px;
+        }
+
+        main>#item0 #img>img {
+            min-width: 322px;
+            min-height: 202px;
+            object-fit: cover;
+        }
+
+        main>#item0 #nametext {
+            padding-top: 11px;
+            padding-bottom: 7px;
+            margin: 0;
+        }
+
+        main #item0 .texts #mrttext {
+            padding-top: 8px;
+            padding-bottom: 12px;
+            margin: 0;
+        }
+
+        main #item0 .texts #text {
+            padding-top: 8px;
+            padding-bottom: 12px;
+            margin: 0;
+        }
+
+        main>#item2 {
+            min-width: 322px;
+            margin: 15px;
+        }
+
+        main>#item2 #img>img {
+            min-width: 322px;
+            min-height: 202px;
+            object-fit: cover;
+        }
+
+        main>#item2 #nametext {
+            padding-top: 11px;
+            padding-bottom: 7px;
+            margin: 0;
+        }
+
+        main #item2 .texts #mrttext {
+            padding-top: 8px;
+            padding-bottom: 12px;
+            margin: 0;
+        }
+
+        main #item2 .texts #text {
+            padding-top: 8px;
+            padding-bottom: 12px;
+            margin: 0;
+        }
+    }
+}

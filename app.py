@@ -4,8 +4,11 @@ import mysql.connector
 from flask import jsonify
 from dotenv import load_dotenv
 from collections import defaultdict
+from flask_cors import CORS
 import os
+
 app = Flask(__name__)
+CORS(app)
 app.config["JSON_AS_ASCII"] = False
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 # load_dotenv()
@@ -285,8 +288,6 @@ def apiAttraction():
 		dic1[errorTitle[0]] = "true"
 		dic1[errorTitle[1]] = "error"
 		return(jsonify(dic1))
-
-
 @app.route("/api/attractions/<int:id>")
 def attractionID(id):
 	try:
@@ -312,10 +313,6 @@ def attractionID(id):
 				listDataA.append(dictCombin)
 				dic[title0[0]] = listDataA
 				allimages=dic['data'][i]['images']
-				# splitA=allimages.split(",")
-				# splitB=splitA[0].split("[")
-				# splitC=splitB[1].split("'")
-				# listDataB.append(splitC[1])
 				splitA=allimages.split("'")
 				splitA=list(filter((", ").__ne__, splitA))
 				if "" in splitA :
@@ -326,19 +323,7 @@ def attractionID(id):
 				strA=str(dic['data'][i])
 				a=dic['data'][i]
 				dic[title0[0]]=a
-				# results='{data:'+strA+"}"
-				# d=json.loads(results)
 			return(jsonify(dic))
-		# 	title0 = ["nextpage","data"]
-		# 	listData = []
-		# 	dic = dict()
-		# 	for i in range(len(jsonB)):
-		# 		dictCombin = dict(zip(title,jsonB[i]))
-		# 		listData.append(dictCombin)
-		# 		dic[title0[1]] = listData
-		# 		page0 = "null"
-		# 		dic[title0[0]] = page0	
-		# 	return(jsonify(dic))
 		elif id>58 or id==0 :
 			errorTitle = ["error","message"]
 			dic1 = dict()
@@ -347,12 +332,10 @@ def attractionID(id):
 			return(jsonify(dic1))
 			cursor.close()
 			connection.close()
-
 	except:
 		errorTitle = ["error","message"]
 		dic1 = dict()
 		dic1[errorTitle[0]] = "true"
 		dic1[errorTitle[1]] = "error"
-	
-app.debug = True
+# app.debug = True
 app.run(host='0.0.0.0',port=3000)
