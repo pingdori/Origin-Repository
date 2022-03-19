@@ -31,7 +31,7 @@ await fetch(`${endpoint}?page=${pages}`, {
             post.setAttribute("id", "item0");
             post.innerHTML = `
         <div id="img"><img src="${images}"></div>
-        <p id="nametext"><a href="http://192.168.1.137:3000/attraction/${id}">${names}<a></p>
+        <p id="nametext"><a href="http://54.243.128.73:3000/api/attraction/${id}">${names}<a></p>
         <div class="texts">
         <p id="mrttext">${mrts}</p>
         <div class="textContainer"></div>
