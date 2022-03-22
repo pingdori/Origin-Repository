@@ -6,17 +6,15 @@ from dotenv import load_dotenv
 from collections import defaultdict
 from flask_cors import CORS
 import os
-
+from config import Config 
 app = Flask(__name__)
 CORS(app)
-app.config["JSON_AS_ASCII"] = False
-app.config["TEMPLATES_AUTO_RELOAD"] = True
-# load_dotenv()
-# MYSQL_HOST = os.environ.get("mysql_host")
-# MYSQL_PORT = os.environ.get("mysql_port")
-# MYSQL_USER = os.environ.get("mysql_user")
-# MYSQL_PASSWORD = os.environ.get("mysql_password")
-# Pages
+app.config.from_object(Config)
+load_dotenv()
+MYSQL_HOST = os.environ.get("mysql_host")
+MYSQL_PORT = os.environ.get("mysql_port")
+MYSQL_USER = os.environ.get("mysql_user")
+MYSQL_PASSWORD = os.environ.get("mysql_password")
 @app.route("/")
 def index():
 	return render_template("index.html")
@@ -37,7 +35,7 @@ def apiAttraction():
 		keywordQuery  =  request.args.get('keyword',None)
 		pageStrquery  =  str(request.args.get('page'))
 		if pageStrquery ==  None:
-			connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
+			connection  =  mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
 			# connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
 			cursor  =  connection.cursor()
 			cursor.execute("USE `taipei-attractions`")
@@ -73,7 +71,7 @@ def apiAttraction():
 		pageQuery = int(request.args.get('page',0))
 		if keywordQuery == None: 	
 			if pageQuery  ==  0 :
-				connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
+				connection  =  mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
 				# connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
 				cursor  =  connection.cursor()
 				cursor.execute("USE `taipei-attractions`")
@@ -110,7 +108,7 @@ def apiAttraction():
 				cursor.close()
 				connection.close()
 			elif pageQuery > 0:
-				connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
+				connection  =  mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
 				# connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
 				cursor  =  connection.cursor()
 				cursor.execute("USE `taipei-attractions`")
@@ -163,7 +161,7 @@ def apiAttraction():
 				cursor.close()
 				connection.close()
 		if keywordQuery != None :
-			connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
+			connection  =  mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
 			# connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
 			cursor  =  connection.cursor()
 			cursor.execute("USE `taipei-attractions`")
@@ -291,7 +289,7 @@ def apiAttraction():
 @app.route("/api/attractions/<int:id>")
 def attractionID(id):
 	try:
-		connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
+		connection  =  mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
 		# connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
 		cursor  =  connection.cursor()
 		cursor.execute("USE `taipei-attractions`")
@@ -337,5 +335,7 @@ def attractionID(id):
 		dic1 = dict()
 		dic1[errorTitle[0]] = "true"
 		dic1[errorTitle[1]] = "error"
+
+
 # app.debug = True
 app.run(host='0.0.0.0',port=3000)
