@@ -5,7 +5,7 @@ from flask import jsonify
 from dotenv import load_dotenv
 from collections import defaultdict
 from flask_cors import CORS
-from pymysql import NULL
+from flask import session
 from werkzeug.security import generate_password_hash,check_password_hash
 import os
 from config import Config 
@@ -403,8 +403,8 @@ def user():
 			connection.close()
 			return (jsonify(data))
 		else:
-			nullData={"data":NULL}
 			connection.close()
+			nullData={"data":NULL}
 			return (jsonify(nullData))
 		
 	elif request.method == 'DELETE':

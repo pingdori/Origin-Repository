@@ -267,7 +267,7 @@ async function logoutClick() {
 		logoutClick.setAttribute("id", "hide");
 		location.reload("http://54.243.128.73:3000/");
 	}
-	history.go(0);
+	reload()
 }
 
 function reload() {

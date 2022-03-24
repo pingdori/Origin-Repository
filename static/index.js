@@ -312,7 +312,6 @@ async function logoutClick() {
 	if (jsonData.ok) {
 		loginClick.setAttribute("id", "loginClick");
 		logoutClick.setAttribute("id", "hide");
-		location.reload("http://54.243.128.73:3000/");
 	}
 	history.go(0);
 }
