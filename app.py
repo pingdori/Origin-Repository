@@ -5,6 +5,8 @@ from flask import jsonify
 from dotenv import load_dotenv
 from collections import defaultdict
 from flask_cors import CORS
+from pymysql import NULL
+from werkzeug.security import generate_password_hash,check_password_hash
 import os
 from config import Config 
 app = Flask(__name__)
@@ -15,6 +17,7 @@ MYSQL_HOST = os.environ.get("mysql_host")
 MYSQL_PORT = os.environ.get("mysql_port")
 MYSQL_USER = os.environ.get("mysql_user")
 MYSQL_PASSWORD = os.environ.get("mysql_password")
+app.secret_key = os.environ.get("SECRET_KEY")
 @app.route("/")
 def index():
 	return render_template("index.html")
@@ -29,7 +32,6 @@ def thankyou():
 	return render_template("thankyou.html")
 	
 @app.route("/api/attractions")
-
 def apiAttraction():
 	try:
 		keywordQuery  =  request.args.get('keyword',None)
@@ -336,6 +338,80 @@ def attractionID(id):
 		dic1[errorTitle[0]] = "true"
 		dic1[errorTitle[1]] = "error"
 
-
+@app.route("/api/user",methods = ["POST","GET","PATCH","DELETE"])
+def user():
+	jsonData=request.json
+	
+	if request.method == 'POST':
+		email=jsonData["email"]
+		password=jsonData["password"]
+		username=jsonData["username"]
+		# connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
+		connection  =  mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
+		cursor  =  connection.cursor()
+		cursor.execute("USE `taipei-attractions`")
+		sqlInsert="INSERT INTO `user_data`(`name`,`email`,`password`) VALUES (%s,%s,%s)"
+		bindData=(username,email,password,)
+		sqlSelect="SELECT `email` FROM `user_data` WHERE `email`=%s"
+		cursor.execute(sqlSelect,(email,))
+		results=cursor.fetchall()
+		if len(results)!=0:
+			connection.close()
+			mailError={"error": True,'"message"': "Email已經註冊帳戶"}
+			return (jsonify(mailError))
+		else:
+			cursor.execute(sqlInsert,bindData)
+			connection.commit()
+			connection.close()
+		# signupDone={"ok": "true"}
+		return (jsonify({"ok":True}))
+	elif request.method == 'PATCH':
+		email=jsonData["email"]
+		password=jsonData["password"]
+		#connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
+		connection  =  mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
+		cursor  =  connection.cursor()
+		cursor.execute("USE `taipei-attractions`")
+		sqlSelect="SELECT `email` FROM `user_data` WHERE `email`=%s and `password`=%s"
+		cursor.execute(sqlSelect,(email,password,))
+		results=cursor.fetchone()
+		if  results:
+			connection.close()
+			session["email"]=email
+			session["password"]=password
+			signInOK={"ok":True}
+			return (jsonify(signInOK))
+		else:
+			connection.close()
+			signError={"error": "true","message": "請重新輸入"}
+			return (jsonify(signError))
+	elif request.method == 'GET':
+		emailSession=session["email"]
+		passwordSession=session["password"]
+		#connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
+		connection  =  mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
+		cursor  =  connection.cursor()
+		cursor.execute("USE `taipei-attractions`")
+		sqlSelect="SELECT `id`,`name`,`email` FROM `user_data` WHERE `email`=%s and `password`=%s"
+		cursor.execute(sqlSelect,(emailSession,passwordSession,))
+		results=cursor.fetchone()
+		if  results:
+			id = results[0]
+			name =results[1]
+			email =results[2]
+			data={"data":{"id": id,"name": name,"email": email}}
+			connection.close()
+			return (jsonify(data))
+		else:
+			nullData={"data":NULL}
+			connection.close()
+			return (jsonify(nullData))
+		
+	elif request.method == 'DELETE':
+		session["email"]=None
+		session["password"]=None
+		signOut={"ok":True}
+		connection.close()
+		return (jsonify(signOut))
 # app.debug = True
 app.run(host='0.0.0.0',port=3000)
