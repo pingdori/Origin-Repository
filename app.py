@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from flask import *
 import json
 import mysql.connector
@@ -386,7 +387,7 @@ def user():
 		if  session["password"]!=None:
 			emailSession=session["email"]
 			passwordSession=session["password"]
-			connection = mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
+			connection  =  mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
 			cursor  =  connection.cursor()
 			cursor.execute("USE `taipei-attractions`")
 			sqlSelect="SELECT `id`,`name`,`email` FROM `user_data` WHERE `email`=%s and `password`=%s"
@@ -399,7 +400,7 @@ def user():
 			connection.close()
 			return (jsonify(data))
 		elif session["password"] == None:
-			nullData={"data":NULL}
+			nullData={"data":"null"}
 			return (jsonify(nullData))
 		
 	elif request.method == 'DELETE':
