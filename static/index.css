@@ -64,7 +64,7 @@ body {
 	margin-bottom: 9px;
 	font-size: 24px;
 }
-.signupError {
+.signupError,.signupError2 {
 	display: flex;
 	justify-self: center;
 }
@@ -72,11 +72,18 @@ body {
 	display: flex;
 	justify-self: center;
 }
-.signInError {
+.signInError,.signupError2 {
 	display: flex;
 	justify-self: center;
 }
 .signInError>p {
+	font-family: 'Noto Sans TC 400', sans-serif;
+	font-weight: 400;
+	color: red;
+	font-size: 16px;
+	margin: auto;
+}
+.signupError2>p {
 	font-family: 'Noto Sans TC 400', sans-serif;
 	font-weight: 400;
 	color: red;
@@ -120,7 +127,7 @@ body {
 input:focus {
 	box-shadow: 1px 2px 1px #cccccc;
 }
-#loginbutton {
+#loginbutton,#signupbutton {
 	background-color: #448899;
 	border-top-right-radius: 5px;
 	border-top-left-radius: 5px;

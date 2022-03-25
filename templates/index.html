@@ -17,9 +17,9 @@
 		</div>
 		<div class="login-input">
 			<form method="patch">
-				<input id="email" name="signinEmail" placeholder="輸入電子信箱" type="text"> <input id="password" name="signinPassword" onkeydown="if (event.keyCode == 13) {loginbutton.focus();}" placeholder="輸入密碼" type="password">
+				<input id="email" name="signinEmail" placeholder="輸入電子信箱" type="email" required> <input id="password" name="signinPassword" onkeydown="if (event.keyCode == 13) {loginbutton.focus();}" placeholder="輸入密碼" type="password" pattern="[a-zA-Z0-9]{7,}" required autocomplete="on">
 				<div class="getSingupData" onclick="getSignInData()" onkeydown="enter(event);">
-					<input class="login loginmodal-button" id="loginbutton" name="login" type="button" value="登入帳號">
+					<input class="login loginmodal-button" id="loginbutton" name="login" type="button" value="登入帳號" autocomplete="on">
 				</div>
 			</form>
 		</div>
@@ -39,14 +39,18 @@
 		</div><!--login  -->
 		<div class="login-input">
 			<form method="post">
-				<input id="username" name="signupUsername" placeholder="輸入姓名" type="text"> <input id="email1" name="signupEmail" placeholder="輸入電子信箱" type="text"> <input id="password1" name="signupPassword" onkeydown="if (event.keyCode == 13) {loginbutton.focus();}" placeholder="輸入密碼" type="password">
+				<input id="username" name="signupUsername" placeholder="輸入姓名" type="text"> <input id="email1" name="signupEmail" placeholder="輸入電子信箱" type="email" required> 
+				<input id="password1" name="signupPassword" onkeydown="if (event.keyCode == 13) {loginbutton.focus();}" placeholder="輸入密碼" type="password" pattern="[a-zA-Z0-9]{7,}" required autocomplete="off">
 				<div class="getSingupData" onclick="getSignupData()" onkeydown="enter(event);">
-					<input class="login loginmodal-button" data-action="submit" id="loginbutton" name="login" type="button" value="註冊新帳戶">
+					<input class="login loginmodal-button" data-action="submit" id="signupbutton" name="login" type="button" value="註冊新帳戶" autocomplete="on">
 				</div>
 			</form>
 		</div>
 		<div class="signupError" id="hide">
-			<p>Email已註冊帳戶</p>
+			<p>註冊失敗請重新輸入</p>
+		</div>
+		<div class="signupError2" id="hide">
+			<p>帳號或密碼及mail不可為空值</p>
 		</div>
 		<div class="signupOk" id="hide">
 			<p>註冊成功!</p>

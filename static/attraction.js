@@ -169,6 +169,7 @@ function onclickloginHelp1() {
 }
 let apiUserUrl = "http://54.243.128.73:3000/api/user";
 async function getSignupData() {
+	let signupError2=document.querySelector(".signupError2")
 	let signupError = document.querySelector('.signupError');
 	let signupOk = document.querySelector('.signupOk');
 	let modalDialog1 = document.querySelector('.modal-dialog1');
@@ -183,7 +184,7 @@ async function getSignupData() {
 		"email": email1,
 		"password": password1
 	};
-	fetch(apiUserUrl, {
+	fetch(url, {
 		method: "POST",
 		body: JSON.stringify(data),
 		headers: new Headers({
@@ -192,17 +193,16 @@ async function getSignupData() {
 	}).then(res => {
 		return res.json()
 	}).then(jsonData => {
-		console.log(jsonData.ok);
+		modalDialog1.style.height = '352px';
+		console.log(jsonData.message);
 		if (jsonData.error) {
 			signupError.setAttribute("id", "signupError");
 			signupOk.setAttribute("id", "hide");
-			modalDialog1.style.height = '352px';
 		} else if (jsonData.ok) {
+			signupError.setAttribute("id", "hide0");
 			signupOk.setAttribute("id", "signupOk");
-			signupError.setAttribute("id", "hide");
-			modalDialog1.style.height = '352px';
 		}
-	})
+	}).catch(err => {})
 }
 async function getSignInData() {
 	let loginClick = document.querySelector(".loginClick");
