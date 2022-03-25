@@ -184,7 +184,7 @@ async function getSignupData() {
 		"email": email1,
 		"password": password1
 	};
-	fetch(apiUserurl, {
+	fetch(apiUserUrl , {
 		method: "POST",
 		body: JSON.stringify(data),
 		headers: new Headers({
