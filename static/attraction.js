@@ -199,7 +199,7 @@ async function getSignupData() {
 			signupError.setAttribute("id", "signupError");
 			signupOk.setAttribute("id", "hide");
 		} else if (jsonData.ok) {
-			signupError.setAttribute("id", "hide0");
+			signupError.setAttribute("id", "hide");
 			signupOk.setAttribute("id", "signupOk");
 		}
 	}).catch(err => {})
