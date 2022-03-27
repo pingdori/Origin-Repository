@@ -602,11 +602,11 @@ footer>p {
 
 		max-width: 1200px;
 	}
-	.bookingTextB[data-item=introduceText],.bookingTextB[data-item=introduceAddressTitle],.bookingTextB[data-item=introduceTransportationTitle]{
+	.bookingTextB[data-item=introduceAddressTitle],.bookingTextB[data-item=introduceTransportationTitle]{
 		padding-left: 10px;
 		padding-right: 10px;
 	}
-	.introduceText[data-item=introduceAddress],.introduceText[data-item=introduceTransportation]{
+	.bookingText[data-item=introduceText],.introduceText[data-item=introduceAddress],.introduceText[data-item=introduceTransportation]{
 		padding-left: 10px;
 		padding-right: 10px;
 	}
