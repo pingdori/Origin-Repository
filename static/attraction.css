@@ -329,11 +329,9 @@ main #linboImg {
 #main1 {
 	margin-top: 13px;
 }
-.introduceAttractions {
-	
-	/* display: flex;
-	justify-self: center; */
-	margin: auto;
+#main1 .introduceAttractions {
+	flex-wrap: wrap;
+	justify-self: center;
 	margin-top: 0px;
 	width: 1200px;
 	height: 100%;
@@ -510,7 +508,7 @@ input[type=button] {
 	border: none;
 	outline: none;
 }
-hr {
+.introduceAttractions>hr {
 	border: #E8E8E8 1px solid;
 	max-width: 1200px;
 }
@@ -597,10 +595,20 @@ footer>p {
 		min-height: 420px;
 		object-fit: cover;
 	}
-	hr {
+	.introduceAttractions>hr {
 		padding: 0;
-		margin: 0;
+		margin-top: 37px;
+		margin-bottom: 50px;
+
 		max-width: 1200px;
+	}
+	.bookingTextB[data-item=introduceText],.bookingTextB[data-item=introduceAddressTitle],.bookingTextB[data-item=introduceTransportationTitle]{
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	.introduceText[data-item=introduceAddress],.introduceText[data-item=introduceTransportation]{
+		padding-left: 10px;
+		padding-right: 10px;
 	}
 }
 @media (max-width:600px) {

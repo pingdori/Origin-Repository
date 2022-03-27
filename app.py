@@ -39,7 +39,6 @@ def apiAttraction():
 		pageStrquery  =  str(request.args.get('page'))
 		if pageStrquery ==  None:
 			#connection = mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
-			
 			cursor  =  connection.cursor()
 			cursor.execute("USE `taipei-attractions`")
 			countAll  =  "SELECT count(*) from `data`"
