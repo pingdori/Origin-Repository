@@ -1,4 +1,3 @@
-from asyncio.windows_events import NULL
 from flask import *
 import json
 import mysql.connector
@@ -39,7 +38,8 @@ def apiAttraction():
 		keywordQuery  =  request.args.get('keyword',None)
 		pageStrquery  =  str(request.args.get('page'))
 		if pageStrquery ==  None:
-			connection = mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
+			#connection = mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
+			
 			cursor  =  connection.cursor()
 			cursor.execute("USE `taipei-attractions`")
 			countAll  =  "SELECT count(*) from `data`"
@@ -74,7 +74,8 @@ def apiAttraction():
 		pageQuery = int(request.args.get('page',0))
 		if keywordQuery == None: 	
 			if pageQuery  ==  0 :
-				connection = mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
+				#connection = mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
+				
 				cursor  =  connection.cursor()
 				cursor.execute("USE `taipei-attractions`")
 				countAll = "SELECT count(*) from `data`"
@@ -110,7 +111,8 @@ def apiAttraction():
 				cursor.close()
 				connection.close()
 			elif pageQuery > 0:
-				connection = mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
+				#connection = mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
+				
 				cursor  =  connection.cursor()
 				cursor.execute("USE `taipei-attractions`")
 				countAll = "SELECT count(*) from `data`"
@@ -162,7 +164,8 @@ def apiAttraction():
 				cursor.close()
 				connection.close()
 		if keywordQuery != None :
-			connection = mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
+			#connection = mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
+			
 			cursor  =  connection.cursor()
 			cursor.execute("USE `taipei-attractions`")
 			cursor.execute("SELECT count(*)  `name`from `data` where `name` like '%"+request.args.get('keyword',None)+"%' order by `data`.`id`;")
@@ -289,7 +292,8 @@ def apiAttraction():
 @app.route("/api/attractions/<int:id>")
 def attractionID(id):
 	try:
-		connection = mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
+		#connection = mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
+		
 		cursor  =  connection.cursor()
 		cursor.execute("USE `taipei-attractions`")
 		cursor.execute("SELECT `data`.`id`,`data`.`name`,`category`,`description`,`address`,`transport`,`mrt`,`latitude`,`longitude`,`images` from `data`Join  `data_images` on `data`.`name` = `data_images`.`name` and `data`.`id` like %s ",(id,))
@@ -343,7 +347,8 @@ def user():
 		email=jsonData["email"]
 		password=jsonData["password"]
 		username=jsonData["username"]
-		connection = mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
+		#connection = mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
+		
 		cursor  =  connection.cursor()
 		cursor.execute("USE `taipei-attractions`")
 		sqlInsert="INSERT INTO `user_data`(`name`,`email`,`password`) VALUES (%s,%s,%s)"
@@ -367,7 +372,8 @@ def user():
 	elif request.method == 'PATCH':
 		email=jsonData["email"]
 		password=jsonData["password"]
-		connection = mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
+		#connection = mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
+		
 		cursor  =  connection.cursor()
 		cursor.execute("USE `taipei-attractions`")
 		sqlSelect="SELECT `email` FROM `user_data` WHERE `email`=%s and `password`=%s"
@@ -387,7 +393,8 @@ def user():
 		if  session["password"]!=None:
 			emailSession=session["email"]
 			passwordSession=session["password"]
-			connection = mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
+			# connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "")
+		
 			cursor  =  connection.cursor()
 			cursor.execute("USE `taipei-attractions`")
 			sqlSelect="SELECT `id`,`name`,`email` FROM `user_data` WHERE `email`=%s and `password`=%s"
@@ -408,5 +415,5 @@ def user():
 		session["password"]=None
 		signOut={"ok":True}
 		return (jsonify(signOut))
-app.debug = True
+
 app.run(host='0.0.0.0',port=3000)

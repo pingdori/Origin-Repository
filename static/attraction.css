@@ -329,9 +329,11 @@ main #linboImg {
 #main1 {
 	margin-top: 13px;
 }
-#main1 .introduceAttractions {
-	flex-wrap: wrap;
+.introduceAttractions {
+	
+	display: flex;
 	justify-self: center;
+	margin: auto;
 	margin-top: 0px;
 	width: 1200px;
 	height: 100%;
