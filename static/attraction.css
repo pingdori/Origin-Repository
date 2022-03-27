@@ -606,7 +606,7 @@ footer>p {
 		padding-left: 10px;
 		padding-right: 10px;
 	}
-	.bookingText[data-item=introduceText],.introduceText[data-item=introduceAddress],.introduceText[data-item=introduceTransportation]{
+	.introduceText[data-item=introduceText],.introduceText[data-item=introduceAddress],.introduceText[data-item=introduceTransportation]{
 		padding-left: 10px;
 		padding-right: 10px;
 	}
