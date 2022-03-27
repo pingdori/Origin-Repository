@@ -393,8 +393,8 @@ def user():
 		if  session["password"]!=None:
 			emailSession=session["email"]
 			passwordSession=session["password"]
-			# connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "")
-		
+			#connection = mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
+			
 			cursor  =  connection.cursor()
 			cursor.execute("USE `taipei-attractions`")
 			sqlSelect="SELECT `id`,`name`,`email` FROM `user_data` WHERE `email`=%s and `password`=%s"

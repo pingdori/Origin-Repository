@@ -331,8 +331,8 @@ main #linboImg {
 }
 .introduceAttractions {
 	
-	display: flex;
-	justify-self: center;
+	/* display: flex;
+	justify-self: center; */
 	margin: auto;
 	margin-top: 0px;
 	width: 1200px;
