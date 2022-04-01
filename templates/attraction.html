@@ -16,10 +16,10 @@
 			<div class="Xbutton" onclick="onclickXbutton()"></div>
 		</div>
 		<div class="login-input">
-			<form method="patch">
-				<input id="email" name="signinEmail" placeholder="輸入電子信箱" type="email" required> <input id="password" name="signinPassword" onkeydown="if (event.keyCode == 13) {loginbutton.focus();}" placeholder="輸入密碼" type="password" pattern="[a-zA-Z0-9]{7,}" required autocomplete="on">
-				<div class="getSingupData" onclick="getSignInData()" onkeydown="enter(event);">
-					<input class="login loginmodal-button" id="loginbutton" name="login" type="button" value="登入帳號" autocomplete="on">
+			<form id="loginForm" method="patch" name="loginForm">
+				<input id="email" name="signinEmail" onkeydown="validateEmail()" placeholder="輸入電子信箱" type="email"> <input id="password" name="signinPassword" onkeydown="if (event.keyCode == 13) {loginbutton.focus();}" placeholder="輸入密碼" type="password">
+				<div class="getSingupData" onclick="getSignInData()">
+					<input class="login loginmodal-button" id="loginbutton" name="login" type="button" value="登入帳號">
 				</div>
 			</form>
 		</div>
@@ -29,20 +29,19 @@
 		<div class="login-help">
 			<p id="singupHelp" onclick="onclickloginHelp()">還沒有帳戶?點此註冊</p>
 		</div>
-	</div><!-- //class="login-modal" -->
+	</div>
 	<div class="modal-dialog1" id="hide">
 		<div class="color"></div>
 		<div class="loginmodal-container"></div>
 		<div class="login-title">
 			<p id="loginHelp-title">註冊會員帳號</p>
 			<div class="Xbutton" onclick="onclickXbutton()"></div>
-		</div><!--login  -->
+		</div>
 		<div class="login-input">
-			<form method="post">
-				<input id="username" name="signupUsername" placeholder="輸入姓名" type="text"> <input id="email1" name="signupEmail" placeholder="輸入電子信箱" type="email" required> 
-				<input id="password1" name="signupPassword" onkeydown="if (event.keyCode == 13) {loginbutton.focus();}" placeholder="輸入密碼" type="password" pattern="[a-zA-Z0-9]{7,}" required autocomplete="off">
-				<div class="getSingupData" onclick="getSignupData()" onkeydown="enter(event);">
-					<input class="login loginmodal-button" data-action="submit" id="signupbutton" name="login" type="button" value="註冊新帳戶" autocomplete="on">
+			<form id="signupForm" method="post" name="signupForm">
+				<input id="username" name="signupUsername" placeholder="輸入姓名" type="text"> <input id="email1" name="signupEmail" onkeydown=" validateEmail1()" placeholder="輸入電子信箱" type="email"> <input id="password1" name="signupPassword" onkeydown="if (event.keyCode == 13) {signupbutton.focus();}" placeholder="輸入密碼" type="password">
+				<div class="getSingupData" onclick="getSignupData()">
+					<input class="login loginmodal-button" data-action="submit" id="signupbutton" name="login" onsubmit="validateButton()" type="button" value="註冊新帳戶">
 				</div>
 			</form>
 		</div>
@@ -50,24 +49,24 @@
 			<p>註冊失敗請重新輸入</p>
 		</div>
 		<div class="signupError2" id="hide">
-			<p>帳號或密碼不可為空值</p>
+			<p>帳號或密碼及mail不可為空值</p>
 		</div>
 		<div class="signupOk" id="hide">
 			<p>註冊成功!</p>
 		</div>
 		<div class="login-help">
 			<p id="singupHelp" onclick="onclickloginHelp1()">已有帳戶了?點此登入</p>
-		</div><!--login  -->
-	</div><!--loginmodal  -->
+		</div>
+	</div>
 	<div class="black" id="hide" onclick="onclickBlack()"></div>
 	<div class="headerContainer">
 		<header>
 			<div class="logo">
-				<a href="http://54.243.128.73:3000/">台北一日遊</a>
+				<a href="/">台北一日遊</a>
 			</div>
 			<div class="menuContainer"></div>
 			<div class="menu">
-				<a>預定行程</a> <a class="loginClick" id="loginClick" onclick="loginClock()">登入/註冊</a> <a class="logoutClick" id="hide" onclick="logoutClick()">登出系統</a>
+				<a class="bookingAttraction" id="bookingAttraction" onclick="bookingAttractionTitle()">預定行程</a> <a class="loginClick" id="loginClick" onclick="loginClock()">登入/註冊</a> <a class="logoutClick" id="hide" onclick="logoutClick()">登出系統</a>
 			</div>
 		</header>
 	</div>
@@ -104,20 +103,18 @@
 				<div class="bookingDetail">
 					<div class="date">
 						<p class="bookingTextB" data-item="dateText">選擇日期：</p>
-						<form class="dateForm">
-							<div class="dateSubmit" onclick="searchKeyword();" onkeydown="enter(event);">
-								<input id="dateinput" tabindex="0" type="date">
-							</div>
-						</form>
+						<div class="dateSubmit">
+							<input id="dateinput" name="dateSubmit" tabindex="0" type="date">
+						</div>
 					</div>
 					<div class="time">
 						<p class="bookingTextB" data-item="timeText">選擇時間：</p>
-						<form class="timeForm">
+						<form class="timeForm" id="timeForm" name="timeForm">
 							<div class="timeSubmit">
-								<label for=""></label> <input id="radioinput" name="radio" tabindex="0" type="radio">
-								<p class="bookingText" data-item="morning">上半天</p><input id="radioinput1" name="radio" tabindex="0" type="radio">
+								<input id="radioinput" name="radio" tabindex="0" type="radio" value="morning">
+								<p class="bookingText" data-item="morning">上半天</p><input id="radioinput1" name="radio" tabindex="0" type="radio" value="afternoon">
 								<p class="bookingText" data-item="afternoon">下半天</p>
-							</div>
+							</div><!-- </form> -->
 						</form>
 					</div>
 					<div class="fee">
@@ -127,23 +124,21 @@
 					</div>
 				</div>
 				<div class="bookingButton">
-					<div class="bookingSubmit" onclick="searchKeyword();" onkeydown="enter(event);">
+					<div class="bookingSubmit" onclick="bookingAttraction()">
 						<input id="bookingInput" tabindex="0" type="button" value="開始預訂行程">
 					</div>
 				</div>
 			</div>
 		</div>
-	
-	
-	<div class="introduceAttractions">
-		<hr>
-		<p class="introduceText" data-item="introduceText">大稻埕原是平埔族的居住地，因萬華（艋舺）同安人發生激烈的械鬥，造成族人移至大稻埕定居，開始大稻埕淡水河旁商店和房屋的興建，淡水港開放後，大稻埕在劉銘傳的治理下成為臺北城最繁華的物資集散中心，當中以茶葉、布料為主要貿易交易，當時的延平北路及貴德街一帶便是商業活動的重心，也讓大稻埕早年的歷史多采多姿、令人回味。</p>
-		<p class="bookingTextB" data-item="introduceAddressTitle">景點地址：</p>
-		<p class="introduceText" data-item="introduceAddress">大稻埕原是平埔族的居住地，因萬華（艋舺）同安人發生激烈的械鬥，造成族人移至大稻埕定居，開始大稻埕淡水河旁商店和房屋的興建，淡水港開放後，大稻埕在劉銘傳的治理下成為臺北城最繁華的物資集散中心，當中以茶葉、布料為主要貿易交易，當時的延平北路及貴德街一帶便是商業活動的重心，也讓大稻埕早年的歷史多采多姿、令人回味。</p>
-		<p class="bookingTextB" data-item="introduceTransportationTitle">交通方式：</p>
-		<p class="introduceText" data-item="introduceTransportation">捷運站名：雙連站，轉乘紅33(固定班次)於大稻埕碼頭站下車。公車：9、206、274、641、669、704至大稻埕碼頭站及255、518、539至民生西路口站，再沿民生西路底方向步行約10分鐘抵達。 開車：沿著環河北路依大稻埕碼頭入口指引便可抵達。</p>
-	</div>
-</main>
+		<div class="introduceAttractions">
+			<hr>
+			<p class="introduceText" data-item="introduceText">大稻埕原是平埔族的居住地，因萬華（艋舺）同安人發生激烈的械鬥，造成族人移至大稻埕定居，開始大稻埕淡水河旁商店和房屋的興建，淡水港開放後，大稻埕在劉銘傳的治理下成為臺北城最繁華的物資集散中心，當中以茶葉、布料為主要貿易交易，當時的延平北路及貴德街一帶便是商業活動的重心，也讓大稻埕早年的歷史多采多姿、令人回味。</p>
+			<p class="bookingTextB" data-item="introduceAddressTitle">景點地址：</p>
+			<p class="introduceText" data-item="introduceAddress">大稻埕原是平埔族的居住地，因萬華（艋舺）同安人發生激烈的械鬥，造成族人移至大稻埕定居，開始大稻埕淡水河旁商店和房屋的興建，淡水港開放後，大稻埕在劉銘傳的治理下成為臺北城最繁華的物資集散中心，當中以茶葉、布料為主要貿易交易，當時的延平北路及貴德街一帶便是商業活動的重心，也讓大稻埕早年的歷史多采多姿、令人回味。</p>
+			<p class="bookingTextB" data-item="introduceTransportationTitle">交通方式：</p>
+			<p class="introduceText" data-item="introduceTransportation">捷運站名：雙連站，轉乘紅33(固定班次)於大稻埕碼頭站下車。公車：9、206、274、641、669、704至大稻埕碼頭站及255、518、539至民生西路口站，再沿民生西路底方向步行約10分鐘抵達。 開車：沿著環河北路依大稻埕碼頭入口指引便可抵達。</p>
+		</div>
+	</main>
 	<footer>
 		<p>copyright ©2022台北一日遊</p>
 	</footer>

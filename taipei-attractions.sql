@@ -16,6 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `booking_data`
+--
+
+DROP TABLE IF EXISTS `booking_data`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `booking_data` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `attractionId` bigint NOT NULL,
+  `date` varchar(20) NOT NULL,
+  `time` varchar(20) NOT NULL,
+  `price` varchar(20) NOT NULL,
+  `mail` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `booking_data`
+--
+
+LOCK TABLES `booking_data` WRITE;
+/*!40000 ALTER TABLE `booking_data` DISABLE KEYS */;
+/*!40000 ALTER TABLE `booking_data` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `data`
 --
 
@@ -84,7 +111,7 @@ CREATE TABLE `user_data` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,7 +120,7 @@ CREATE TABLE `user_data` (
 
 LOCK TABLES `user_data` WRITE;
 /*!40000 ALTER TABLE `user_data` DISABLE KEYS */;
-INSERT INTO `user_data` VALUES (1,'朵朵','abc@mail.com','12345');
+INSERT INTO `user_data` VALUES (1,'朵朵','abc@mail.com','12345'),(2,'123','456','789'),(3,'123456','eewew','123'),(4,'123','852','741=='),(5,'458','423','==='),(6,'cdcds','ds','dsvds'),(7,'456','789','123'),(8,'123','458','==='),(9,'','445','4856'),(10,'sadsad','asdasd','sssadasd'),(11,'852','741','963'),(12,'dfsf','asfsf','asff'),(13,'fkl;f,l;','kdsod;f','djff;fs'),(14,'fkflw;','jdisfdj','dsiofjl'),(15,'siadal','kds;d','djiofds;'),(16,'dkasl','kdfwe;','kdofk'),(17,'fopewfl','kladfkd','kfwef'),(18,'klfw','dklfdw','dkflwe'),(19,'dfk;al','kdsof','k;fkwe'),(20,'hueiping','bubucc0629@gmail.com','123456'),(21,'dkfldsf','dskfjskdfl','sadasda');
 /*!40000 ALTER TABLE `user_data` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -106,4 +133,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-25  1:05:59
+-- Dump completed on 2022-04-02  0:38:23

@@ -1,194 +1,12 @@
-// function enter(event) {
-// 	if (event.keyCode == 13) {
-// 		searchKeyword();
-// 	}
-// }
-//首頁代入瀑布流
-async function index(endpoint, pages) {
-	//連接
-	await fetch(`${endpoint}?page=${pages}`, {
-		method: "get",
-		mode: "cors",
-		headers: {
-			"Content-Type": "application/json"
-		}
-	}, ).then(res => {
-		return res.json();
-	}).then(jsonData => {
-		countData = jsonData.data.length;
-		let items = document.querySelector("#item");
-		for (i = 0; i < jsonData.data.length; i++) {
-			id = jsonData.data[i].id;
-			names = jsonData.data[i].name;
-			mrts = jsonData.data[i].mrt;
-			categories = jsonData.data[i].category;
-			images = jsonData.data[i].images[0];
-			let imgEle = document.createElement('img');
-			imgEle.setAttribute('src', images);
-			const post = document.createElement('div');
-			post.setAttribute("id", "item0");
-			post.innerHTML = `
-        <div id="img"><img src="${images}"></div>
-        <p id="nametext"><a href="/attraction/${id}">${names}<a></p>
-        <div class="texts">
-        <p id="mrttext">${mrts}</p>
-        <div class="textContainer"></div>
-        <p id="text">${categories}</p>`;
-			items.parentNode.appendChild(post);
-		}
-		nextPageData(jsonData);
-	})
-}
-//傳入首頁瀑布流
-const endpoint = "/api/attractions";
-index(endpoint, 0);
-//尋找資料>給定初次搜尋某關鍵字的頁數
-function searchKeyword() {
-	let keywordValue = document.querySelector("#searchData").value;
-	let pages = 0;
-	if (document.querySelector("#item2")) {
-		let item2 = document.querySelectorAll("#item2");
-		let main = document.querySelector("#searchResult");
-		let footer = document.querySelector("footer");
-		let count = searchResult.childElementCount;
-		for (let i = 0; i < count - 1; i++) {
-			if (document.querySelectorAll("#item2")) {
-				searchResult.removeChild(item2[i]);
-			}
-		}
+function enter(event) {
+	if (event.keyCode == 13) {
+		searchKeyword();
 	}
-	getError(pages, keywordValue);
-}
-//判斷是否為error，否則dataPrint尋找資料>獲取資訊
-async function getError(pages, searchValue) {
-	let keywordValue = document.querySelector("#searchData").value;
-	let fetchApi = await fetch(`/api/attractions?page=${pages}&keyword=${keywordValue}`);
-	let jsonData = await fetchApi.json();
-	if (jsonData.error == "true") {
-		if (document.querySelector("#error")) {
-			let error = document.querySelector("#error");
-		}
-		showError();
-	} else {
-		if (document.querySelector("#error")) {
-			let error = document.querySelector("#error");
-			error.setAttribute("id", "hide0");
-		}
-		if (document.querySelector("#hide")) {
-			let searchResult = document.querySelector("#hide");
-			searchResult.setAttribute("id", "searchResult");
-		}
-		dataPrint(jsonData);
-	}
-}
-//error頁面調整
-function showError() {
-	if (document.querySelector("main")) {
-		let main = document.querySelector("main");
-		main.setAttribute("id", "hide")
-	}
-	let hide = document.querySelector("#hide0");
-	hide.setAttribute("id", "error");
-}
-
-function dataPrint(jsonData) {
-	if (document.querySelector("#main")) {
-		let mains = document.querySelector("#main");
-		mains.remove();
-	}
-	let searchResult = document.querySelector("#searchResult");
-	let items = document.querySelector("#item1");
-	countData = jsonData.data.length;
-	for (i = 0; i < jsonData.data.length; i++) {
-		id = jsonData.data[i].id;
-		names = jsonData.data[i].name;
-		mrts = jsonData.data[i].mrt;
-		categories = jsonData.data[i].category;
-		images = jsonData.data[i].images[0];
-		let imgEle = document.createElement('img');
-		imgEle.setAttribute('src', images);
-		const post = document.createElement('div');
-		post.setAttribute("id", "item2");
-		post.innerHTML = `
-        <div id="img"><img src="${images}"></div>
-        <p id="nametext"><a href="/api/attractions/${id}">${names}<a></p>
-        <div class="texts">
-        <p id="mrttext">${mrts}</p>
-        <div class="textContainer"></div>
-        <p id="text">${categories}</p>`;
-		items.parentNode.appendChild(post);
-	}
-	nextdata(jsonData);
-}
-
-function nextdata(jsonData) {
-	const pages = jsonData.nextpage;
-	if (pages != "null") {
-		searchInfiniteScroll(pages);
-	}
-}
-///下一頁資訊
-function nextPageData(jsonData) {
-	const pages = jsonData.nextpage;
-	if (pages != "null") {
-		infiniteScroll(pages);
-	}
-}
-//首頁瀑布流
-function infiniteScroll(pages) {
-	let keywordValue = document.querySelector("#searchData").value;
-	const root = document.querySelector('#root');
-	const rootObserve = document.querySelector('#rootContainer')
-	const callback = ([entry]) => {
-		if (entry.isIntersecting) {
-			let ready = false;
-			if (pages) {
-				index("/api/attractions", pages);
-				pages = false;
-			} else if (document.querySelector("#hide")) {
-				observer.unobserve(rootObserve);
-			}
-		}
-	}
-	const options = {
-		root: root,
-		rootMargin: "-40px",
-		threshold: 1
-	}
-	const observer = new IntersectionObserver(callback, options);
-	observer.observe(rootObserve);
-}
-//搜尋系統瀑布流
-function searchInfiniteScroll(pages) {
-	let keywordValue = document.querySelector("#searchData").value;
-	const root = document.querySelector('#root0');
-	const rootObserve = document.querySelector('#rootContainer0')
-	const callback = ([entry]) => {
-		if (entry.isIntersecting) {
-			let ready = false;
-			if (pages) {
-				getError(pages, keywordValue);
-				pages = false;
-			}
-		} else if (pages == null) {
-			observer.unobserve(rootObserve);
-			ready = false;
-		}
-	}
-	const options = {
-		root: root,
-		rootMargin: "-40px",
-		threshold: 1
-	}
-	const observer = new IntersectionObserver(callback, options);
-	observer.observe(rootObserve);
 }
 let modalDialog = document.querySelector(".modal-dialog");
 let bgcBlack = document.querySelector(".black");
 let modalDialog1 = document.querySelector(".modal-dialog1");
 let Xbutton = document.querySelector(".Xbutton");
-let signInError = document.querySelector(".signInError");
-let signupError = document.querySelector('.signupError');
 
 function loginClock() {
 	bgcBlack.setAttribute("id", "black");
@@ -228,7 +46,7 @@ function onclickloginHelp1() {
 	modalDialog.setAttribute("id", "modalDialog");
 	modalDialog1.setAttribute("id", "hide");
 }
-let url = "/api/user";
+let apiUserUrl = "/api/user";
 async function getSignupData() {
 	let signupError2 = document.querySelector(".signupError2")
 	let signupError = document.querySelector('.signupError');
@@ -245,7 +63,7 @@ async function getSignupData() {
 		"email": email1,
 		"password": password1
 	};
-	fetch(url, {
+	fetch(apiUserUrl, {
 		method: "POST",
 		body: JSON.stringify(data),
 		headers: new Headers({
@@ -259,7 +77,7 @@ async function getSignupData() {
 			signupError.setAttribute("id", "signupError");
 			signupOk.setAttribute("id", "hide");
 		} else if (jsonData.ok) {
-			signupError.setAttribute("id", "hide0");
+			signupError.setAttribute("id", "hide");
 			signupOk.setAttribute("id", "signupOk");
 		}
 	}).catch(err => {})
@@ -277,7 +95,7 @@ async function getSignInData() {
 		"password": password
 	};
 	let modalDialog = document.querySelector('#modal-dialog');
-	await fetch(url, {
+	await fetch(apiUserUrl, {
 		method: "PATCH",
 		body: JSON.stringify(data),
 		headers: new Headers({
@@ -293,11 +111,13 @@ async function getSignInData() {
 			signInError.setAttribute("id", "hide");
 			loginClick.setAttribute("id", "hide");
 			logoutClick.setAttribute("id", "logoutClick");
+			modalDialog.style.height = '275px';
 			reload();
 		}
 	})
 }
 async function userCheck() {
+	let url = "/api/user";
 	let loginClick = document.querySelector(".loginClick");
 	let logoutClick = document.querySelector(".logoutClick");
 	let fetchApi = await fetch(url);
@@ -310,7 +130,61 @@ async function userCheck() {
 		logoutClick.setAttribute("id", "hide");
 	}
 }
+async function bookingUserCheck() {
+	let loginClick = document.querySelector(".loginClick");
+	let logoutClick = document.querySelector(".logoutClick");
+	let userName = document.querySelector("#userName");
+	let nameinfor = document.querySelector("#nameinfor");
+	let mailinfor = document.querySelector("#mailinfor");
+	let url = "/api/user";
+	let fetchApi = await fetch(url);
+	let jsonData = await fetchApi.json();
+	if (jsonData.data == "null") {
+		document.location.href = "/";
+	} else {
+		loginClick.setAttribute("id", "hide");
+		logoutClick.setAttribute("id", "logoutClick");
+		userName.textContent = jsonData.data.name
+		nameinfor.value = jsonData.data.name
+		mailinfor.value = jsonData.data.email
+		getBookingApi();
+	}
+}
+let apiBookingUrl = "/api/booking"
+async function getBookingApi() {
+	let fetchApi = await fetch(apiBookingUrl);
+	let jsonData = await fetchApi.json();
+	if (jsonData.data) {
+		let titleText = document.querySelector(".inforAttractions");
+		let bookingDate = document.querySelector("#bookingDate");
+		let bookingTime = document.querySelector("#bookingTime");
+		let bookingFee = document.querySelector("#bookingFee");
+		let bookingAddress = document.querySelector("#bookingAddress");
+		let bookingimg = document.querySelector("#img");
+		titleText.textContent = jsonData.data.attraction.name
+		bookingDate.textContent = jsonData.data.date
+		bookingAddress.textContent = jsonData.data.attraction.address
+		bookingimg.innerHTML = `<img src="${jsonData.data.attraction.image}"></img>`
+		if (jsonData.data.time == "morning") {
+			bookingTime.textContent = "早上9點至中午12點"
+		} else {
+			bookingTime.textContent = "下午1點至下午4點"
+		}
+		if (jsonData.data.price == "2000") {
+			bookingFee.textContent = "新台幣 2000元"
+		} else {
+			bookingFee.textContent = "新台幣 2500元"
+		}
+	} else if (jsonData.error) {
+		let main = document.querySelector("#main");
+		let inforTexthHide = document.querySelector(".inforTextHide");
+		let headline = document.querySelector("#headline");
+		main.setAttribute("id", "hide");
+		inforTexthHide.setAttribute("id", "inforTexthHide");
+	}
+}
 async function logoutClick() {
+	let url = "/api/user";
 	let request = {
 		method: "DELETE",
 	}
@@ -321,18 +195,18 @@ async function logoutClick() {
 	if (jsonData.ok) {
 		loginClick.setAttribute("id", "loginClick");
 		logoutClick.setAttribute("id", "hide");
+		location.reload("/");
 	}
-	history.go(0);
+	reload()
 }
-async function bookingAttraction() {
-	let url = "/api/user";
-	let fetchApi = await fetch(url);
+async function deleteBooking() {
+	let request = {
+		method: "DELETE",
+	}
+	let fetchApi = await fetch(apiBookingUrl, request);
 	let jsonData = await fetchApi.json();
-	if (jsonData.data.email) {
-		// document.location.href="/booking";
-		document.location.href = "/booking";
-	} else if (jsonData.data == "null") {
-		loginClock();
+	if (jsonData.ok) {
+		reload();
 	}
 }
 
@@ -400,4 +274,28 @@ function validateButton2() {
 
 function reload() {
 	history.go(0);
+}
+
+function input_onchange(me) {
+	if (me.value.length < me.getAttribute('maxlength') - 1) {
+		return;
+	}
+	var i;
+	var elements = me.form.elements;
+	for (i = 0, numElements = elements.length; i < numElements; i++) {
+		if (elements[i] == me) {
+			break;
+		}
+	}
+	elements[i + 1].focus();
+}
+async function bookingAttraction() {
+	let url = "/api/user";
+	let fetchApi = await fetch(url);
+	let jsonData = await fetchApi.json();
+	if (jsonData.data.email) {
+		document.location.href = "/booking";
+	} else if (jsonData.data == "null") {
+		loginClock();
+	}
 }

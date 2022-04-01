@@ -137,7 +137,7 @@ body {
 input:focus {
 	box-shadow: 1px 2px 1px #cccccc;
 }
-#loginbutton,#signupbutton {
+#loginbutton, #signupbutton {
 	background-color: #448899;
 	border-top-right-radius: 5px;
 	border-top-left-radius: 5px;
@@ -235,6 +235,9 @@ header .menu {
 	padding-right: 20px;
 	width: 64px;
 	height: 14px;
+}
+.menu>a:hover {
+	color: #66AABB;
 }
 main {
 	display: flex;
@@ -599,35 +602,34 @@ footer>p {
 		padding: 0;
 		margin-top: 37px;
 		margin-bottom: 50px;
-
 		max-width: 1200px;
 	}
-	.bookingTextB[data-item=introduceAddressTitle],.bookingTextB[data-item=introduceTransportationTitle]{
+	.bookingTextB[data-item=introduceAddressTitle], .bookingTextB[data-item=introduceTransportationTitle] {
 		padding-left: 10px;
 		padding-right: 10px;
 	}
-	.introduceText[data-item=introduceText],.introduceText[data-item=introduceAddress],.introduceText[data-item=introduceTransportation]{
+	.introduceText[data-item=introduceText], .introduceText[data-item=introduceAddress], .introduceText[data-item=introduceTransportation] {
 		padding-left: 10px;
 		padding-right: 10px;
 	}
 }
 @media (max-width:600px) {
-    .modal-dialog {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 300px;
-        margin: auto;
-    }
-    .modal-dialog1 {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 300px;
-        margin: auto;
-    }
+	.modal-dialog {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 300px;
+		margin: auto;
+	}
+	.modal-dialog1 {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 300px;
+		margin: auto;
+	}
 	main .bookingTour .bookingContainer {
 		padding-bottom: 20px;
 		;

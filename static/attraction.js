@@ -55,7 +55,7 @@ async function attraction(endpoint, url) {
 }
 let getUrlString = location.pathname;
 let url = getUrlString.split("/");
-let endpoint = "http://54.243.128.73:3000/api/attractions"
+let endpoint = "/api/attractions"
 attraction(endpoint, url[2]);
 //輪播
 let pages = 0;
@@ -150,12 +150,23 @@ function onclickBlack() {
 	bgcBlack.setAttribute("id", "hide");
 	modalDialog.setAttribute("id", "hide");
 	modalDialog1.setAttribute("id", "hide");
+	if (signInError.id =="signInError"){
+		signInError.setAttribute("id", "hide");
+		}
+	if (signupError.id =="signupError"){
+		signupError.setAttribute("id", "hide");}
 }
 
 function onclickXbutton() {
 	bgcBlack.setAttribute("id", "hide");
 	modalDialog.setAttribute("id", "hide");
 	modalDialog1.setAttribute("id", "hide");
+	if (signInError.id =="signInError"){
+	signInError.setAttribute("id", "hide");
+	}
+	if (signupError.id =="signupError"){
+	signupError.setAttribute("id", "hide");}
+
 }
 
 function onclickloginHelp() {
@@ -167,7 +178,7 @@ function onclickloginHelp1() {
 	modalDialog.setAttribute("id", "modalDialog");
 	modalDialog1.setAttribute("id", "hide");
 }
-let apiUserUrl = "http://54.243.128.73:3000/api/user";
+let apiUserUrl = "/api/user";
 async function getSignupData() {
 	let signupError2=document.querySelector(".signupError2")
 	let signupError = document.querySelector('.signupError');
@@ -194,7 +205,6 @@ async function getSignupData() {
 		return res.json()
 	}).then(jsonData => {
 		modalDialog1.style.height = '352px';
-		console.log(jsonData.message);
 		if (jsonData.error) {
 			signupError.setAttribute("id", "signupError");
 			signupOk.setAttribute("id", "hide");
@@ -229,7 +239,6 @@ async function getSignInData() {
 		if (jsonData.error) {
 			signInError.setAttribute("id", "signInError");
 			modalDialog.style.height = '295px';
-			console.log(jsonData);
 		} else if (jsonData.ok) {
 			signInError.setAttribute("id", "hide");
 			loginClick.setAttribute("id", "hide");
@@ -240,7 +249,7 @@ async function getSignInData() {
 	})
 }
 async function userCheck() {
-	let url = "http://54.243.128.73:3000/api/user";
+	let url = "/api/user";
 	let loginClick = document.querySelector(".loginClick");
 	let logoutClick = document.querySelector(".logoutClick");
 	let fetchApi = await fetch(url);
@@ -254,7 +263,7 @@ async function userCheck() {
 	}
 }
 async function logoutClick() {
-	let url = "http://54.243.128.73:3000/api/user";
+	let url = "/api/user";
 	let request = {
 		method: "DELETE",
 	}
@@ -265,7 +274,7 @@ async function logoutClick() {
 	if (jsonData.ok) {
 		loginClick.setAttribute("id", "loginClick");
 		logoutClick.setAttribute("id", "hide");
-		location.reload("http://54.243.128.73:3000/");
+		location.reload("/");
 	}
 	reload()
 }
@@ -273,3 +282,164 @@ async function logoutClick() {
 function reload() {
 	history.go(0);
 }
+async function bookingAttraction(){
+	let url = "/api/user";
+	let fetchApi = await fetch(url);
+	let jsonData = await fetchApi.json();
+	let dateinput = document.querySelector("#dateinput").value;
+	let titleText = document.querySelector(".titleText");
+	let getUrlString = location.pathname;
+	let data = {
+		"attractionId":url[2],
+		"date": dateinput,
+		"time": radioinput(),
+		"price":price()
+	};
+	timeData=data.time
+	if (dateinput == ""){
+		return false;
+	}
+	else if( timeData==null){
+		return false;
+	}
+	if (jsonData.data.email) {
+		return booking();
+	} else if (jsonData.data == "null") {
+		loginClock();
+		
+	}
+
+}
+
+let apiBookingUrl="/api/booking"
+async function booking(){
+	let dateinput = document.querySelector("#dateinput").value;
+	let titleText = document.querySelector(".titleText");
+	let getUrlString = location.pathname;
+	let url = getUrlString.split("/");
+	let data = {
+		"attractionId":url[2],
+		"date": dateinput,
+		"time": radioinput(),
+		"price":price()
+	};
+	fetch(apiBookingUrl, {
+		method: "POST",
+		body: JSON.stringify(data),
+		headers: new Headers({
+			"Content-Type": "application/json"
+		})
+	}).then(res => {
+		return res.json();
+	}).then(jasonData=>{
+		if(jasonData.ok){
+		document.location.href="/booking";
+		return false; }
+	}).catch(err => {
+		return "true";
+	})
+}
+function price(){
+	let radioinput = document.querySelector("#timeForm").radio;
+	for (let i = 0;i<radioinput.length;i++){
+		if(radioinput[i].checked){
+			radio=radioinput[i].value
+			if (radio=="morning"){
+				let price = 2000;
+				return price;
+			}else{
+				let price = 2500;
+				return price;
+			}
+		}
+	}
+	
+}
+function radioinput(){
+	let radioinput = document.querySelector("#timeForm").radio;
+	for (let i = 0;i<radioinput.length;i++){
+		if(radioinput[i].checked){
+			radio=radioinput[i].value
+			return radio
+		}
+	}
+	
+}
+async function bookingAttractionTitle(){
+	let url = "/api/user";
+	let fetchApi = await fetch(url);
+	let jsonData = await fetchApi.json();
+	
+	if (jsonData.data.email) {
+		document.location.href="/booking";
+	} else if (jsonData.data == "null") {
+		loginClock();
+		
+	}
+
+}
+function validateEmail(){
+	let inputsValue=document.forms["loginForm"]["signinEmail"].value;
+	let inputs=document.querySelector("#email")
+	let atpos=inputsValue.indexOf("@");
+	let dotpos=inputsValue.lastIndexOf(".");
+	if (atpos<1 || dotpos<atpos+2 || dotpos+2>=inputsValue.length){
+		inputs.classList.add("invalid");
+		inputs.classList.remove("valid");
+		inputs.style.border="#f5898f 2px solid";
+	}
+	else{
+		inputs.classList.add("valid");
+		inputs.classList.remove("invalid");
+		inputs.style.border="#337788 2px solid";
+	}
+}
+function validateEmail1(){
+	let inputsValue=document.forms["signupForm"]["signupEmail"].value;
+	let inputs=document.querySelector("#email1")
+	let atpos=inputsValue.indexOf("@");
+	let dotpos=inputsValue.lastIndexOf(".");
+	if (atpos<1 || dotpos<atpos+2 || dotpos+2>=inputsValue.length){
+		inputs.classList.add("invalid");
+		inputs.classList.remove("valid");
+		inputs.style.border="#f5898f 2px solid";
+	}
+	else{
+		inputs.classList.add("valid");
+		inputs.classList.remove("invalid");
+		inputs.style.border="#337788 2px solid";
+	}
+}
+function validateButton()
+{
+	let x=document.forms["loginForm"]["signinPassword"].value;
+	let loginbutton=document.querySelector("#loginbutton")
+	if (x==null || x==""){
+		return false;
+	}else{
+		loginbutton.focus();
+	}
+}
+function validateButton1()
+{
+	let x=document.forms["signupForm"]["signupPassword"].value;
+	let signupbutton=document.querySelector("#signupbutton")
+	if (x==null || x==""){
+		return false;
+	}else{
+		signupbutton.focus();
+	}
+}
+function validateButton2()
+{
+	let x=document.forms["searchForm"]["searchData"].value;
+	let submit=document.querySelector("#submit")
+	if (x==null || x==""){
+		reload();
+	}else{
+		submit.focus();
+	}
+}
+let today = new Date().toISOString().split('T')[0];
+document.getElementsByName("dateSubmit")[0].setAttribute('min', today);
+

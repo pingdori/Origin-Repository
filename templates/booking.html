@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<title>預定行程</title>
+	<link href="/static/booking.css" rel="stylesheet" type="text/css">
+</head>
+<body onload="bookingUserCheck()">
+	<div class="modal-dialog" id="hide">
+		<div class="color"></div>
+		<div class="loginmodal-container"></div>
+		<div class="login-title">
+			<p id="loginHelp-title">登入會員帳號</p>
+			<div class="Xbutton" onclick="onclickXbutton()"></div>
+		</div>
+		<div class="login-input">
+			<form id="loginForm" method="patch" name="loginForm">
+				<input id="email" name="signinEmail" onkeydown="validateEmail()" placeholder="輸入電子信箱" type="email"> <input id="password" name="signinPassword" onkeydown="if (event.keyCode == 13) {loginbutton.focus();}" placeholder="輸入密碼" type="password">
+				<div class="getSingupData" onclick="getSignInData()">
+					<input class="login loginmodal-button" id="loginbutton" name="login" type="button" value="登入帳號">
+				</div>
+			</form>
+		</div>
+		<div class="signInError" id="hide">
+			<p>請重新輸入</p>
+		</div>
+		<div class="login-help">
+			<p id="singupHelp" onclick="onclickloginHelp()">還沒有帳戶?點此註冊</p>
+		</div>
+	</div>
+	<div class="modal-dialog1" id="hide">
+		<div class="color"></div>
+		<div class="loginmodal-container"></div>
+		<div class="login-title">
+			<p id="loginHelp-title">註冊會員帳號</p>
+			<div class="Xbutton" onclick="onclickXbutton()"></div>
+		</div>
+		<div class="login-input">
+			<form id="signupForm" method="post" name="signupForm">
+				<input id="username" name="signupUsername" placeholder="輸入姓名" type="text"> <input id="email1" name="signupEmail" onkeydown=" validateEmail1()" placeholder="輸入電子信箱" type="email"> <input id="password1" name="signupPassword" onkeydown="if (event.keyCode == 13) {signupbutton.focus();}" placeholder="輸入密碼" type="password">
+				<div class="getSingupData" onclick="getSignupData()">
+					<input class="login loginmodal-button" data-action="submit" id="signupbutton" name="login" onsubmit="validateButton()" type="button" value="註冊新帳戶">
+				</div>
+			</form>
+		</div>
+		<div class="signupError" id="hide">
+			<p>註冊失敗請重新輸入</p>
+		</div>
+		<div class="signupError2" id="hide">
+			<p>帳號或密碼及mail不可為空值</p>
+		</div>
+		<div class="signupOk" id="hide">
+			<p>註冊成功!</p>
+		</div>
+		<div class="login-help">
+			<p id="singupHelp" onclick="onclickloginHelp1()">已有帳戶了?點此登入</p>
+		</div>
+	</div>
+	<div class="black" id="hide" onclick="onclickBlack()"></div>
+	<div class="headerContainer">
+		<header>
+			<div class="logo">
+				<a href="/">台北一日遊</a>
+			</div>
+			<div class="menuContainer"></div>
+			<div class="menu">
+				<a class="bookingAttraction" id="bookingAttraction" onclick="bookingAttraction()">預定行程</a> <a class="loginClick" id="loginClick" onclick="loginClock()">登入/註冊</a> <a class="logoutClick" id="hide" onclick="logoutClick()">登出系統</a>
+			</div>
+		</header>
+	</div>
+	<div class="titlebanner"></div>
+	<div id="headlineCon">
+		<div id="headline">
+			<p class="titleText" data-item="Hello">您好，</p>
+			<p class="titleText" data-item="name" id="userName">Yakko</p>
+			<p class="titleText" data-item="text01">，待預定的行程如下:</p>
+		</div>
+		<p class="inforTextHide" data-item="nothing" id="hide">目前沒有任何待預訂的行程</p>
+	</div>
+	<main id="main">
+		<div class="infor">
+			<div id="picture">
+				<div id="img"></div>
+			</div>
+			<div class="inforTexts">
+				<div class="inforTitlet">
+					<p class="inforTitleText">台北一日遊：</p>
+					<p class="inforAttractions">平安鐘</p>
+					<div class="Container"></div>
+					<div id="delete" onclick="deleteBooking()"></div>
+				</div>
+				<div class="date">
+					<p class="inforTextB" data-item="dateText">日期：</p>
+					<p class="inforText" data-item="bookingDate" id="bookingDate">2021-04-23</p>
+				</div>
+				<div class="time">
+					<p class="inforTextB" data-item="timeText">時間：</p>
+					<p class="inforText" data-item="bookingTime" id="bookingTime">早上9點到下午4點</p>
+				</div>
+				<div class="fee">
+					<p class="inforTextB" data-item="feeText">費用：</p>
+					<p class="inforText" data-item="bookingFee" id="bookingFee">新台幣2000元</p>
+				</div>
+				<div class="address">
+					<p class="inforTextB" data-item="addressText">地點：</p>
+					<p class="inforText" data-item="bookingAddress" id="bookingAddress">臺北市 大安區忠孝東路4段</p>
+				</div>
+			</div>
+		</div>
+		<div class="delete0">
+			<div class="Container"></div>
+			<div id="delete0" onclick="deleteBooking()"></div>
+		</div>
+		<hr>
+		<div class="inforData">
+			<p class="titleText" data-item="contactInfor">您的聯絡資訊</p>
+			<form id="userinforForm" name="userinforForm"></form>
+			<div class="nameinfor">
+				<p class="inforText" data-item="nameInforText">聯絡姓名：</p><input id="nameinfor" name="nameinfor" type="text" value="Yakko">
+			</div>
+			<div class="mailinfor">
+				<p class="inforText" data-item="mailInforText">聯絡信箱：</p><input id="mailinfor" name="mailinfor" type="text" value="iamYakko@gmail.com">
+			</div>
+			<div class="phoneinfor">
+				<p class="inforText" data-item="phoneInforText">手機號碼：</p><input id="phoneinfor" name="phoneinfor" type="text">
+			</div>
+			<p class="titleTextL" data-item="remind">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</p>
+		</div>
+		<hr>
+		<div class="paymentData">
+			<p class="titleText" data-item="paymentInfor">信用卡付款資訊</p>
+			<div id="creditCard">
+				<p class="inforText" data-item="cardNumText">卡片號碼：</p>
+				<div id="card">
+					<form>
+						<input id="first" maxlength="4" onkeypress="input_onchange(this)" size="4" type="password" value=""> <input id="second" maxlength="4" onkeypress="input_onchange(this)" size="4" type="password" value=""> <input id="third" maxlength="4" onkeypress="input_onchange(this)" size="4" type="password" value=""> <input id="fourth" maxlength="4" size="4" type="password" value="">
+					</form>
+				</div>
+			</div>
+			<div class="cardexp">
+				<p class="inforText" data-item="cardexpText">過期時間：</p><input id="cardexp" name="cardexp" type="month" value="iamYakko@gmail.com">
+			</div>
+			<div class="cardpassword">
+				<p class="inforText" data-item="cardpasswordText">驗證密碼：</p><input id="cardpassword" name="cardpassword" type="password">
+			</div>
+		</div>
+		<hr>
+		<div class="confirm">
+			<div class="menuContainer"></div>
+			<div class="confirmData">
+				<p class="titleTextL" data-item="price">總價：新台幣 2000 元</p>
+				<div class="getSingupData" onclick="getSignupData()">
+					<input autocomplete="on" class="confirmButton" data-action="confirm" id="confirmButton" name="confirmButton" type="button" value="確認訂購並付款">
+				</div>
+			</div>
+		</div>
+	</main>
+	<footer>
+		<p>copyright ©2022台北一日遊</p>
+	</footer>
+	<div class="footerBox"></div>
+	<script src="/static/booking.js">
+	</script>
+</body>
+</html>

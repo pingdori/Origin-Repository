@@ -13,12 +13,11 @@ app = Flask(__name__)
 CORS(app)
 app.config.from_object(Config)
 load_dotenv()
-MYSQL_HOST=os.getenv("mysql_host")
-MYSQL_PORT=os.getenv("mysql_port")
-MYSQL_USER=os.getenv("mysql_user")
-MYSQL_PASSWORD=os.getenv("mysql_password")
-SECRET_KEY=os.getenv("secret_key")
-app.secret_key = SECRET_KEY
+MYSQL_HOST = os.environ.get("mysql_host")
+MYSQL_PORT = os.environ.get("mysql_port")
+MYSQL_USER = os.environ.get("mysql_user")
+MYSQL_PASSWORD = os.environ.get("mysql_password")
+app.secret_key = os.environ.get("SECRET_KEY")
 @app.route("/")
 def index():
 	return render_template("index.html")
@@ -38,7 +37,7 @@ def apiAttraction():
 		keywordQuery  =  request.args.get('keyword',None)
 		pageStrquery  =  str(request.args.get('page'))
 		if pageStrquery ==  None:
-			connection = mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
+			connection  =  mysql.connector.connect(host = MYSQL_HOST ,port = MYSQL_PORT ,user = MYSQL_USER ,password = MYSQL_PASSWORD)
 			cursor  =  connection.cursor()
 			cursor.execute("USE `taipei-attractions`")
 			countAll  =  "SELECT count(*) from `data`"
@@ -73,7 +72,7 @@ def apiAttraction():
 		pageQuery = int(request.args.get('page',0))
 		if keywordQuery == None: 	
 			if pageQuery  ==  0 :
-				connection = mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
+				connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
 				cursor  =  connection.cursor()
 				cursor.execute("USE `taipei-attractions`")
 				countAll = "SELECT count(*) from `data`"
@@ -109,7 +108,7 @@ def apiAttraction():
 				cursor.close()
 				connection.close()
 			elif pageQuery > 0:
-				connection = mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
+				connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
 				cursor  =  connection.cursor()
 				cursor.execute("USE `taipei-attractions`")
 				countAll = "SELECT count(*) from `data`"
@@ -161,7 +160,8 @@ def apiAttraction():
 				cursor.close()
 				connection.close()
 		if keywordQuery != None :
-			connection = mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
+			# connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "")
+			connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
 			cursor  =  connection.cursor()
 			cursor.execute("USE `taipei-attractions`")
 			cursor.execute("SELECT count(*)  `name`from `data` where `name` like '%"+request.args.get('keyword',None)+"%' order by `data`.`id`;")
@@ -288,7 +288,8 @@ def apiAttraction():
 @app.route("/api/attractions/<int:id>")
 def attractionID(id):
 	try:
-		connection = mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
+		# connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "")
+		connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
 		cursor  =  connection.cursor()
 		cursor.execute("USE `taipei-attractions`")
 		cursor.execute("SELECT `data`.`id`,`data`.`name`,`category`,`description`,`address`,`transport`,`mrt`,`latitude`,`longitude`,`images` from `data`Join  `data_images` on `data`.`name` = `data_images`.`name` and `data`.`id` like %s ",(id,))
@@ -342,7 +343,8 @@ def user():
 		email=jsonData["email"]
 		password=jsonData["password"]
 		username=jsonData["username"]
-		connection = mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
+		connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
+		# connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "")
 		cursor  =  connection.cursor()
 		cursor.execute("USE `taipei-attractions`")
 		sqlInsert="INSERT INTO `user_data`(`name`,`email`,`password`) VALUES (%s,%s,%s)"
@@ -366,7 +368,8 @@ def user():
 	elif request.method == 'PATCH':
 		email=jsonData["email"]
 		password=jsonData["password"]
-		connection = mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
+		connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
+		# connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "")
 		cursor  =  connection.cursor()
 		cursor.execute("USE `taipei-attractions`")
 		sqlSelect="SELECT `email` FROM `user_data` WHERE `email`=%s and `password`=%s"
@@ -386,8 +389,8 @@ def user():
 		if  session["password"]!=None:
 			emailSession=session["email"]
 			passwordSession=session["password"]
-			connection = mysql.connector.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD)
-			
+			connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
+			# connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "")
 			cursor  =  connection.cursor()
 			cursor.execute("USE `taipei-attractions`")
 			sqlSelect="SELECT `id`,`name`,`email` FROM `user_data` WHERE `email`=%s and `password`=%s"
@@ -409,4 +412,80 @@ def user():
 		signOut={"ok":True}
 		return (jsonify(signOut))
 
+
+@app.route("/api/booking",methods = ["POST","GET","DELETE"])
+def Booking():
+	jsonData=request.json
+	connection  =  mysql.connector.connect(host = "localhost" ,port = "3306" ,user = "root" ,password = "password")
+	cursor  =  connection.cursor()
+	cursor.execute("USE `taipei-attractions`")
+	signInOK={"ok":True}
+	if request.method == 'POST':
+		attractionId=jsonData["attractionId"]
+		session["attractionId"]=attractionId
+		date=jsonData["date"]
+		session["date"]=date
+		time=jsonData["time"]
+		session["time"]=time
+		price=jsonData["price"]
+		session["price"]=price
+		print(price)
+		sqlSelect="SELECT `mail` FROM `booking_data` WHERE `mail`=%s "
+		sqlUpdate="Update `booking_data` SET `attractionId`=%s,`date`=%s,`time`=%s,`price`=%s WHERE `mail`=%s "
+		sqlInsert="INSERT INTO `booking_data`(`attractionId`,`date`,`time`,`price`,`mail`) VALUES (%s,%s,%s,%s,%s)"
+		mail=session["email"]
+		if  session["password"]!=None:
+			if date!="" or time != None or price!=None :
+				cursor.execute(sqlSelect,(mail,))
+				results=cursor.fetchone()
+				if results:
+					cursor.execute(sqlUpdate,(attractionId,date,time,price,mail,))
+					connection.commit()
+					connection.close()
+					return(jsonify(signInOK))
+				else:
+					cursor.execute(sqlInsert,(attractionId,date,time,price,mail,))
+					connection.commit()
+					connection.close()
+					return(jsonify(signInOK))
+			elif date=="" or time == None or price==None:
+				dataError={"error": "true","message": "建立失敗"}
+				return(jsonify(dataError))
+		elif session["password"] == None:
+			passwordError={"error": "true","message": "未登入系統，拒絕存取"}
+			return(jsonify(passwordError))
+	if request.method == 'GET':
+		if session["attractionId"]!=None:
+			attractionId=session["attractionId"]
+			print(attractionId)
+			date=session["date"]
+			time=session["time"]
+			price=session["price"]
+			cursor.execute("SELECT `data`.`id`,`data`.`name`,`address`,`images` from `data`Join  `data_images` on `data`.`name` = `data_images`.`name` and `data`.`id` like %s ",(attractionId,))
+			results=cursor.fetchone()
+			jsonA = json.dumps(results)
+			jsonB = json.loads(jsonA) 
+			Id=jsonB[0]
+			name=jsonB[1]
+			address=jsonB[2]
+			image=jsonB[3]
+			imageSplit=image.split(",")
+			imageSplit0=image.split("'")
+			data={"data":{"attraction":{"id":attractionId,"name":name,"address":address,"image":imageSplit0[1]},"date":date,"time":time,"price":price}}
+			session["data"]=data
+			return(jsonify(data))
+		else:
+			dataError={"error": "true","message": "無預定行程"}
+			return(jsonify(dataError))
+		
+	if request.method == 'DELETE':
+		
+		cursor.execute("DELETE FROM `booking_data` WHERE `mail` =%s",(session["email"],))
+		session["attractionId"]=None
+		connection.commit()
+		connection.close()
+		
+		
+		return(signInOK)
+app.debug = True
 app.run(host='0.0.0.0',port=3000)

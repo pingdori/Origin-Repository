@@ -16,10 +16,10 @@
 			<div class="Xbutton" onclick="onclickXbutton()"></div>
 		</div>
 		<div class="login-input">
-			<form method="patch">
-				<input id="email" name="signinEmail" placeholder="輸入電子信箱" type="email" required> <input id="password" name="signinPassword" onkeydown="if (event.keyCode == 13) {loginbutton.focus();}" placeholder="輸入密碼" type="password" pattern="[a-zA-Z0-9]{7,}" required autocomplete="on">
-				<div class="getSingupData" onclick="getSignInData()" onkeydown="enter(event);">
-					<input class="login loginmodal-button" id="loginbutton" name="login" type="button" value="登入帳號" autocomplete="on">
+			<form id="loginForm" method="patch" name="loginForm">
+				<input id="email" name="signinEmail" onkeydown="validateEmail()" placeholder="輸入電子信箱" type="email"> <input id="password" name="signinPassword" onkeydown="if (event.keyCode == 13) {loginbutton.focus();}" placeholder="輸入密碼" type="password">
+				<div class="getSingupData" onclick="getSignInData()">
+					<input class="login loginmodal-button" id="loginbutton" name="login" type="button" value="登入帳號">
 				</div>
 			</form>
 		</div>
@@ -29,20 +29,19 @@
 		<div class="login-help">
 			<p id="singupHelp" onclick="onclickloginHelp()">還沒有帳戶?點此註冊</p>
 		</div>
-	</div><!-- //class="login-modal" -->
+	</div>
 	<div class="modal-dialog1" id="hide">
 		<div class="color"></div>
 		<div class="loginmodal-container"></div>
 		<div class="login-title">
 			<p id="loginHelp-title">註冊會員帳號</p>
 			<div class="Xbutton" onclick="onclickXbutton()"></div>
-		</div><!--login  -->
+		</div>
 		<div class="login-input">
-			<form method="post">
-				<input id="username" name="signupUsername" placeholder="輸入姓名" type="text"> <input id="email1" name="signupEmail" placeholder="輸入電子信箱" type="email" required> 
-				<input id="password1" name="signupPassword" onkeydown="if (event.keyCode == 13) {loginbutton.focus();}" placeholder="輸入密碼" type="password" pattern="[a-zA-Z0-9]{7,}" required autocomplete="off">
-				<div class="getSingupData" onclick="getSignupData()" onkeydown="enter(event);">
-					<input class="login loginmodal-button" data-action="submit" id="signupbutton" name="login" type="button" value="註冊新帳戶" autocomplete="on">
+			<form id="signupForm" method="post" name="signupForm">
+				<input id="username" name="signupUsername" placeholder="輸入姓名" type="text"> <input id="email1" name="signupEmail" onkeydown=" validateEmail1()" placeholder="輸入電子信箱" type="email"> <input id="password1" name="signupPassword" onkeydown="if (event.keyCode == 13) {signupbutton.focus();}" placeholder="輸入密碼" type="password">
+				<div class="getSingupData" onclick="getSignupData()">
+					<input class="login loginmodal-button" data-action="submit" id="signupbutton" name="login" onsubmit="validateButton()" type="button" value="註冊新帳戶">
 				</div>
 			</form>
 		</div>
@@ -57,8 +56,8 @@
 		</div>
 		<div class="login-help">
 			<p id="singupHelp" onclick="onclickloginHelp1()">已有帳戶了?點此登入</p>
-		</div><!--login  -->
-	</div><!--loginmodal  -->
+		</div>
+	</div>
 	<div class="black" id="hide" onclick="onclickBlack()"></div>
 	<div class="headerContainer">
 		<header>
@@ -67,7 +66,7 @@
 			</div>
 			<div class="menuContainer"></div>
 			<div class="menu">
-				<a>預定行程</a> <a class="loginClick" id="loginClick" onclick="loginClock()">登入/註冊</a> <a class="logoutClick" id="hide" onclick="logoutClick()">登出系統</a>
+				<a onclick="bookingAttraction()">預定行程</a> <a class="loginClick" id="loginClick" onclick="loginClock()">登入/註冊</a> <a class="logoutClick" id="hide" onclick="logoutClick()">登出系統</a>
 			</div>
 		</header>
 	</div>
@@ -76,10 +75,10 @@
 		<div class="title">
 			<p class="bannerTital">輕鬆享受台北一日悠閒</p>
 			<p class="bannertext">探索每個角落，體驗城市的深度旅遊行程</p>
-			<form class="search">
-				<input id="searchData" onkeydown="if (event.keyCode == 13) {submit.focus();}" placeholder="輸入景點名稱查詢" type="text">
+			<form class="search" id="searchForm" name="searchForm">
+				<input id="searchData" name="searchData" onkeydown="if (event.keyCode == 13) {validateButton2();}" placeholder="輸入景點名稱查詢" type="text">
 				<div class="getdata" onclick="searchKeyword();" onkeydown="enter(event);">
-					<input data-action="submit" id="submit" tabindex="0" type="button">
+					<input data-action="submit" id="submit" name="submit" tabindex="0" type="button">
 				</div>
 			</form>
 		</div>
