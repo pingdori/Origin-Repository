@@ -1,72 +1,105 @@
-<!dOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>台北一日遊</title>
-    <link rel="stylesheet" type="text/css" href="/static/index.css"></link>
+	<meta charset="UTF-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<title>台北一日遊</title>
+	<link href="/static/index.css" rel="stylesheet" type="text/css">
 </head>
-<body>
-    <div class="headerContainer">
-        <header>
-            <div class="logo">
-                <p>
-                    台北一日遊
-                </p>
-            </div>
-            <div class="menuContainer"></div>
-            <div class="menu">
-                <a>
-                    預定行程
-                </a>
-                <a>
-                    登入/註冊
-                </a>
-            </div>
-        </header>
-    </div>
-
-    <div class="titlebanner"></div>
-    
-    <div class="banner">
-        <div class="title">
-            <p class="bannerTital">輕鬆享受台北一日悠閒</p>
-            <p class="bannertext">探索每個角落，體驗城市的深度旅遊行程</p>
-            <form class="search">
-                <input type="text" id="searchData" placeholder="輸入景點名稱查詢" onkeydown="if (event.keyCode == 13) {submit.focus();}">
-                <div class="getdata" onkeydown="enter(event);" onclick="searchKeyword();" method="get">
-                    <input type="button" data-action="submit" id="submit" tabindex="0">
-                </div>
-            </form>
-        </div>
-    </div>
-    <main id="main">
-        <div id="item">
-        </div>
-    </main>
-    <div id="hide0">
-        <p>搜尋無此景點</p>
-    </div>
-
-    <main id="searchResult">
-        <div id="item1">
-        </div>
-        </div>
-    </main>
-    <div class="root">
-        <div id="rootContainer"></div>
-    </div>
-    <div class="root0">
-        <div id="rootContainer0"></div>
-    </div>
-    <footer>
-        <p>
-            copyright ©2022台北一日遊
-        </p>
-    </footer>
-    </div>
+<body onload="userCheck()">
+	<div class="modal-dialog" id="hide">
+		<div class="color"></div>
+		<div class="loginmodal-container"></div>
+		<div class="login-title">
+			<p id="loginHelp-title">登入會員帳號</p>
+			<div class="Xbutton" onclick="onclickXbutton()"></div>
+		</div>
+		<div class="login-input">
+			<form id="loginForm" method="patch" name="loginForm">
+				<input id="email" name="signinEmail" onkeydown="validateEmail()" placeholder="輸入電子信箱" type="email"> <input id="password" name="signinPassword" onkeydown="if (event.keyCode == 13) {loginbutton.focus();}" placeholder="輸入密碼" type="password">
+				<div class="getSingupData" onclick="getSignInData()">
+					<input class="login loginmodal-button" id="loginbutton" name="login" type="button" value="登入帳號">
+				</div>
+			</form>
+		</div>
+		<div class="signInError" id="hide">
+			<p>請重新輸入</p>
+		</div>
+		<div class="login-help">
+			<p id="singupHelp" onclick="onclickloginHelp()">還沒有帳戶?點此註冊</p>
+		</div>
+	</div>
+	<div class="modal-dialog1" id="hide">
+		<div class="color"></div>
+		<div class="loginmodal-container"></div>
+		<div class="login-title">
+			<p id="loginHelp-title">註冊會員帳號</p>
+			<div class="Xbutton" onclick="onclickXbutton()"></div>
+		</div>
+		<div class="login-input">
+			<form id="signupForm" method="post" name="signupForm">
+				<input id="username" name="signupUsername" placeholder="輸入姓名" type="text"> <input id="email1" name="signupEmail" onkeydown=" validateEmail1()" placeholder="輸入電子信箱" type="email"> <input id="password1" name="signupPassword" onkeydown="if (event.keyCode == 13) {signupbutton.focus();}" placeholder="輸入密碼" type="password">
+				<div class="getSingupData" onclick="getSignupData()">
+					<input class="login loginmodal-button" data-action="submit" id="signupbutton" name="login" onsubmit="validateButton()" type="button" value="註冊新帳戶">
+				</div>
+			</form>
+		</div>
+		<div class="signupError" id="hide">
+			<p>註冊失敗請重新輸入</p>
+		</div>
+		<div class="signupError2" id="hide">
+			<p>帳號或密碼及mail不可為空值</p>
+		</div>
+		<div class="signupOk" id="hide">
+			<p>註冊成功!</p>
+		</div>
+		<div class="login-help">
+			<p id="singupHelp" onclick="onclickloginHelp1()">已有帳戶了?點此登入</p>
+		</div>
+	</div>
+	<div class="black" id="hide" onclick="onclickBlack()"></div>
+	<div class="headerContainer">
+		<header>
+			<div class="logo">
+				<p onclick="reload()">台北一日遊</p>
+			</div>
+			<div class="menuContainer"></div>
+			<div class="menu">
+				<a onclick="bookingAttraction()">預定行程</a> <a class="loginClick" id="loginClick" onclick="loginClock()">登入/註冊</a> <a class="logoutClick" id="hide" onclick="logoutClick()">登出系統</a>
+			</div>
+		</header>
+	</div>
+	<div class="titlebanner"></div>
+	<div class="banner">
+		<div class="title">
+			<p class="bannerTital">輕鬆享受台北一日悠閒</p>
+			<p class="bannertext">探索每個角落，體驗城市的深度旅遊行程</p>
+			<form class="search" id="searchForm" name="searchForm">
+				<input id="searchData" name="searchData" onkeydown="if (event.keyCode == 13) {validateButton2();}" placeholder="輸入景點名稱查詢" type="text">
+				<div class="getdata" onclick="searchKeyword();" onkeydown="enter(event);">
+					<input data-action="submit" id="submit" name="submit" tabindex="0" type="button">
+				</div>
+			</form>
+		</div>
+	</div>
+	<main id="main">
+		<div id="item"></div>
+	</main>
+	<div id="hide0">
+		<p>搜尋無此景點</p>
+	</div>
+	<div id="item1"></div>
+	<div class="root">
+		<div id="rootContainer"></div>
+	</div>
+	<div class="root0">
+		<div id="rootContainer0"></div>
+	</div>
+	<footer>
+		<p>copyright ©2022台北一日遊</p>
+	</footer>
+	<script src="/static/index.js">
+	</script>
 </body>
-<script src="/static/index.js"></script>
-
 </html>
