@@ -341,81 +341,83 @@ def attractionID(id):
 @app.route("/api/user",methods = ["POST","GET","PATCH","DELETE"])
 def user():
 	jsonData=request.json
-	
-	if request.method == 'POST':
-		email=jsonData["email"]
-		password=jsonData["password"]
-		username=jsonData["username"]
-		connection  =  mysql.connector.connect(host = MYSQL_HOST ,port = MYSQL_PORT ,user = MYSQL_USER ,password = MYSQL_PASSWORD)
-		# connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "")
-		cursor  =  connection.cursor()
-		cursor.execute("USE `taipei-attractions`")
-		sqlInsert="INSERT INTO `user_data`(`name`,`email`,`password`) VALUES (%s,%s,%s)"
-		bindData=(username,email,password,)
-		sqlSelect="SELECT `email` FROM `user_data` WHERE `email`=%s"
-		cursor.execute(sqlSelect,(email,))
-		results=cursor.fetchall()
-		if len(results)!=0:
-			connection.close()
-			mailError={"error": True,"message": "Email已經註冊帳戶"}
-			return (jsonify(mailError))
-		elif username == "" or email == "" or password=="":
-			Error={"error": True,"message": "請輸入帳號或密碼"}
-			return (jsonify(Error))
-		else:
-			cursor.execute(sqlInsert,bindData)
-			connection.commit()
-			connection.close()
-		# signupDone={"ok": "true"}
-		return (jsonify({"ok":True}))
-	elif request.method == 'PATCH':
-		email=jsonData["email"]
-		password=jsonData["password"]
-		connection  =  mysql.connector.connect(host = MYSQL_HOST ,port = MYSQL_PORT ,user = MYSQL_USER ,password = MYSQL_PASSWORD)
-		# connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "")
-		cursor  =  connection.cursor()
-		cursor.execute("USE `taipei-attractions`")
-		sqlSelect="SELECT `email` FROM `user_data` WHERE `email`=%s and `password`=%s"
-		cursor.execute(sqlSelect,(email,password,))
-		results=cursor.fetchone()
-		if  results:
-			connection.close()
-			session["email"]=email
-			session["password"]=password
-			signInOK={"ok":True}
-			return (jsonify(signInOK))
-		else:
-			connection.close()
-			signError={"error": "true","message": "請重新輸入"}
-			return (jsonify(signError))
-	elif request.method == 'GET':
-		if  session["password"]!=None:
-			emailSession=session["email"]
-			passwordSession=session["password"]
+	try:	
+		if request.method == 'POST':
+			email=jsonData["email"]
+			password=jsonData["password"]
+			username=jsonData["username"]
 			connection  =  mysql.connector.connect(host = MYSQL_HOST ,port = MYSQL_PORT ,user = MYSQL_USER ,password = MYSQL_PASSWORD)
 			# connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "")
 			cursor  =  connection.cursor()
 			cursor.execute("USE `taipei-attractions`")
-			sqlSelect="SELECT `id`,`name`,`email` FROM `user_data` WHERE `email`=%s and `password`=%s"
-			cursor.execute(sqlSelect,(emailSession,passwordSession,))
+			sqlInsert="INSERT INTO `user_data`(`name`,`email`,`password`) VALUES (%s,%s,%s)"
+			bindData=(username,email,password,)
+			sqlSelect="SELECT `email` FROM `user_data` WHERE `email`=%s"
+			cursor.execute(sqlSelect,(email,))
+			results=cursor.fetchall()
+			if len(results)!=0:
+				connection.close()
+				mailError={"error": True,"message": "Email已經註冊帳戶"}
+				return (jsonify(mailError))
+			elif username == "" or email == "" or password=="":
+				Error={"error": True,"message": "請輸入帳號或密碼"}
+				return (jsonify(Error))
+			else:
+				cursor.execute(sqlInsert,bindData)
+				connection.commit()
+				connection.close()
+			# signupDone={"ok": "true"}
+			return (jsonify({"ok":True}))
+		elif request.method == 'PATCH':
+			email=jsonData["email"]
+			password=jsonData["password"]
+			connection  =  mysql.connector.connect(host = MYSQL_HOST ,port = MYSQL_PORT ,user = MYSQL_USER ,password = MYSQL_PASSWORD)
+			# connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "")
+			cursor  =  connection.cursor()
+			cursor.execute("USE `taipei-attractions`")
+			sqlSelect="SELECT `email` FROM `user_data` WHERE `email`=%s and `password`=%s"
+			cursor.execute(sqlSelect,(email,password,))
 			results=cursor.fetchone()
-			id = results[0]
-			name =results[1]
-			email =results[2]
-			data={"data":{"id": id,"name": name,"email": email}}
-			connection.close()
-			return (jsonify(data))
-		elif session["password"] == None:
-			nullData={"data":"null"}
-			return (jsonify(nullData))
+			if  results:
+				connection.close()
+				session["email"]=email
+				session["password"]=password
+				signInOK={"ok":True}
+				return (jsonify(signInOK))
+			else:
+				connection.close()
+				signError={"error": "true","message": "請重新輸入"}
+				return (jsonify(signError))
+		elif request.method == 'GET':
+			if  session["password"]!=None:
+				emailSession=session["email"]
+				passwordSession=session["password"]
+				connection  =  mysql.connector.connect(host = MYSQL_HOST ,port = MYSQL_PORT ,user = MYSQL_USER ,password = MYSQL_PASSWORD)
+				# connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "")
+				cursor  =  connection.cursor()
+				cursor.execute("USE `taipei-attractions`")
+				sqlSelect="SELECT `id`,`name`,`email` FROM `user_data` WHERE `email`=%s and `password`=%s"
+				cursor.execute(sqlSelect,(emailSession,passwordSession,))
+				results=cursor.fetchone()
+				id = results[0]
+				name =results[1]
+				email =results[2]
+				data={"data":{"id": id,"name": name,"email": email}}
+				connection.close()
+				return (jsonify(data))
+			elif session["password"] == None:
+				nullData={"data":"null"}
+				return (jsonify(nullData))
+			
+		elif request.method == 'DELETE':
+			session["email"]=None
+			session["password"]=None
+			signOut={"ok":True}
+			return (jsonify(signOut))
+	except:
+		nullData={"data":"null"}
+		return (jsonify(nullData))
 		
-	elif request.method == 'DELETE':
-		session["email"]=None
-		session["password"]=None
-		signOut={"ok":True}
-		return (jsonify(signOut))
-
-
 @app.route("/api/booking",methods = ["POST","GET","DELETE"])
 def Booking():
 	jsonData=request.json
