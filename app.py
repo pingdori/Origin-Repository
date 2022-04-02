@@ -413,76 +413,80 @@ def user():
 @app.route("/api/booking",methods = ["POST","GET","DELETE"])
 def Booking():
 	jsonData=request.json
-	connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
-	cursor  =  connection.cursor()
-	cursor.execute("USE `taipei-attractions`")
-	signInOK={"ok":True}
-	if request.method == 'POST':	
-		attractionId=jsonData["attractionId"]
-		session["attractionId"]=attractionId
-		date=jsonData["date"]
-		session["date"]=date
-		time=jsonData["time"]
-		session["time"]=time
-		price=jsonData["price"]
-		session["price"]=price
-		print(price)
-		sqlSelect="SELECT `mail` FROM `booking_data` WHERE `mail`=%s "
-		sqlUpdate="Update `booking_data` SET `attractionId`=%s,`date`=%s,`time`=%s,`price`=%s WHERE `mail`=%s "
-		sqlInsert="INSERT INTO `booking_data`(`attractionId`,`date`,`time`,`price`,`mail`) VALUES (%s,%s,%s,%s,%s)"
-		mail=session["email"]
-		if  session["password"]!=None:
-			if date!="" or time != None or price!=None :
-				cursor.execute(sqlSelect,(mail,))
+	try:
+		connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
+		cursor  =  connection.cursor()
+		cursor.execute("USE `taipei-attractions`")
+		signInOK={"ok":True}
+		if request.method == 'POST':	
+			attractionId=jsonData["attractionId"]
+			session["attractionId"]=attractionId
+			date=jsonData["date"]
+			session["date"]=date
+			time=jsonData["time"]
+			session["time"]=time
+			price=jsonData["price"]
+			session["price"]=price
+			print(price)
+			sqlSelect="SELECT `mail` FROM `booking_data` WHERE `mail`=%s "
+			sqlUpdate="Update `booking_data` SET `attractionId`=%s,`date`=%s,`time`=%s,`price`=%s WHERE `mail`=%s "
+			sqlInsert="INSERT INTO `booking_data`(`attractionId`,`date`,`time`,`price`,`mail`) VALUES (%s,%s,%s,%s,%s)"
+			mail=session["email"]
+			if  session["password"]!=None:
+				if date!="" or time != None or price!=None :
+					cursor.execute(sqlSelect,(mail,))
+					results=cursor.fetchone()
+					if results:
+						cursor.execute(sqlUpdate,(attractionId,date,time,price,mail,))
+						connection.commit()
+						connection.close()
+						return(jsonify(signInOK))
+					else:
+						cursor.execute(sqlInsert,(attractionId,date,time,price,mail,))
+						connection.commit()
+						connection.close()
+						return(jsonify(signInOK))
+				elif date=="" or time == None or price==None:
+					dataError={"error": "true","message": "建立失敗"}
+					return(jsonify(dataError))
+			elif session["password"] == None:
+				passwordError={"error": "true","message": "未登入系統，拒絕存取"}
+				return(jsonify(passwordError))
+		if request.method == 'GET':
+			if session["attractionId"]!=None:
+				attractionId=session["attractionId"]
+				print(attractionId)
+				date=session["date"]
+				time=session["time"]
+				price=session["price"]
+				cursor.execute("SELECT `data`.`id`,`data`.`name`,`address`,`images` from `data`Join  `data_images` on `data`.`name` = `data_images`.`name` and `data`.`id` like %s ",(attractionId,))
 				results=cursor.fetchone()
-				if results:
-					cursor.execute(sqlUpdate,(attractionId,date,time,price,mail,))
-					connection.commit()
-					connection.close()
-					return(jsonify(signInOK))
-				else:
-					cursor.execute(sqlInsert,(attractionId,date,time,price,mail,))
-					connection.commit()
-					connection.close()
-					return(jsonify(signInOK))
-			elif date=="" or time == None or price==None:
-				dataError={"error": "true","message": "建立失敗"}
+				jsonA = json.dumps(results)
+				jsonB = json.loads(jsonA) 
+				Id=jsonB[0]
+				name=jsonB[1]
+				address=jsonB[2]
+				image=jsonB[3]
+				imageSplit=image.split(",")
+				imageSplit0=image.split("'")
+				data={"data":{"attraction":{"id":attractionId,"name":name,"address":address,"image":imageSplit0[1]},"date":date,"time":time,"price":price}}
+				session["data"]=data
+				return(jsonify(data))
+			else:
+				dataError={"error": "true","message": "無預定行程"}
 				return(jsonify(dataError))
-		elif session["password"] == None:
-			passwordError={"error": "true","message": "未登入系統，拒絕存取"}
-			return(jsonify(passwordError))
-	if request.method == 'GET':
-		if session["attractionId"]!=None:
-			attractionId=session["attractionId"]
-			print(attractionId)
-			date=session["date"]
-			time=session["time"]
-			price=session["price"]
-			cursor.execute("SELECT `data`.`id`,`data`.`name`,`address`,`images` from `data`Join  `data_images` on `data`.`name` = `data_images`.`name` and `data`.`id` like %s ",(attractionId,))
-			results=cursor.fetchone()
-			jsonA = json.dumps(results)
-			jsonB = json.loads(jsonA) 
-			Id=jsonB[0]
-			name=jsonB[1]
-			address=jsonB[2]
-			image=jsonB[3]
-			imageSplit=image.split(",")
-			imageSplit0=image.split("'")
-			data={"data":{"attraction":{"id":attractionId,"name":name,"address":address,"image":imageSplit0[1]},"date":date,"time":time,"price":price}}
-			session["data"]=data
-			return(jsonify(data))
-		else:
-			dataError={"error": "true","message": "無預定行程"}
-			return(jsonify(dataError))
-		
-	if request.method == 'DELETE':
-		
-		cursor.execute("DELETE FROM `booking_data` WHERE `mail` =%s",(session["email"],))
-		session["attractionId"]=None
-		connection.commit()
-		connection.close()
-		
-		
-		return(signInOK)
+			
+		if request.method == 'DELETE':
+			
+			cursor.execute("DELETE FROM `booking_data` WHERE `mail` =%s",(session["email"],))
+			session["attractionId"]=None
+			connection.commit()
+			connection.close()
+			
+			
+			return(signInOK)
+	except:
+		dataError={"error": "true","message": "無預定行程"}
+		return (jsonify(dataError))	
 # app.debug = True
 app.run(host='0.0.0.0',port=3000)
