@@ -335,8 +335,8 @@ def attractionID(id):
 
 @app.route("/api/user",methods = ["POST","GET","PATCH","DELETE"])
 def user():
-		jsonData=request.json
-	# try:	
+	jsonData=request.json
+	try:	
 		if request.method == 'POST':
 			email=jsonData["email"]
 			password=jsonData["password"]
@@ -406,9 +406,9 @@ def user():
 			session["password"]=None
 			signOut={"ok":True}
 			return (jsonify(signOut))
-	# except:
-	# 	nullData={"data":"null"}
-	# 	return (jsonify(nullData))
+	except:
+		nullData={"data":"null"}
+		return (jsonify(nullData))
 		
 @app.route("/api/booking",methods = ["POST","GET","DELETE"])
 def Booking():
