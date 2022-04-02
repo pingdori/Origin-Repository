@@ -17,7 +17,7 @@ MYSQL_HOST = os.environ.get("mysql_host")
 MYSQL_PORT = os.environ.get("mysql_port")
 MYSQL_USER = os.environ.get("mysql_user")
 MYSQL_PASSWORD = os.environ.get("mysql_password")
-app.secret_key = os.environ.get("SECRET_KEY")
+app.secret_key = "123456"
 @app.route("/")
 def index():
 	return render_template("index.html")
