@@ -55,7 +55,7 @@ async function attraction(endpoint, url) {
 }
 let getUrlString = location.pathname;
 let url = getUrlString.split("/");
-let endpoint = "/api/attractions"
+let endpoint = "http://54.243.128.73:3000/api/attractions"
 attraction(endpoint, url[2]);
 //輪播
 let pages = 0;
@@ -178,7 +178,7 @@ function onclickloginHelp1() {
 	modalDialog.setAttribute("id", "modalDialog");
 	modalDialog1.setAttribute("id", "hide");
 }
-let apiUserUrl = "/api/user";
+let apiUserUrl = "http://54.243.128.73:3000/api/user";
 async function getSignupData() {
 	let signupError2=document.querySelector(".signupError2")
 	let signupError = document.querySelector('.signupError');
@@ -249,7 +249,7 @@ async function getSignInData() {
 	})
 }
 async function userCheck() {
-	let url = "/api/user";
+	let url = "http://54.243.128.73:3000/api/user";
 	let loginClick = document.querySelector(".loginClick");
 	let logoutClick = document.querySelector(".logoutClick");
 	let fetchApi = await fetch(url);
@@ -263,7 +263,7 @@ async function userCheck() {
 	}
 }
 async function logoutClick() {
-	let url = "/api/user";
+	let url = "http://54.243.128.73:3000/api/user";
 	let request = {
 		method: "DELETE",
 	}
@@ -274,7 +274,7 @@ async function logoutClick() {
 	if (jsonData.ok) {
 		loginClick.setAttribute("id", "loginClick");
 		logoutClick.setAttribute("id", "hide");
-		location.reload("/");
+		location.reload("http://54.243.128.73:3000/attraction/");
 	}
 	reload()
 }
@@ -283,7 +283,7 @@ function reload() {
 	history.go(0);
 }
 async function bookingAttraction(){
-	let url = "/api/user";
+	let url = "http://54.243.128.73:3000/api/user";
 	let fetchApi = await fetch(url);
 	let jsonData = await fetchApi.json();
 	let dateinput = document.querySelector("#dateinput").value;
@@ -311,7 +311,7 @@ async function bookingAttraction(){
 
 }
 
-let apiBookingUrl="/api/booking"
+let apiBookingUrl="http://54.243.128.73:3000/api/booking"
 async function booking(){
 	let dateinput = document.querySelector("#dateinput").value;
 	let titleText = document.querySelector(".titleText");
@@ -333,7 +333,7 @@ async function booking(){
 		return res.json();
 	}).then(jasonData=>{
 		if(jasonData.ok){
-		document.location.href="/booking";
+		document.location.href="http://54.243.128.73:3000/booking";
 		return false; }
 	}).catch(err => {
 		return "true";
@@ -366,12 +366,12 @@ function radioinput(){
 	
 }
 async function bookingAttractionTitle(){
-	let url = "/api/user";
+	let url = "http://54.243.128.73:3000/api/user";
 	let fetchApi = await fetch(url);
 	let jsonData = await fetchApi.json();
 	
 	if (jsonData.data.email) {
-		document.location.href="/booking";
+		document.location.href="http://54.243.128.73:3000/booking";
 	} else if (jsonData.data == "null") {
 		loginClock();
 		

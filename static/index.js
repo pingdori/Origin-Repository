@@ -29,7 +29,7 @@ async function index(endpoint, pages) {
 			post.setAttribute("id", "item0");
 			post.innerHTML = `
         <div id="img"><img src="${images}"></div>
-        <p id="nametext"><a href="/attraction/${id}">${names}<a></p>
+        <p id="nametext"><a href="http://54.243.128.73:3000/attraction/${id}">${names}<a></p>
         <div class="texts">
         <p id="mrttext">${mrts}</p>
         <div class="textContainer"></div>
@@ -40,7 +40,7 @@ async function index(endpoint, pages) {
 	})
 }
 //傳入首頁瀑布流
-const endpoint = "/api/attractions";
+const endpoint = "http://54.243.128.73:3000/api/attractions";
 index(endpoint, 0);
 //尋找資料>給定初次搜尋某關鍵字的頁數
 function searchKeyword() {
@@ -62,7 +62,7 @@ function searchKeyword() {
 //判斷是否為error，否則dataPrint尋找資料>獲取資訊
 async function getError(pages, searchValue) {
 	let keywordValue = document.querySelector("#searchData").value;
-	let fetchApi = await fetch(`/api/attractions?page=${pages}&keyword=${keywordValue}`);
+	let fetchApi = await fetch(`http://54.243.128.73:3000/api/attractions?page=${pages}&keyword=${keywordValue}`);
 	let jsonData = await fetchApi.json();
 	if (jsonData.error == "true") {
 		if (document.querySelector("#error")) {
@@ -111,7 +111,7 @@ function dataPrint(jsonData) {
 		post.setAttribute("id", "item2");
 		post.innerHTML = `
         <div id="img"><img src="${images}"></div>
-        <p id="nametext"><a href="/api/attractions/${id}">${names}<a></p>
+        <p id="nametext"><a href="http://54.243.128.73:3000/api/attractions/${id}">${names}<a></p>
         <div class="texts">
         <p id="mrttext">${mrts}</p>
         <div class="textContainer"></div>
@@ -143,7 +143,7 @@ function infiniteScroll(pages) {
 		if (entry.isIntersecting) {
 			let ready = false;
 			if (pages) {
-				index("/api/attractions", pages);
+				index("http://54.243.128.73:3000/api/attractions", pages);
 				pages = false;
 			} else if (document.querySelector("#hide")) {
 				observer.unobserve(rootObserve);
@@ -228,7 +228,7 @@ function onclickloginHelp1() {
 	modalDialog.setAttribute("id", "modalDialog");
 	modalDialog1.setAttribute("id", "hide");
 }
-let url = "/api/user";
+let url = "http://54.243.128.73:3000/api/user";
 async function getSignupData() {
 	let signupError2 = document.querySelector(".signupError2")
 	let signupError = document.querySelector('.signupError');
@@ -325,13 +325,14 @@ async function logoutClick() {
 	history.go(0);
 }
 async function bookingAttraction() {
-	let url = "/api/user";
+	let url = "http://54.243.128.73:3000/api/user";
 	let fetchApi = await fetch(url);
 	let jsonData = await fetchApi.json();
 	if (jsonData.data.email) {
 		// document.location.href="/booking";
-		document.location.href = "/booking";
+		document.location.href = "http://54.243.128.73:3000/booking";
 	} else if (jsonData.data == "null") {
+		console.log("hi");
 		loginClock();
 	}
 }
