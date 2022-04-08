@@ -38,6 +38,8 @@ async function index(endpoint, pages) {
 		}
 		nextPageData(jsonData);
 	})
+	.catch(err => {  
+    })
 }
 //傳入首頁瀑布流
 const endpoint = "http://54.243.128.73:3000/api/attractions";
@@ -48,12 +50,13 @@ function searchKeyword() {
 	let pages = 0;
 	if (document.querySelector("#item2")) {
 		let item2 = document.querySelectorAll("#item2");
-		let main = document.querySelector("#searchResult");
+		let searchResult = document.querySelector("#searchResult");
 		let footer = document.querySelector("footer");
-		let count = searchResult.childElementCount;
-		for (let i = 0; i < count - 1; i++) {
+		let count = item2.length;
+		for (let i = 0; i < count; i++) {
 			if (document.querySelectorAll("#item2")) {
-				searchResult.removeChild(item2[i]);
+				// searchResult.removeChild(item2[i]);
+				item2[i].remove();
 			}
 		}
 	}
@@ -111,7 +114,7 @@ function dataPrint(jsonData) {
 		post.setAttribute("id", "item2");
 		post.innerHTML = `
         <div id="img"><img src="${images}"></div>
-        <p id="nametext"><a href="http://54.243.128.73:3000/api/attractions/${id}">${names}<a></p>
+        <p id="nametext"><a href="http://54.243.128.73:3000/attraction/${id}">${names}<a></p>
         <div class="texts">
         <p id="mrttext">${mrts}</p>
         <div class="textContainer"></div>
@@ -195,38 +198,42 @@ function loginClock() {
 	modalDialog.setAttribute("id", "modal-dialog");
 }
 
+
+
+
+
 function onclickBlack() {
-	bgcBlack.setAttribute("id", "hide");
-	modalDialog.setAttribute("id", "hide");
-	modalDialog1.setAttribute("id", "hide");
+	bgcBlack.setAttribute("id", "hide1");
+	modalDialog.setAttribute("id", "hide1");
+	modalDialog1.setAttribute("id", "hide1");
 	if (signInError.id == "signInError") {
-		signInError.setAttribute("id", "hide");
+		signInError.setAttribute("id", "hide1");
 	}
 	if (signupError.id == "signupError") {
-		signupError.setAttribute("id", "hide");
+		signupError.setAttribute("id", "hide1");
 	}
 }
 
 function onclickXbutton() {
-	bgcBlack.setAttribute("id", "hide");
-	modalDialog.setAttribute("id", "hide");
-	modalDialog1.setAttribute("id", "hide");
+	bgcBlack.setAttribute("id", "hide1");
+	modalDialog.setAttribute("id", "hide1");
+	modalDialog1.setAttribute("id", "hide1");
 	if (signInError.id == "signInError") {
-		signInError.setAttribute("id", "hide");
+		signInError.setAttribute("id", "hide1");
 	}
 	if (signupError.id == "signupError") {
-		signupError.setAttribute("id", "hide");
+		signupError.setAttribute("id", "hide1");
 	}
 }
 
 function onclickloginHelp() {
-	modalDialog.setAttribute("id", "hide");
+	modalDialog.setAttribute("id", "hide1");
 	modalDialog1.setAttribute("id", "modalDialog1");
 }
 
 function onclickloginHelp1() {
 	modalDialog.setAttribute("id", "modalDialog");
-	modalDialog1.setAttribute("id", "hide");
+	modalDialog1.setAttribute("id", "hide1");
 }
 let url = "http://54.243.128.73:3000/api/user";
 async function getSignupData() {
@@ -257,7 +264,7 @@ async function getSignupData() {
 		modalDialog1.style.height = '352px';
 		if (jsonData.error) {
 			signupError.setAttribute("id", "signupError");
-			signupOk.setAttribute("id", "hide");
+			signupOk.setAttribute("id", "hide1");
 		} else if (jsonData.ok) {
 			signupError.setAttribute("id", "hide0");
 			signupOk.setAttribute("id", "signupOk");
@@ -290,8 +297,8 @@ async function getSignInData() {
 			signInError.setAttribute("id", "signInError");
 			modalDialog.style.height = '295px';
 		} else if (jsonData.ok) {
-			signInError.setAttribute("id", "hide");
-			loginClick.setAttribute("id", "hide");
+			signInError.setAttribute("id", "hide1");
+			loginClick.setAttribute("id", "hide1");
 			logoutClick.setAttribute("id", "logoutClick");
 			reload();
 		}
@@ -303,11 +310,11 @@ async function userCheck() {
 	let fetchApi = await fetch(url);
 	let jsonData = await fetchApi.json();
 	if (jsonData.data.email) {
-		loginClick.setAttribute("id", "hide");
+		loginClick.setAttribute("id", "hide1");
 		logoutClick.setAttribute("id", "logoutClick");
 	} else if (jsonData.data == null) {
 		loginClick.setAttribute("id", "loginClick");
-		logoutClick.setAttribute("id", "hide");
+		logoutClick.setAttribute("id", "hide1");
 	}
 }
 async function logoutClick() {
@@ -320,7 +327,7 @@ async function logoutClick() {
 	let jsonData = await fetchApi.json();
 	if (jsonData.ok) {
 		loginClick.setAttribute("id", "loginClick");
-		logoutClick.setAttribute("id", "hide");
+		logoutClick.setAttribute("id", "hide1");
 	}
 	history.go(0);
 }
@@ -402,3 +409,9 @@ function validateButton2() {
 function reload() {
 	history.go(0);
 }
+setTimeout(function () {
+        
+	document.getElementById("loader").style.display = "none";
+	document.getElementById("loaderCon").style.display = "none";
+
+}, 500);

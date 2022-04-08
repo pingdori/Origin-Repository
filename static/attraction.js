@@ -442,4 +442,10 @@ function validateButton2()
 }
 let today = new Date().toISOString().split('T')[0];
 document.getElementsByName("dateSubmit")[0].setAttribute('min', today);
+setTimeout(function () {
+        
+	document.getElementById("loader").style.display = "none";
+	document.getElementById("loaderCon").style.display = "none";
+
+}, 500);
 

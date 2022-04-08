@@ -30,7 +30,7 @@ CREATE TABLE `booking_data` (
   `price` varchar(20) NOT NULL,
   `mail` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,6 +39,7 @@ CREATE TABLE `booking_data` (
 
 LOCK TABLES `booking_data` WRITE;
 /*!40000 ALTER TABLE `booking_data` DISABLE KEYS */;
+INSERT INTO `booking_data` VALUES (35,12,'2022-04-21','afternoon','2500','456');
 /*!40000 ALTER TABLE `booking_data` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -99,6 +100,42 @@ INSERT INTO `data_images` VALUES (2,'大稻埕碼頭','\'https://www.travel.taip
 UNLOCK TABLES;
 
 --
+-- Table structure for table `new_order_data`
+--
+
+DROP TABLE IF EXISTS `new_order_data`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `new_order_data` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `number` bigint NOT NULL,
+  `prime` varchar(150) NOT NULL,
+  `price` varchar(20) NOT NULL,
+  `data_id` int NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `address` varchar(20) NOT NULL,
+  `image` varchar(150) NOT NULL,
+  `date` varchar(20) NOT NULL,
+  `time` varchar(20) NOT NULL,
+  `contact_name` varchar(20) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `phone` varchar(15) NOT NULL,
+  `order_status` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `new_order_data`
+--
+
+LOCK TABLES `new_order_data` WRITE;
+/*!40000 ALTER TABLE `new_order_data` DISABLE KEYS */;
+INSERT INTO `new_order_data` VALUES (1,2022040707524278807,'0a3ab0b80b9fe569b9228407947d17988b319662f9fc650833b774985e76eaa3','2000',2,'大稻埕碼頭','臺北市大同區環河北路一段','https://www.travel.taipei/d_upload_ttn/sceneadmin/pic/11000340.jpg','2022-04-28','morning','123','456','ddd','未付款'),(2,2022040708024377421,'59b64e5478c5fe8618623f4a7afd548e84cccc0a0ea5e1e419633bac7083bef3','2000',2,'大稻埕碼頭','臺北市大同區環河北路一段','https://www.travel.taipei/d_upload_ttn/sceneadmin/pic/11000340.jpg','2022-04-28','morning','123','456','ddd','未付款'),(3,2022040708031835538,'60c3eb3eae970705fb790ac79de13059114719b5fb47e463f40b39908cac973b','2000',2,'大稻埕碼頭','臺北市大同區環河北路一段','https://www.travel.taipei/d_upload_ttn/sceneadmin/pic/11000340.jpg','2022-04-28','morning','123','456','ddd','未付款'),(4,2022040708045829888,'63f88c6092215224612b277279a053b03e72f13511c204a94714f2aaa9972702','2000',2,'大稻埕碼頭','臺北市大同區環河北路一段','https://www.travel.taipei/d_upload_ttn/sceneadmin/pic/11000340.jpg','2022-04-28','morning','123','456','ddd','未付款'),(5,2022040708053017316,'b6c233ea8dc04f669659871149dec0e293c0ceb33bba30c7853c28454f2e4bc1','2000',2,'大稻埕碼頭','臺北市大同區環河北路一段','https://www.travel.taipei/d_upload_ttn/sceneadmin/pic/11000340.jpg','2022-04-28','morning','123','456','ddd','已付款'),(6,2022040708210531262,'703478c04045fd12a20ac7777a074499a9552b833469beb8e5cc2d1d386d96e1','2500',2,'大稻埕碼頭','臺北市大同區環河北路一段','https://www.travel.taipei/d_upload_ttn/sceneadmin/pic/11000340.jpg','2022-04-28','afternoon','123','456','ddd','已付款'),(7,2022040708260016013,'f21a2b615780f2b1725f411a91a00d17d2c497269f11643b1a713cc9fcfe1b11','2500',2,'大稻埕碼頭','臺北市大同區環河北路一段','https://www.travel.taipei/d_upload_ttn/sceneadmin/pic/11000340.jpg','2022-04-28','afternoon','123','456','ddd','已付款'),(8,2022040708264298897,'e729ec76eba0d22934d89adffea8ac50a30d5f0e65052bd1aea4d80d4d8c3051','2500',2,'大稻埕碼頭','臺北市大同區環河北路一段','https://www.travel.taipei/d_upload_ttn/sceneadmin/pic/11000340.jpg','2022-04-28','afternoon','123','456','www','已付款'),(9,2022040708274261278,'6631ba58c5b4fa24d8a0b769a6c2266450e848bfa568664720319c39b6788964','2500',2,'大稻埕碼頭','臺北市大同區環河北路一段','https://www.travel.taipei/d_upload_ttn/sceneadmin/pic/11000340.jpg','2022-04-28','afternoon','123','456','www','已付款'),(10,2022040708323291039,'b6ea659acf5b8c9ecaf1e77bdb8350f9dcdec980c676dcd2b889527ff853c685','2500',2,'大稻埕碼頭','臺北市大同區環河北路一段','https://www.travel.taipei/d_upload_ttn/sceneadmin/pic/11000340.jpg','2022-04-28','afternoon','123','456','dddd','已付款'),(11,2022040708341697685,'ac02b68e9ca878644e941184fe98ff1fe545e440e9639382dfde3c3782fabfce','2500',2,'大稻埕碼頭','臺北市大同區環河北路一段','https://www.travel.taipei/d_upload_ttn/sceneadmin/pic/11000340.jpg','2022-04-28','afternoon','123','456','sddd','已付款'),(12,2022040708360850086,'6e52469a88e12d52a0799468c9945b7f62f394f74af059bb982145785ac79067','2500',2,'大稻埕碼頭','臺北市大同區環河北路一段','https://www.travel.taipei/d_upload_ttn/sceneadmin/pic/11000340.jpg','2022-04-28','afternoon','123','456','dddd','已付款'),(13,2022040708362701949,'5f521edfbdae95c8b12884d5f267aaf466d7d841e81a70c40925791cc01d95a2','2500',2,'大稻埕碼頭','臺北市大同區環河北路一段','https://www.travel.taipei/d_upload_ttn/sceneadmin/pic/11000340.jpg','2022-04-28','afternoon','123','456','123','已付款'),(14,2022040708363099074,'569ec0f93b49c29bcbdf47445a2b9b0c43e3148be5d0263099edfaa150de6091','2500',2,'大稻埕碼頭','臺北市大同區環河北路一段','https://www.travel.taipei/d_upload_ttn/sceneadmin/pic/11000340.jpg','2022-04-28','afternoon','123','456','123','已付款'),(15,2022040708371796448,'8292a7f83c711de71497aad9221c056b59f88c0347cd35bd64adfe3232ad672e','2500',2,'大稻埕碼頭','臺北市大同區環河北路一段','https://www.travel.taipei/d_upload_ttn/sceneadmin/pic/11000340.jpg','2022-04-28','afternoon','123','456','123','已付款'),(16,2022040708374670781,'19edf406bedebfc2c1ef0d7693ed0eafcae65429c4a4723736ebdc6cedb9d9a8','2500',2,'大稻埕碼頭','臺北市大同區環河北路一段','https://www.travel.taipei/d_upload_ttn/sceneadmin/pic/11000340.jpg','2022-04-28','afternoon','123','456','145','已付款'),(17,2022040708382321236,'34b1885961dbf08261791f44ceb4c289e7605f35499430047ba329f637d0c193','2500',2,'大稻埕碼頭','臺北市大同區環河北路一段','https://www.travel.taipei/d_upload_ttn/sceneadmin/pic/11000340.jpg','2022-04-28','afternoon','123','456','sss','已付款'),(18,2022040708394938153,'4833d65e334c067a839cd513dd9041c922ca9d122be340ebd18bb25d7aa9a556','2500',2,'大稻埕碼頭','臺北市大同區環河北路一段','https://www.travel.taipei/d_upload_ttn/sceneadmin/pic/11000340.jpg','2022-04-28','afternoon','123','456','dddd','已付款'),(19,2022040720383307305,'5f4208dc5c9a382260901e18b67a2cfbd1e6689dda79adb148d84c9c3841b05c','2000',8,'大安森林公園','臺北市大安區新生南路以東、信義路3段以南','https://www.travel.taipei/d_upload_ttn/sceneadmin/image/A0/B0/C0/D11/E257/F345/546f42a1-cbfb-49fc-b4d8-c33f1c44190c.jpg','2022-04-19','morning','123','456','ddd','已付款'),(20,2022040720393733215,'44cd97b01505f9745e0a0c49c46293e15c53d89464f9a691fd58ffd2004cbebb','2000',8,'大安森林公園','臺北市大安區新生南路以東、信義路3段以南','https://www.travel.taipei/d_upload_ttn/sceneadmin/image/A0/B0/C0/D11/E257/F345/546f42a1-cbfb-49fc-b4d8-c33f1c44190c.jpg','2022-04-19','morning','123','456','ddd','已付款'),(21,2022040723564702627,'40a0a99e03b9db5befeb813100ec931d55d48aa78f2fcab2486406742362c928','2000',40,'景美溪左、右岸自行車道','臺北市文山區木柵路','https://www.travel.taipei/d_upload_ttn/sceneadmin/pic/11000844.jpg','2022-04-20','morning','123','456','ffef','已付款'),(22,2022040800143960182,'4c85d026da046c13233400c572a58908dcc51a63e77fd418f797da766e1c435b','2000',11,'艋舺龍山寺','臺北市萬華區廣州街211號','https://www.travel.taipei/d_upload_ttn/sceneadmin/image/A0/B0/C0/D226/E920/F665/1f26af86-e907-44c9-b4d7-5c498dacfc6c.jpg','2022-04-20','morning','123','456','sss','已付款'),(23,2022040801074249324,'9b25124e91dabe99c07dd6cea10aa74e61341603260bf90277d92da9f53f1c7b','2000',3,'士林官邸','臺北市士林區福林路60號','https://www.travel.taipei/d_upload_ttn/sceneadmin/image/A0/B0/C0/D7/E150/F719/71eb4b56-f771-43bc-856c-2fb265a5cc6e.jpg','2022-04-19','morning','123','456','ssss','已付款'),(24,2022040801130688595,'831ecfd12eb757fdaa8c04338e0f8fe20e195cd6f7d47013a039b71458d6d9b2','2000',6,'陽明山溫泉區','臺北市北投區竹子湖路1之20號','https://www.travel.taipei/d_upload_ttn/sceneadmin/pic/11000985.jpg','2022-04-13','morning','123','456','cass','已付款'),(25,2022040801145081557,'5a796eed5e86feeaec9afbc73e33129ce68026d530f229e9364cd970b1091a0a','2000',3,'士林官邸','臺北市士林區福林路60號','https://www.travel.taipei/d_upload_ttn/sceneadmin/image/A0/B0/C0/D7/E150/F719/71eb4b56-f771-43bc-856c-2fb265a5cc6e.jpg','2022-04-20','morning','123','456','sdasd','已付款'),(26,2022040801525074909,'45ff91aa27f32389f5cc6470dd7d7a881600836db9b708532aeea56d1f836834','2000',3,'士林官邸','臺北市士林區福林路60號','https://www.travel.taipei/d_upload_ttn/sceneadmin/image/A0/B0/C0/D7/E150/F719/71eb4b56-f771-43bc-856c-2fb265a5cc6e.jpg','2022-04-20','morning','123','456','','已付款'),(27,2022040823421499453,'62df3058a4b5975a0b4b261b27dae36e43e2a2beee6abf114a3882293795f2fd','2000',12,'行天宮','臺北市中山區民權東路2段109號','https://www.travel.taipei/d_upload_ttn/sceneadmin/image/A0/B0/C1/D509/E14/F983/d5f49ce0-139c-4e8b-81cf-39e2b32e79bf.jpg','2022-04-21','morning','123','456','trtr','已付款');
+/*!40000 ALTER TABLE `new_order_data` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user_data`
 --
 
@@ -133,4 +170,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-02  0:38:23
+-- Dump completed on 2022-04-09  0:27:50

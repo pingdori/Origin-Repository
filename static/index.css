@@ -3,6 +3,47 @@ body {
 	padding: 0 0;
 	overflow-y: scroll;
 }
+#loader {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	z-index: 1;
+	width: 50px;
+	height: 50px;
+	margin: auto;
+	border: 10px solid #f3f3f3;
+	border-radius: 50%;
+	border-top: 10px solid #448899;
+	/* width: 50px;
+	height: 50px; */
+	-webkit-animation: spin 2s linear infinite;
+	animation: spin 2s linear infinite;
+  }
+  #loaderCon{
+	display: block;
+	justify-self: center;
+	align-items: center;
+	max-width: 1920px;
+	height: 100%;
+	background-color: #fff;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	z-index: 999;
+}
+  @-webkit-keyframes spin {
+	0% { -webkit-transform: rotate(0deg); }
+	100% { -webkit-transform: rotate(360deg); }
+  }
+
+  @keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+  }
+
 .valid {
 	border: 2px solid #337788;
 }
@@ -316,6 +357,9 @@ header .menu {
 #hide {
 	display: none;
 }
+#hide1 {
+	display: none;
+}
 #error {
 	min-height: 1270px;
 	color: #757575;
@@ -487,8 +531,17 @@ footer>p {
 	font-family: 'Noto Sans TC', sans-serif;
 }
 @media (max-width:1200px) {
+	/* #loader {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		margin: 0;
+		padding: 0;
+	} */
+
 	header {
-		width: 100%;
+    	width: 100%;
 	}
 	.banner {
 		background-size: contain;
@@ -548,6 +601,22 @@ footer>p {
 		margin: 0;
 	}
 	@media (max-width:600px) {
+		#loader {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			z-index: 1;
+			width: 20px;
+			height: 20px;
+			margin: auto;
+			border: 5px solid #f3f3f3;
+			border-radius: 50%;
+			border-top: 5px solid #448899;
+			/* width: 50px;
+			height: 50px; */
+			-webkit-animation: spin 2s linear infinite;
+			animation: spin 2s linear infinite;
+		  }
 		.modal-dialog {
 			position: fixed;
 			top: 0;

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <style>
+        .tpfield {
+            width: 200px;
+            height: 38px;
+            letter-spacing: 1px;
+            border-top-right-radius: 5px;
+            border-top-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            font-size: 16px;
+            font-family: 'Noto Sans TC 400', sans-serif;
+            font-weight: 400;
+            color: #757575;
+            outline: none;
+            border: #E8E8E8 1px solid;
+            padding-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="tpfield" id="card-number"></div>
+    <div class="tpfield" id="card-expiration-date"></div>
+    <div class="tpfield" id="card-ccv"></div>
+    <button id="submit-button" onclick="onSubmit()">Get Prime</button>
+    
+</body>
+<script src="https://js.tappaysdk.com/tpdirect/v5.8.0"></script>
+<script>
+    function onSubmit(event) {
+    let _APPKEY_='app_kc2JI7ljN1SH0OU6EDNMRKHZkp0n3wIGXK1G7gCh5v4dPnPX1wEtL0nRy4dA'
+    TPDirect.setupSDK(124033,_APPKEY_, 'sandbox')
+    let fields = {
+        number: {
+            element: '#card-number',
+            placeholder: '**** **** **** ****'
+        },
+        expirationDate: {
+            element: document.getElementById('card-expiration-date'),
+            placeholder: 'MM / YY'
+        },
+        ccv: {
+            element: '#card-ccv',
+            placeholder: 'ccv'
+        }
+    }
+
+    let argument = {
+        fields: fields,
+        styles: {
+            'input': {
+                'color': 'black',
+                'font-family': 'Noto Sans TC',
+                'font-style': 'normal',
+                'font-size': '16px',
+                'line-height': '21px',
+                'font-weight': 'normal',
+            },
+            ':focus': {
+                'color': 'black'
+            },
+            '.valid': {
+                'color': 'green'
+            },
+            '.invalid': {
+                'color': 'red'
+            },
+            '@media screen and (max-width: 400px)': {
+                'input': {
+                    'color': 'orange'
+                }
+            }
+        }
+    };
+    TPDirect.card.setup(argument);
+
+    function onSubmit(event) {
+    // event.preventDefault()
+
+    // 取得 TapPay Fields 的 status
+    const tappayStatus = TPDirect.card.getTappayFieldsStatus()
+
+    // 確認是否可以 getPrime
+    if (tappayStatus.canGetPrime === false) {
+        alert('can not get prime')
+        return
+    }
+
+    // Get prime
+    TPDirect.card.getPrime((result) => {
+        if (result.status !== 0) {
+            alert('get prime error ' + result.msg)
+            return
+        }
+        alert('get prime 成功，prime: ' + result.card.prime)
+
+        // send prime to your server, to pay with Pay by Prime API .
+        // Pay By Prime Docs: https://docs.tappaysdk.com/tutorial/zh/back.html#pay-by-prime-api
+    })
+}
+</script>
+
+</html>

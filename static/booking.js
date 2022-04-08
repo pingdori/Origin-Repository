@@ -299,3 +299,161 @@ async function bookingAttraction() {
 		loginClock();
 	}
 }
+
+function TPDirect(){
+let _APPKEY_='app_kc2JI7ljN1SH0OU6EDNMRKHZkp0n3wIGXK1G7gCh5v4dPnPX1wEtL0nRy4dA';
+    TPDirect.setupSDK(124033,_APPKEY_, 'sandbox');
+    let fields = {
+        number: {
+            element: '#card-number',
+            placeholder: '**** **** **** ****'
+        },
+        expirationDate: {
+            element: document.getElementById('card-expiration-date'),
+            placeholder: 'MM / YY'
+        },
+        ccv: {
+            element: '#card-ccv',
+            placeholder: 'ccv'
+        }
+    }
+
+    let argument = {
+        fields: fields,
+        styles: {
+            'input': {
+                'color': 'black',
+                'font-family': 'Noto Sans TC',
+                'font-style': 'normal',
+                'font-size': '16px',
+                'line-height': '21px',
+                'font-weight': 'normal',
+            },
+            ':focus': {
+                'color': 'black'
+            },
+            '.valid': {
+                'color': 'green'
+            },
+            '.invalid': {
+                'color': 'red'
+            },
+            '@media screen and (max-width: 400px)': {
+                'input': {
+                    'color': 'orange'
+                }
+            }
+        }
+    };
+    TPDirect.card.setup(argument);
+}
+
+    function onSubmit(event) {
+    // event.preventDefault()
+
+    // 取得 TapPay Fields 的 status
+    const tappayStatus = TPDirect.card.getTappayFieldsStatus()
+
+    // 確認是否可以 getPrime
+    if (tappayStatus.canGetPrime === false) {
+        console.log('can not get prime')
+        return
+    }
+    // Get prime
+    TPDirect.card.getPrime((result) => {
+        if (result.status !== 0) {
+            console.log('get prime error ' + result.msg)
+            return
+        }
+        else{
+			fetchOrderPostAPi();
+			console.log('get prime 成功')
+		}
+
+        // send prime to your server, to pay with Pay by Prime API .
+        // Pay By Prime Docs: https://docs.tappaysdk.com/tutorial/zh/back.html#pay-by-prime-api
+    })
+}
+
+async function fetchOrderPostAPi() {
+	let fetchApi = await fetch(apiBookingUrl);
+	let jsonData = await fetchApi.json();
+	if (jsonData.data) {
+		let price=jsonData.data.price;
+		let id=jsonData.data.attraction.id;
+		let name =jsonData.data.attraction.name;
+		let address=jsonData.data.attraction.address;
+		let image =jsonData.data.attraction.image;
+		let date =jsonData.data.date;
+		let time =jsonData.data.time;
+		let userName=document.forms["bookingForm"]["nameinfor"].value;
+		let email=document.forms["bookingForm"]["mailinfor"].value;
+		let phone= document.forms["bookingForm"]["phoneinfor"].value;
+		let data = {
+			"prime": null,
+			"order": {
+			  "price":price,
+			  "trip": {
+				"attraction": {
+				  "id":id,
+				  "name":name,
+				  "address":address,
+				  "image":image
+				},
+				"date": date,
+				"time": time
+			  },
+			  "contact": {
+				"name": userName,
+				"email": email,
+				"phone": phone
+			  }
+			}
+		  }
+		fetchOrderPost(data);
+	}
+	
+}
+
+
+let fetchOrderUrl="http://54.243.128.73:3000/api/orders"
+async function fetchOrderPost(data){
+	
+	TPDirect.card.getPrime(async(result)=>{
+		if(result.status===0){
+			let tappayPrime=result.card.prime;
+			data.prime=tappayPrime;
+			console.log(data);
+			
+			let newHeaders=new Headers({
+				"Content-Type": "application/json"
+				});
+			let fetchDetail={
+				method: "POST",
+				body:JSON.stringify(data),
+				headers:newHeaders
+				}
+			let fetchData=await fetch(fetchOrderUrl,fetchDetail);
+			let fetchJson=await fetchData.json();
+			let fetchJsonData=fetchJson.data.number;
+			console.log(fetchJson.data.number);
+			deleteBooking();
+			document.location.href=`http://54.243.128.73:3000/thankyou?number=${fetchJsonData}`;
+		// fetch(apiUserUrl, {
+		// 	method: "POST",
+		// 	body: JSON.stringify(data),
+		// 	headers: new Headers({
+		// 		"Content-Type": "application/json"
+		// 	})
+	// })
+
+}
+	})
+}
+
+setTimeout(function () {
+        
+	document.getElementById("loader").style.display = "none";
+	document.getElementById("loaderCon").style.display = "none";
+
+}, 500);

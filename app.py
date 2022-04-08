@@ -9,6 +9,9 @@ from flask import session
 from werkzeug.security import generate_password_hash,check_password_hash
 import os
 from config import Config 
+import time
+import requests as req
+
 app = Flask(__name__)
 CORS(app)
 app.config.from_object(Config)
@@ -455,7 +458,6 @@ def Booking():
 		if request.method == 'GET':
 			if session["attractionId"]!=None:
 				attractionId=session["attractionId"]
-				print(attractionId)
 				date=session["date"]
 				time=session["time"]
 				price=session["price"]
@@ -488,5 +490,129 @@ def Booking():
 	except:
 		dataError={"error": "true","message": "無預定行程"}
 		return (jsonify(dataError))	
-# app.debug = True
+
+@app.route("/api/orders", methods=['GET', 'POST'])
+def order():
+	try:
+		jsonData=request.json
+		connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
+		cursor  =  connection.cursor()
+		cursor.execute("USE `taipei-attractions`")
+		sqlUpdate="Update `New_order_data` SET `order_status`=%s WHERE `prime`=%s"
+		sqlInsert="INSERT INTO `New_order_data` (`number`,`prime`,`price`,`data_id`,`name`,`address`,`image`,`date`,`time`,`contact_name`,`email`,`phone`,`order_status`) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+		prime=jsonData["prime"]
+		price=jsonData["order"]["price"]
+		data_id=jsonData["order"]["trip"]["attraction"]["id"]
+		name=jsonData["order"]["trip"]["attraction"]["name"]
+		address=jsonData["order"]["trip"]["attraction"]["address"]
+		image=jsonData["order"]["trip"]["attraction"]["image"]
+		date=jsonData["order"]["trip"]["date"]
+		tripTime=jsonData["order"]["trip"]["time"]
+		contactName=jsonData["order"]["contact"]["name"]
+		email=jsonData["order"]["contact"]["email"]
+		phone=jsonData["order"]["contact"]["phone"]
+		orderStatusNO= "未付款"
+		orderStatusYes= "已付款"
+		orderNum = str(time.strftime('%Y%m%d%H%M%S', time.localtime(time.time())) + str(time.time()).replace('.', '')[-5:])
+		partner_key= "partner_7rJA5A1PtHVvR4F9f8cQtZ7yP9l8y50J6gXUzLnss1YmCrRMCprL1ycY"
+		merchant_id = "dorisLee_CTBC"
+		if request.method == "POST":
+			
+			cursor.execute(sqlInsert,(orderNum,prime,price,data_id,name,address,image,date,tripTime,contactName,email,phone,orderStatusNO,))
+			connection.commit()
+			cursor.execute("SELECT `prime`,`number` FROM `New_order_data` WHERE `prime`=%s",(prime,))
+			results  =  cursor.fetchone()
+			jsonA  =  json.dumps(results)
+			jsonB = json.loads(jsonA) 
+			print(jsonB)
+			requestTappayData = {
+						'URL': 'https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime',
+						'headers': {
+							'Content-Type': 'application/json',
+							'x-api-key': partner_key				
+						},
+						'body': {
+							"prime": jsonData["prime"],
+							"partner_key": partner_key,
+							"merchant_id": merchant_id,
+							"amount": str(jsonData["order"]["price"]),
+							"details":"TapPay Test",
+							"cardholder": {
+								"phone_number": jsonData["order"]['contact']['phone'],
+								"name": jsonData["order"]['contact']['name'].encode("utf-8").decode("latin1"),
+								"email": jsonData["order"]['contact']['email'],
+								"zip_code": "",
+								"address": "",
+								"national_id": ""
+							},
+							"remember": True
+						},
+					}
+			requestTappay = req.post(
+						requestTappayData['URL'],
+						headers = requestTappayData['headers'],
+						data = json.dumps(requestTappayData['body'], ensure_ascii=False)
+					)
+			if requestTappay.status_code == 200:
+				cursor.execute(sqlUpdate,(orderStatusYes,jsonB[0],))
+				connection.commit()
+				connection.close()
+				orderOK={
+					"data": {
+						"number": jsonB[1],
+						"payment": {
+						"status": 0,
+						"message": "付款成功"
+						}
+					}
+					}
+				print(orderOK)
+			return (jsonify(orderOK))
+	except:
+		dataError={
+				"error": "true",
+				"message": jsonB[1]
+				}
+		return (jsonify(dataError))	
+@app.route("/api/order/<orderNumber>", methods=['GET'])
+def orderNumber(orderNumber):
+	connection  =  mysql.connector.connect(host = "0.0.0.0" ,port = "3306" ,user = "root" ,password = "Password123...")
+	cursor  =  connection.cursor()
+	cursor.execute("USE `taipei-attractions`")
+	sqlSelect="SELECT `number`,`price`,`data_id`,`name`,`address`,`image`,`date`,`time`,`contact_name`,`email`,`phone`,`order_status` FROM `New_order_data` WHERE `number`=%s "
+	cursor.execute(sqlSelect,(orderNumber,))
+	results  =  cursor.fetchone()
+	jsonA  =  json.dumps(results)
+	jsonB = json.loads(jsonA) 
+	if jsonB[11]=="已付款":
+		status=1
+	else:
+		status=0
+	print(jsonB)
+	orderOK={
+			"data": {
+				"number": jsonB[0],
+				"price": jsonB[1],
+				"trip": {
+				"attraction": {
+					"id": jsonB[2],
+					"name": jsonB[3],
+					"address": jsonB[4],
+					"image": jsonB[5]
+				},
+				"date": jsonB[6],
+				"time": jsonB[7]
+				},
+				"contact": {
+				"name": jsonB[8],
+				"email": jsonB[9],
+				"phone": jsonB[10]
+				},
+				"status": status
+			}
+			}
+	return (jsonify(orderOK))
+
+
+app.debug = True
 app.run(host='0.0.0.0',port=3000)
