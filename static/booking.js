@@ -46,7 +46,7 @@ function onclickloginHelp1() {
 	modalDialog.setAttribute("id", "modalDialog");
 	modalDialog1.setAttribute("id", "hide");
 }
-let apiUserUrl = "http://54.243.128.73:3000/api/user";
+let apiUserUrl = "http://192.168.1.137:3000/api/user";
 async function getSignupData() {
 	let signupError2 = document.querySelector(".signupError2")
 	let signupError = document.querySelector('.signupError');
@@ -117,7 +117,7 @@ async function getSignInData() {
 	})
 }
 async function userCheck() {
-	let url = "http://54.243.128.73:3000/api/user";
+	let url = "http://192.168.1.137:3000/api/user";
 	let loginClick = document.querySelector(".loginClick");
 	let logoutClick = document.querySelector(".logoutClick");
 	let fetchApi = await fetch(url);
@@ -136,11 +136,11 @@ async function bookingUserCheck() {
 	let userName = document.querySelector("#userName");
 	let nameinfor = document.querySelector("#nameinfor");
 	let mailinfor = document.querySelector("#mailinfor");
-	let url = "http://54.243.128.73:3000/api/user";
+	let url = "http://192.168.1.137:3000/api/user";
 	let fetchApi = await fetch(url);
 	let jsonData = await fetchApi.json();
 	if (jsonData.data == "null") {
-		document.location.href = "http://54.243.128.73:3000/";
+		document.location.href = "http://192.168.1.137:3000/";
 	} else {
 		loginClick.setAttribute("id", "hide");
 		logoutClick.setAttribute("id", "logoutClick");
@@ -150,7 +150,7 @@ async function bookingUserCheck() {
 		getBookingApi();
 	}
 }
-let apiBookingUrl = "http://54.243.128.73:3000/api/booking"
+let apiBookingUrl = "http://192.168.1.137:3000/api/booking"
 async function getBookingApi() {
 	let fetchApi = await fetch(apiBookingUrl);
 	let jsonData = await fetchApi.json();
@@ -184,7 +184,7 @@ async function getBookingApi() {
 	}
 }
 async function logoutClick() {
-	let url = "http://54.243.128.73:3000/api/user";
+	let url = "http://192.168.1.137:3000/api/user";
 	let request = {
 		method: "DELETE",
 	}
@@ -195,7 +195,7 @@ async function logoutClick() {
 	if (jsonData.ok) {
 		loginClick.setAttribute("id", "loginClick");
 		logoutClick.setAttribute("id", "hide");
-		location.reload("http://54.243.128.73:3000/attraction/");
+		location.reload("http://192.168.1.137:3000/attraction/");
 	}
 	reload()
 }
@@ -290,17 +290,17 @@ function input_onchange(me) {
 	elements[i + 1].focus();
 }
 async function bookingAttraction() {
-	let url = "http://54.243.128.73:3000/api/user";
+	let url = "http://192.168.1.137:3000/api/user";
 	let fetchApi = await fetch(url);
 	let jsonData = await fetchApi.json();
 	if (jsonData.data.email) {
-		document.location.href = "http://54.243.128.73:3000/booking";
+		document.location.href = "http://192.168.1.137:3000/booking";
 	} else if (jsonData.data == "null") {
 		loginClock();
 	}
 }
 
-function TPDirect(){
+
 let _APPKEY_='app_kc2JI7ljN1SH0OU6EDNMRKHZkp0n3wIGXK1G7gCh5v4dPnPX1wEtL0nRy4dA';
     TPDirect.setupSDK(124033,_APPKEY_, 'sandbox');
     let fields = {
@@ -346,7 +346,6 @@ let _APPKEY_='app_kc2JI7ljN1SH0OU6EDNMRKHZkp0n3wIGXK1G7gCh5v4dPnPX1wEtL0nRy4dA';
         }
     };
     TPDirect.card.setup(argument);
-}
 
     function onSubmit(event) {
     // event.preventDefault()
@@ -416,7 +415,7 @@ async function fetchOrderPostAPi() {
 }
 
 
-let fetchOrderUrl="http://54.243.128.73:3000/api/orders"
+let fetchOrderUrl="http://192.168.1.137:3000/api/orders"
 async function fetchOrderPost(data){
 	
 	TPDirect.card.getPrime(async(result)=>{
@@ -438,7 +437,7 @@ async function fetchOrderPost(data){
 			let fetchJsonData=fetchJson.data.number;
 			console.log(fetchJson.data.number);
 			deleteBooking();
-			document.location.href=`http://54.243.128.73:3000/thankyou?number=${fetchJsonData}`;
+			document.location.href=`http://192.168.1.137:3000/thankyou?number=${fetchJsonData}`;
 		// fetch(apiUserUrl, {
 		// 	method: "POST",
 		// 	body: JSON.stringify(data),
