@@ -17,48 +17,13 @@ body {
 	padding: 0 0;
 	margin: auto;
 }
-#loader {
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	z-index: 1;
-	width: 50px;
-	height: 50px;
-	margin: auto;
-	border: 10px solid #f3f3f3;
-	border-radius: 50%;
-	border-top: 10px solid #448899;
-	/* width: 50px;
-	height: 50px; */
-	-webkit-animation: spin 2s linear infinite;
-	animation: spin 2s linear infinite;
-  }
-  #loaderCon{
-	display: block;
-	justify-self: center;
-	align-items: center;
-	max-width: 1920px;
-	height: 100%;
-	background-color: #fff;
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	margin: 0;
-	padding: 0;
-	z-index: 999;
-}
-  @-webkit-keyframes spin {
-	0% { -webkit-transform: rotate(0deg); }
-	100% { -webkit-transform: rotate(360deg); }
-  }
-
-  @keyframes spin {
-	0% { transform: rotate(0deg); }
-	100% { transform: rotate(360deg); }
-  }
-
 #hide {
+	display: none;
+}
+#hide1 {
+	display: none;
+}
+#hide0 {
 	display: none;
 }
 .color {
@@ -159,7 +124,7 @@ body {
 	padding: 0;
 	margin: 0;
 }
-#username, #email, #email1 {
+#username, #email, #email1,#password,#password1{
 	width: 295px;
 	height: 47px;
 	padding: 0;
@@ -175,6 +140,7 @@ body {
 	border-bottom-left-radius: 5px;
 	border: #757575 1px solid;
 }
+
 input:focus {
 	box-shadow: 1px 2px 1px #cccccc;
 }
@@ -249,7 +215,7 @@ header {
 header .logo {
 	padding: 0 0;
 }
-header .logo a {
+header .logo p {
 	font-size: 30px;
 	padding: 0 0;
 	margin: 0 0;
@@ -310,28 +276,30 @@ header .menu {
 }
 #headline {
 	color: #666666;
-	display: flex;
-	justify-self: center;
+	
 	height: 100%;
 	margin-bottom: 35px;
 	max-width: 1200px;
 	margin: auto;
+    text-align:center;
 }
 #headlineCon {
 	color: #666666;
 	max-width: 1200px;
 	height: 100%;
+    /* display: flex;
+    justify-self:center; */
 	margin: auto;
 }
-.titleText[data-item=Hello] {
+/* .titleText[data-item=Hello] {
 	margin-left: 100px;
-}
+} */
 .titleText {
 	font-size: 19px;
 	font-family: 'Noto Sans TC', sans-serif;
 	font-weight: 700, bold;
-	margin-top: 46px;
-	margin-bottom: 15px;
+	margin-top: 20px;
+	margin-bottom: 20px;
 	color: #666666;
 }
 #main {
@@ -385,14 +353,19 @@ header .menu {
 	margin-bottom: 8px;
 }
 .inforText {
-	font-size: 16px;
+	font-size: 19px;
 	font-family: 'Noto Sans TC 400', sans-serif;
 	font-weight: 400;
 	color: #666666;
 	padding: 0;
-	margin-top: 8px;
-	margin-bottom: 8px;
+	margin-top: 40px;
+	
 	padding-left: 5px;
+    letter-spacing: 1px;
+}
+.inforText[data-item=note]{
+    
+	margin-bottom: 80px;
 }
 #delete {
 	background-image: url(/static/icon_delete.png);
@@ -528,9 +501,9 @@ footer>p {
 		min-height: 420px;
 		object-fit: cover;
 	}
-	.titleText[data-item="Hello"] {
+	/* .titleText[data-item="Hello"] {
 		margin-left: 10px;
-	}
+	} */
 	.inforData, .paymentData, .infor {
 		margin-left: 0;
 		width: 100%;
@@ -582,22 +555,6 @@ footer>p {
 	}
 }
 @media (max-width:600px) {
-	#loader {
-		position: absolute;
-		left: 50%;
-		top: 50%;
-		z-index: 1;
-		width: 20px;
-		height: 20px;
-		margin: auto;
-		border: 5px solid #f3f3f3;
-		border-radius: 50%;
-		border-top: 5px solid #448899;
-		/* width: 50px;
-		height: 50px; */
-		-webkit-animation: spin 2s linear infinite;
-		animation: spin 2s linear infinite;
-	  }
 	#picture {
 		width: 100%;
 		display: flex;

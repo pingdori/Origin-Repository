@@ -8,7 +8,7 @@
 	<link href="/static/index.css" rel="stylesheet" type="text/css">
 </head>
 <body onload="userCheck()">
-	<div class="modal-dialog" id="hide">
+	<div class="modal-dialog" id="hide1">
 		<div class="color"></div>
 		<div class="loginmodal-container"></div>
 		<div class="login-title">
@@ -23,14 +23,14 @@
 				</div>
 			</form>
 		</div>
-		<div class="signInError" id="hide">
+		<div class="signInError" id="hide1">
 			<p>請重新輸入</p>
 		</div>
 		<div class="login-help">
 			<p id="singupHelp" onclick="onclickloginHelp()">還沒有帳戶?點此註冊</p>
 		</div>
 	</div>
-	<div class="modal-dialog1" id="hide">
+	<div class="modal-dialog1" id="hide1">
 		<div class="color"></div>
 		<div class="loginmodal-container"></div>
 		<div class="login-title">
@@ -45,20 +45,20 @@
 				</div>
 			</form>
 		</div>
-		<div class="signupError" id="hide">
+		<div class="signupError" id="hide1">
 			<p>註冊失敗請重新輸入</p>
 		</div>
-		<div class="signupError2" id="hide">
+		<div class="signupError2" id="hide1">
 			<p>帳號或密碼及mail不可為空值</p>
 		</div>
-		<div class="signupOk" id="hide">
+		<div class="signupOk" id="hide1">
 			<p>註冊成功!</p>
 		</div>
 		<div class="login-help">
 			<p id="singupHelp" onclick="onclickloginHelp1()">已有帳戶了?點此登入</p>
 		</div>
 	</div>
-	<div class="black" id="hide" onclick="onclickBlack()"></div>
+	<div class="black" id="hide1" onclick="onclickBlack()"></div>
 	<div class="headerContainer">
 		<header>
 			<div class="logo">
@@ -66,11 +66,12 @@
 			</div>
 			<div class="menuContainer"></div>
 			<div class="menu">
-				<a onclick="bookingAttraction()">預定行程</a> <a class="loginClick" id="loginClick" onclick="loginClock()">登入/註冊</a> <a class="logoutClick" id="hide" onclick="logoutClick()">登出系統</a>
+				<a onclick="bookingAttraction()">預定行程</a> <a class="loginClick" id="loginClick" onclick="loginClock()">登入/註冊</a> <a class="logoutClick" id="hide1" onclick="logoutClick()">登出系統</a>
 			</div>
 		</header>
 	</div>
 	<div class="titlebanner"></div>
+	<div id="loaderCon"><div id="loader"></div></div>
 	<div class="banner">
 		<div class="title">
 			<p class="bannerTital">輕鬆享受台北一日悠閒</p>
@@ -89,7 +90,9 @@
 	<div id="hide0">
 		<p>搜尋無此景點</p>
 	</div>
+	<main id="searchResult">
 	<div id="item1"></div>
+	</main>
 	<div class="root">
 		<div id="rootContainer"></div>
 	</div>
